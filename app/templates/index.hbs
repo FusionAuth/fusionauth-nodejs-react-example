@@ -1,0 +1,21 @@
+{{outlet}}
+<h1>Welcome to Inversoft Todo List Application</h1>
+
+<h3>This is a demonstration of secure user handling, try and hack it!!</h3>
+
+<div>
+    <form>
+        Email: <input type='text' name='email'><br>
+        Password: <input type='password' name='password'><br>
+        <input name='login' type='submit' value='Login'>
+    </form>
+</div>
+<div>
+    <input namne='register' type='submit' value='Register'>
+</div>
+
+
+{{#each model as |todo|}}
+    <h2>{{todo.task}}</h2>
+    <p>Completed: {{todo.completed}}</p>
+{{/each}}

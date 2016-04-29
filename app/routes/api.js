@@ -1,120 +1,151 @@
 var express = require("express"), app = express(), bodyParser = require("body-parser");
 var todo = require("../models/todo.js");
-var https = require('https');
-const fs = require('fs');
-// var request = require('request');
+// var https = require('https');
+// const fs = require('fs');
+require('../helpers/PassportClient.js')("822730c8-ae41-44e1-94bd-9b009e57fae8", "http://127.0.0.1:9011");
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
 
-
-const options = {
-  key: fs.readFileSync('/Users/dklatt/dev/inversoft/hacker/public/server.key'),
-  cert: fs.readFileSync('/Users/dklatt/dev/inversoft/hacker/public/server.crt')
-};
+// const options = {
+//   key: fs.readFileSync('/Users/dklatt/dev/inversoft/hacker/public/server.key'),
+//   cert: fs.readFileSync('/Users/dklatt/dev/inversoft/hacker/public/server.crt')
+// };
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+app.use(cookieParser())
+app.use(session({secret: 'MySecret'}));
 
-var port = process.env.PORT || 8080;        // set our port
+var sess;
+var applicationId = "b81c8fe5-3fd8-4462-b8d2-076bc1cf4b15";
+// var apiKey = "822730c8-ae41-44e1-94bd-9b009e57fae8";
 
-// ROUTES FOR OUR API
+// var passport = passportClient(apiKey, "http://127.0.0.1:9011");
+// console.log(passportClient.apiKey);
 
-var router = express.Router();              // get an instance of the express Router
+var port = process.env.PORT || 8080;
 
-// test route to make sure everything is working (accessed at GET http://localhost:8080/api)
-router.get('/', function (request, response) {
-  response.json({message: 'hooray! welcome to our api!'});
-});
+var router = express.Router();
 
-// more routes for our API will happen here
-
-
-//TODO change this to take user_id from session???
-//TODO need to make this api only work if logged in
-router.route("/todos/:user_id")
-  .get(function (req, res) {
-    console.log("get");
-    if (req.query.completed) {
-      todo.retrieveCompletedTodos(req.params.user_id)
-        .then(function (todos) {
-          res.send({
-            todos: todos
-          });
-        }).catch(function (err) {
-        console.error(err);
-      });
+router.route("/todo")
+    .get(function (req, res) {
+        sess = req.session;
+        if (sess.user_id != null) {
+            if (req.query.completed) {
+                todo.retrieveCompletedTodos(sess.user_id)
+                    .then(function (todos) {
+                        res.send({
+                            todos: todos
+                        });
+                    }).catch(function (err) {
+                    console.error(err);
+                });
+            } else {
+                todo.retrieveTodos(sess.user_id)
+                    .then(function (todos) {
+                        res.send({
+                            todos: todos
+                        });
+                    }).catch(function (err) {
+                    console.error(err);
+                });
+            }
+        } else {
+            res.send("please log in");
+        }
+    }).post(function (req, res) {
+    sess = req.session;
+    if(sess.user_id != null) {
+        todo.createTodo(req.body.task, sess.user_id)
+            .then(function (todo) {
+                res.send({
+                    todo: todo
+                });
+            }).catch(function (err) {
+            console.error(err);
+        });
     } else {
-      todo.retrieveTodos(req.params.user_id)
-        .then(function (todos) {
-          res.send({
-            todos: todos
-          });
-        }).catch(function (err) {
-        console.error(err);
-      });
+        res.send("please log in");
     }
-  }).post(function (req, res) {
-  console.log("hit post....");
-  todo.createTodo(req.body.task, req.params.user_id)
-    .then(function (todo) {
-      res.send({
-        todo: todo
-      });
-    }).catch(function (err) {
-    console.error(err);
-  });
 });
 
-router.route("/todos/:id").put(function (req, res) {
-  console.log("hit put");
-  todo.updateTodoStatus(req.params.id)
-    .then(function (todo) {
-      res.send({
-        todo: todo
-      });
-    }).catch(function (err) {
-    console.error(err);
-  });
+router.route("/todo/:id").put(function (req, res) {
+    sess = req.session;
+    if (sess.user_id != null) {
+        todo.retrieveTodo(req.params.id).then(function (todo) {
+           if(todo.user_id == sess.user_id){
+               todo.updateTodoStatus(req.params.id)
+                   .then(function (todo) {
+                       res.send({
+                           todo: todo
+                       });
+                   }).catch(function (err) {
+                   console.error(err);
+               });
+           } else {
+               res.send("Does not exist?");
+           }
+        });
+
+    } else {
+        res.send("please log in");
+    }
 });
 
 router.route("/login")
-  .post(function (req, res) {
-    console.log("hit login");
-    var options = {
-      host: '127.0.0.1',
-      port: '9011',
-      path: '/login',
-      method: 'POST',
-      headers: {
-        'Authorization': ENV.apiKey,
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Content-Length': Buffer.byteLength(post_data)
-      }
-    };
-    var login_request = https.request(options, function (res) {
-      res.setEncoding('utf8');
-      res.on('data', function (chunk) {
-        console.log('Response: ' + chunk);
-      });
+    .post(function (req, res) {
+        sess = req.session;
+        var options = {
+            url: this.host + "/api/login",
+            json: true,
+            headers: {
+                'Authorization': this.apiKey
+            },
+            body: req.body
+        };
+        request.post(options,
+            function (error, response, body) {
+                if (!error && response.statusCode == 202) {
+                    sess.user_id = body.user.id;
+                    sess.email = body.user.email;
+                    res.send("success");
+                } else if(!error){
+                    res.send(response.body);
+                } else {
+                    console.error(response);
+                    console.error(error);
+                    res.send("Error");
+                }
+
+            }
+        );
     });
 
-    login_request.write(post_data);
-    login_request.end();
+router.route("/logout")
+    .get(function (req, res) {
+        req.session.destroy(function(err) {
+            if(err) {
+                console.error(err);
+            } else {
+                res.redirect('/');
+            }
+        });
+    });
 
-    // request.post(
-    //   'https://127.0.0.1:9011/login',
-    //   { form: { key: 'value' } },
-    //   function (error, response, body) {
-    //     if (!error && response.statusCode == 200) {
-    //       console.log(body)
-    //     }
-    //   }
-    // );
+router.route("/register")
+    .post(function (req, res) {
+        var registrationRequest = {
+            "user" : {
+              "email" : req.body.email,
+              "password": req.body.password
+            },
+            "registration": {
+                "applicationId": applicationId
+            }
+        };
+        register(registrationRequest, res);
+    });
 
-  });
-
-// REGISTER OUR ROUTES
-// all of our routes will be prefixed with /api/v1
 app.use('/api/', router);
-
-// START THE SERVER
-https.createServer(options, app).listen(port);
-console.log('Magic happens on port ' + port);
+app.listen(port);
+console.log('api listening at /api/todo on port ' + port);

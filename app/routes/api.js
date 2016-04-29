@@ -14,7 +14,7 @@ var session = require('express-session');
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-app.use(cookieParser())
+app.use(cookieParser());
 app.use(session({secret: 'MySecret'}));
 
 var sess;
@@ -73,7 +73,7 @@ router.route("/todo/:id").put(function (req, res) {
   sess = req.session;
   if (sess.user_id != null) {
     todo.retrieveTodo(req.params.id).then(function (todo) {
-      if (todo.user_id == sess.user_id) {
+      if (todo.user_id === sess.user_id) {
         todo.updateTodoStatus(req.params.id)
           .then(function (todo) {
             res.send({
@@ -83,7 +83,7 @@ router.route("/todo/:id").put(function (req, res) {
           console.error(err);
         });
       } else {
-        res.send("Does not exist?");
+        res.send("Error");
       }
     });
 
@@ -99,10 +99,11 @@ router.route("/login")
       if (clientResponse.wasSuccessful()) {
         sess = req.session;
         sess.user_id = clientResponse.successResponse.user.id;
-        res.send("Success");
+        // res.send("Success");
+        res.send(sess);
       } else if (clientResponse.errorResponse) {
         res.send(clientResponse.errorResponse);
-      } else if (clientResponse.statusCode == 404) {
+      } else if (clientResponse.statusCode === 404) {
         res.send("Invalid Email or Password");
       } else {
         console.error(clientResponse);
@@ -138,7 +139,7 @@ router.route("/register")
         res.send("Success");
       } else if (clientResponse.errorResponse) {
         res.send(clientResponse.errorResponse);
-      } else if (clientResponse.statusCode == 404) {
+      } else if (clientResponse.statusCode === 404) {
         res.send("Missing");
       } else {
         console.error(clientResponse);

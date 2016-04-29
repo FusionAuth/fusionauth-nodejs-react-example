@@ -9,14 +9,14 @@ var sequelize = new Sequelize('user_todos', "root", "", {
     max: 5,
     min: 0,
     idle: 10000
-  },
+  }
 });
 
 sequelize.sync().then(function () {
   // console.log("sync successful");
 }).catch(function (error) {
   console.log(error);
-})
+});
 
 var Todo = sequelize.define('todo', {
     id: {type: Sequelize.UUID, primaryKey: true, allowNull: false, unique: true},
@@ -30,7 +30,7 @@ var Todo = sequelize.define('todo', {
 
 exports.retrieveTodo = function(id) {
   return Todo.findById(id);
-}
+};
 
 function retrieveAllTodos(userId, completed) {
   return Todo.findAll({
@@ -39,15 +39,15 @@ function retrieveAllTodos(userId, completed) {
       completed: completed
     }
   });
-}
+};
 
 exports.retrieveCompletedTodos = function (userId) {
   return retrieveAllTodos(userId, true);
-}
+};
 
 exports.retrieveTodos = function (userId) {
   return retrieveAllTodos(userId, false);
-}
+};
 
 exports.createTodo = function (task, user_id) {
   return Todo.create({
@@ -56,7 +56,7 @@ exports.createTodo = function (task, user_id) {
     completed: false,
     user_id: user_id
   });
-}
+};
 
 exports.updateTodoStatus = function (id) {
   return Todo.findById(id).then(function (todo) {
@@ -64,7 +64,7 @@ exports.updateTodoStatus = function (id) {
       {completed: !todo.completed}, {where: {id: id}}
     );
   });
-}
+};
 
 exports.updateTodoText = function (id, task) {
   return Todo.findById(id).then(function (todo) {
@@ -72,8 +72,8 @@ exports.updateTodoText = function (id, task) {
       {task: task}, {where: {id: id}}
     );
   });
-}
+};
 
 exports.clear = function () {
   return Todo.destroy({where: {}});
-}
+};

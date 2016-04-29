@@ -1,6 +1,6 @@
 /* jshint node: true */
 
-module.exports = function(environment) {
+module.exports = function (environment) {
   var ENV = {
     modulePrefix: 'hacker',
     environment: environment,
@@ -16,6 +16,12 @@ module.exports = function(environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
+    },
+    "simple-auth": {
+      authorizer: 'authorizer:custom',
+      store: 'simple-auth-session-store:cookie', // optional
+      crossOriginWhitelist: ['http://example.com'],
+      routeAfterAuthentication: '/events'
     }
   };
 

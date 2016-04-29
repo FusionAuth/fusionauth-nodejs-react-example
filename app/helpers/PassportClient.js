@@ -24,8 +24,8 @@ PassportClient.prototype = {
         "Content-Length": postData.length
       }
     };
-    
-    if (uri[0] == "https") {
+
+    if (uri[0] === "https") {
       https.request(options, function (response) {
         var clientResponse = new RestClient.ClientResponse(response.statusCode, null);
         response.on("data", function (data) {
@@ -92,7 +92,7 @@ PassportClient.prototype = {
       }
     };
 
-    if (uri[0] == "https") {
+    if (uri[0] === "https") {
       https.request(options, function (response) {
         var clientResponse = new RestClient.ClientResponse(response.statusCode, null);
         response.on("data", function (data) {

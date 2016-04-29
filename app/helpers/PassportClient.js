@@ -1,54 +1,148 @@
-module.exports = function(apiKey, host) {
-    this.request = require('request');
-    this.apiKey = apiKey;
-    this.host = host;
-    this.register = function (registrationRequest, res) {
-        var options = {
-            url: this.host + "/api/user/registration",
-            json: true,
-            headers: {
-                'Authorization': this.apiKey
-            },
-            body: registrationRequest
-        };
-        this.request.post(options,
-            function (error, response, body) {
-                if (!error && response.statusCode == 200) {
-                    // res.send(body);
-                    res.redirect("/");
-                } else if(!error) {
-                    res.send(response.body);
-                } else {
-                    console.error(error);
-                    res.send("error");
-                }
-            }
-        );
+var RestClient = require("./RESTClient.js");
+var http = require('http');
+var https = require('https');
 
+PassportClient = function (apiKey, host) {
+  this.apiKey = apiKey;
+  this.host = host;
+};
+
+PassportClient.constructor = PassportClient;
+
+PassportClient.prototype = {
+  login: function (loginRequest, responseHandler) {
+    var postData = JSON.stringify(loginRequest);
+    var uri = this.host.split(':');
+    var options = {
+      hostname: uri[1].split("//")[1] !== null ? uri[1].split("//")[1] : "127.0.0.1",
+      port: uri[2] !== null ? uri[2] : "80",
+      path: "/api/login",
+      method: "POST",
+      headers: {
+        "Authorization": this.apiKey,
+        "Content-Type": "application/json",
+        "Content-Length": postData.length
+      }
+    };
+    
+    if (uri[0] == "https") {
+      https.request(options, function (response) {
+        var clientResponse = new RestClient.ClientResponse(response.statusCode, null);
+        response.on("data", function (data) {
+          console.log("data handler........");
+          var json = JSON.parse(data);
+          if (clientResponse.wasSuccessful()) {
+            clientResponse.successResponse = json;
+          } else {
+            console.log("error response");
+            clientResponse.errorResponse = json;
+          }
+        }).on("error", function (error) {
+          console.log("error handler.......");
+          var json = JSON.parse(error);
+          clientResponse.exception = json;
+        }).on("exception", function (error) {
+          console.log("exception handler....");
+          var json = JSON.parse(error);
+          clientResponse.exception = json;
+        }).on("end", function () {
+          console.log("end handler..........");
+          responseHandler(clientResponse);
+        });
+      }).end(postData);
+    } else {
+      http.request(options, function (response) {
+        var clientResponse = new RestClient.ClientResponse(response.statusCode, null);
+        response.on("data", function (data) {
+          console.log("data handler........");
+          var json = JSON.parse(data);
+          if (clientResponse.wasSuccessful()) {
+            clientResponse.successResponse = json;
+          } else {
+            console.log("error response");
+            clientResponse.errorResponse = json;
+          }
+        }).on("error", function (error) {
+          console.log("error handler.......");
+          var json = JSON.parse(error);
+          clientResponse.exception = json;
+        }).on("exception", function (error) {
+          console.log("exception handler....");
+          var json = JSON.parse(error);
+          clientResponse.exception = json;
+        }).on("end", function () {
+          console.log("end handler..........");
+          responseHandler(clientResponse);
+        });
+      }).end(postData);
     }
+  },
+  register: function (registrationRequest, responseHandler) {
+    var postData = JSON.stringify(registrationRequest);
+    var uri = this.host.split(':');
+    var options = {
+      hostname: uri[1].split("//")[1] !== null ? uri[1].split("//")[1] : "127.0.0.1",
+      port: uri[2] !== null ? uri[2] : "80",
+      path: "/api/user/registration",
+      method: "POST",
+      headers: {
+        "Authorization": this.apiKey,
+        "Content-Type": "application/json",
+        "Content-Length": postData.length
+      }
+    };
 
-    this.login = function(loginRequest){
-        var options = {
-            url: this.host + "/api/login",
-            json: true,
-            headers: {
-                'Authorization': this.apiKey
-            },
-            body: loginRequest
-        };
-        this.request.post(options,
-            function (error, response, body) {
-                if (!error && response.statusCode == 202) {
-                    return body.user;
-                } else if(!error){
-                    return response.body;
-                } else {
-                    console.error(response);
-                    console.error(error);
-                    return "Error";
-                }
-
-            }
-        );
+    if (uri[0] == "https") {
+      https.request(options, function (response) {
+        var clientResponse = new RestClient.ClientResponse(response.statusCode, null);
+        response.on("data", function (data) {
+          console.log("data handler........");
+          var json = JSON.parse(data);
+          if (clientResponse.wasSuccessful()) {
+            clientResponse.successResponse = json;
+          } else {
+            console.log("error response");
+            clientResponse.errorResponse = json;
+          }
+        }).on("error", function (error) {
+          console.log("error handler.......");
+          var json = JSON.parse(error);
+          clientResponse.exception = json;
+        }).on("exception", function (error) {
+          console.log("exception handler....");
+          var json = JSON.parse(error);
+          clientResponse.exception = json;
+        }).on("end", function () {
+          console.log("end handler..........");
+          responseHandler(clientResponse);
+        });
+      }).end(postData);
+    } else {
+      http.request(options, function (response) {
+        var clientResponse = new RestClient.ClientResponse(response.statusCode, null);
+        response.on("data", function (data) {
+          console.log("data handler........");
+          var json = JSON.parse(data);
+          if (clientResponse.wasSuccessful()) {
+            clientResponse.successResponse = json;
+          } else {
+            console.log("error response");
+            clientResponse.errorResponse = json;
+          }
+        }).on("error", function (error) {
+          console.log("error handler.......");
+          var json = JSON.parse(error);
+          clientResponse.exception = json;
+        }).on("exception", function (error) {
+          console.log("exception handler....");
+          var json = JSON.parse(error);
+          clientResponse.exception = json;
+        }).on("end", function () {
+          console.log("end handler..........");
+          responseHandler(clientResponse);
+        });
+      }).end(postData);
     }
-}
+  }
+};
+module.exports.PassportClient = PassportClient;

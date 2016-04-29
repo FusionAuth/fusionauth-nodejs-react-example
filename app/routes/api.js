@@ -1,6 +1,7 @@
 var express = require("express"), app = express(), bodyParser = require("body-parser");
 var todo = require("../models/todo.js");
 var https = require('https');
+var http = require('http');
 const fs = require('fs');
 // var request = require('request');
 
@@ -78,25 +79,33 @@ router.route("/todos/:id").put(function (req, res) {
 router.route("/login")
   .post(function (req, res) {
     console.log("hit login");
+    //TODO these need to be configurable?????
+    var applicationId = "4ed5eb32-0a97-40eb-a6d7-cca1f9fa3a0c";
+    var apiKey = "47ee0a5a-51a7-4cc3-a351-eeade8a02c4a";
+    var post_data = {
+      "email": "admin@inversoft.com",
+      "password": "password",
+      "applicationId": applicationId
+    };
     var options = {
       host: '127.0.0.1',
       port: '9011',
-      path: '/login',
+      path: '/api/login',
       method: 'POST',
       headers: {
-        'Authorization': ENV.apiKey,
-        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': apiKey,
+        'Content-Type': 'application/json',
         'Content-Length': Buffer.byteLength(post_data)
       }
     };
-    var login_request = https.request(options, function (res) {
+    var login_request = http.request(options, function (res) {
       res.setEncoding('utf8');
       res.on('data', function (chunk) {
         console.log('Response: ' + chunk);
       });
     });
-
-    login_request.write(post_data);
+    console.log(JSON.stringify(post_data));
+    login_request.write(JSON.stringify(post_data));
     login_request.end();
 
     // request.post(
@@ -108,7 +117,7 @@ router.route("/login")
     //     }
     //   }
     // );
-
+    console.log("logged in");
   });
 
 // REGISTER OUR ROUTES
@@ -116,5 +125,6 @@ router.route("/login")
 app.use('/api/', router);
 
 // START THE SERVER
-https.createServer(options, app).listen(port);
+// https.createServer(options, app).listen(port);
+app.listen(port);
 console.log('Magic happens on port ' + port);

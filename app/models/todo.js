@@ -28,6 +28,10 @@ var Todo = sequelize.define('todo', {
   }
 );
 
+exports.retrieveTodo = function(id) {
+  return Todo.findById(id);
+}
+
 function retrieveAllTodos(userId, completed) {
   return Todo.findAll({
     where: {

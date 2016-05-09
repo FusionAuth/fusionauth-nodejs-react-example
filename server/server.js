@@ -1,7 +1,6 @@
 var express = require("express"), app = express(), bodyParser = require("body-parser");
 var uuid = require('uuid');
 var session = require('express-session');
-var helmet = require('helmet');
 
 var api = require("./controllers/api.js");
 
@@ -11,12 +10,9 @@ const https = require('https');
 const fs = require('fs');
 
 const options = {
-  key: fs.readFileSync(config.key),
-  cert: fs.readFileSync(config.cert)
+  key: fs.readFileSync(config.key.replace("%DIRNAME%", __dirname)),
+  cert: fs.readFileSync(config.cert.replace("%DIRNAME%", __dirname))
 };
-
-
-app.use(helmet());
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());

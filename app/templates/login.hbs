@@ -1,0 +1,24 @@
+<div class="form-div">
+    <h1 class="h1-pp">HACKERs WELCOME!</h1>
+    <p class="paragraph-pp">We dare you to try to hack Passport's user database.</p>
+    <div class="w-form w-clearfix form-wrapper">
+        <form id="email-form" name="email-form" data-name="Email Form">
+          {{input class="w-input" type="text" value=email}}
+          {{input class="w-input" type="text" value=password}}
+            <!--<input id="email-3" type="text" placeholder="your@email.com" name="email" data-name="email" required="required" class="w-input">-->
+            <!--<input id="password" type="password" placeholder="password" name="password" data-name="password" required="required" class="w-input">-->
+            <!--<input id="re-enter-password" type="email" placeholder="re-enter password" name="re-enter-password"-->
+            <!--data-name="re-enter password" required="required" class="w-input">-->
+            <button class="w-button login-register-button" {{action "login"}}>Login</button>
+            <!--<input type="submit" value="LOGIN" data-wait="Please wait..." class="w-button login-register-button">-->
+            <button class="w-button login-register-button" {{action "register"}}>Login</button>
+            <!--<input type="submit" value="REGISTER" data-wait="Please wait..." class="w-button login-register-button green">-->
+        </form>
+        <div class="w-form-done">
+            <p>Thank you! Your submission has been received!</p>
+        </div>
+        <div class="w-form-fail">
+            <p>Oops! Something went wrong while submitting the form</p>
+        </div>
+    </div>
+</div>

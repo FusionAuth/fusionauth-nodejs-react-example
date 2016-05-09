@@ -29,7 +29,6 @@ PassportClient.prototype = {
       https.request(options, function (response) {
         var clientResponse = new RestClient.ClientResponse(response.statusCode, null);
         response.on("data", function (data) {
-          console.log("data handler........");
           var json = JSON.parse(data);
           if (clientResponse.wasSuccessful()) {
             clientResponse.successResponse = json;
@@ -38,15 +37,12 @@ PassportClient.prototype = {
             clientResponse.errorResponse = json;
           }
         }).on("error", function (error) {
-          console.log("error handler.......");
           var json = JSON.parse(error);
           clientResponse.exception = json;
         }).on("exception", function (error) {
-          console.log("exception handler....");
           var json = JSON.parse(error);
           clientResponse.exception = json;
         }).on("end", function () {
-          console.log("end handler..........");
           responseHandler(clientResponse);
         });
       }).end(postData);
@@ -54,7 +50,6 @@ PassportClient.prototype = {
       http.request(options, function (response) {
         var clientResponse = new RestClient.ClientResponse(response.statusCode, null);
         response.on("data", function (data) {
-          console.log("data handler........");
           var json = JSON.parse(data);
           if (clientResponse.wasSuccessful()) {
             clientResponse.successResponse = json;
@@ -63,15 +58,12 @@ PassportClient.prototype = {
             clientResponse.errorResponse = json;
           }
         }).on("error", function (error) {
-          console.log("error handler.......");
           var json = JSON.parse(error);
           clientResponse.exception = json;
         }).on("exception", function (error) {
-          console.log("exception handler....");
           var json = JSON.parse(error);
           clientResponse.exception = json;
         }).on("end", function () {
-          console.log("end handler..........");
           responseHandler(clientResponse);
         });
       }).end(postData);
@@ -105,15 +97,12 @@ PassportClient.prototype = {
             clientResponse.errorResponse = json;
           }
         }).on("error", function (error) {
-          console.log("error handler.......");
           var json = JSON.parse(error);
           clientResponse.exception = json;
         }).on("exception", function (error) {
-          console.log("exception handler....");
           var json = JSON.parse(error);
           clientResponse.exception = json;
         }).on("end", function () {
-          console.log("end handler..........");
           responseHandler(clientResponse);
         });
       }).end(postData);
@@ -130,15 +119,12 @@ PassportClient.prototype = {
             clientResponse.errorResponse = json;
           }
         }).on("error", function (error) {
-          console.log("error handler.......");
           var json = JSON.parse(error);
           clientResponse.exception = json;
         }).on("exception", function (error) {
-          console.log("exception handler....");
           var json = JSON.parse(error);
           clientResponse.exception = json;
         }).on("end", function () {
-          console.log("end handler..........");
           responseHandler(clientResponse);
         });
       }).end(postData);

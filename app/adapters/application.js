@@ -1,11 +1,8 @@
-import DS from "ember-data";
+// import Ember from 'ember';
+import JSONAPIAdapter from 'ember-data/adapters/json-api';
 
-var ApplicationAdapter = DS.RESTAdapter.extend({
-  namespace: 'api',
-  host: 'http://example.com',
-  pathForType: function(type) {
-    return type + '.json';
-  }
+export default JSONAPIAdapter.extend({
+  // sessionId: Ember.inject.service('sessionId'),
+  host: 'http://10.0.1.13:8080',
+  namespace: 'api'
 });
-
-export default ApplicationAdapter;

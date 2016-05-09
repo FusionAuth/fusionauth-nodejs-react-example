@@ -6,10 +6,9 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
+  this.route('index', { path: '/' });
   this.route('login');
-  this.resource('events', function() {
-    this.route('show', { path: '/:event_id'});
-  });
+  this.route('register');
 });
 
 export default Router;

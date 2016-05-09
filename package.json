@@ -19,7 +19,9 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "body-parser": "1.15.0",
     "broccoli-asset-rev": "^2.4.2",
+    "cookie-parser": "1.4.1",
     "ember-ajax": "0.7.1",
     "ember-cli": "2.5.0",
     "ember-cli-app-version": "^1.0.0",
@@ -37,13 +39,16 @@
     "ember-export-application-global": "^1.0.5",
     "ember-load-initializers": "^0.5.1",
     "ember-resolver": "^2.0.3",
-    "loader.js": "^4.0.1",
-    "sequelize": "3.22.0",
     "express": "4.13.4",
     "express-session": "1.13.0",
-    "body-parser": "1.15.0",
-    "uuid": "2.0.2",
+    "glob": "^4.5.3",
+    "loader.js": "^4.0.1",
+    "morgan": "^1.7.0",
     "mysql": "2.10.2",
-    "cookie-parser": "1.4.1"
+    "sequelize": "3.22.0",
+    "uuid": "2.0.2"
+  },
+  "dependencies": {
+    "helmet": "^2.0.0"
   }
 }

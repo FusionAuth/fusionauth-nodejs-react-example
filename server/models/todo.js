@@ -1,8 +1,9 @@
 var Sequelize = require('sequelize');
 var uuid = require('uuid');
+var config = require("../config/config.js");
 
-var sequelize = new Sequelize('user_todos', "root", "", {
-  host: 'localhost',
+var sequelize = new Sequelize('user_todos', config.database.user, config.database.password, {
+  host: config.database.host,
   dialect: 'mysql',
 
   pool: {

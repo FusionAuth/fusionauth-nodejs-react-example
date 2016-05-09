@@ -1,46 +1,14 @@
-var express = require("express"), app = express(), bodyParser = require("body-parser");
+var express = require("express");
 var todo = require("../models/todo.js");
-var uuid = require('uuid');
-// var https = require('https');
-// const fs = require('fs');
+var config = require("../config/config.js");
 var Passport = require('../lib/PassportClient.js');
-var session = require('express-session');
-var helmet = require('helmet');
-app.use(helmet());
 
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
-app.use(session({
-  secret: uuid.v4(),
-  name: 'sessionId',
-  cookie: {
-    // secure: true,
-    // maxAge: 3600 * 1000
-  }
-}));
-
-app.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', 'http://10.0.1.13:8080/*');
-  // res.setHeader('Access-Control-Allow-Origin', 'http://10.0.1.13:8080/api/todos');
-  next();
-});
-
-// app.use(express.static(__dirname + '/public'));
-app.use(express.static('/Users/dklatt/dev/inversoft/hacker/server/public'));
-
-var applicationId = "4ed5eb32-0a97-40eb-a6d7-cca1f9fa3a0c";
-var apiKey = "47ee0a5a-51a7-4cc3-a351-eeade8a02c4a";
-
-var passportClient = new Passport.PassportClient(apiKey, "http://127.0.0.1:9011");
-
-var port = 8080;
+var passportClient = new Passport.PassportClient(config.passport.apiKey, config.passport.url);
 
 var router = express.Router();
 
 router.route("/todos")
   .get(function (req, res) {
-    console.log("get");
-    console.log(req.session.id);
     if (req.session && req.session.user_id !== undefined) {
       if (req.query.completed) {
         todo.retrieveCompletedTodos(req.session.user_id)
@@ -101,7 +69,6 @@ router.route("/todos")
       });
     }
   }).post(function (req, res) {
-  console.log("hit post /todos");
   if (req.session && req.session.user_id !== undefined) {
     todo.createTodo(req.body.task, sess.user_id)
       .then(function (todo) {
@@ -200,14 +167,6 @@ router.route("/login")
     passportClient.login(req.body, function (clientResponse) {
       if (clientResponse.wasSuccessful()) {
         req.session.user_id = clientResponse.successResponse.user.id;
-        // req.session.save(function (err) {
-        //   if (err) {
-        //     res.sendStatus(500);
-        //     console.error(err);
-        //   }
-        // });
-        console.log("login");
-        console.log(req.session.id);
         res.sendStatus(200);
       } else if (clientResponse.errorResponse) {
         // TODO pull apart clientResponse to send to ember
@@ -267,6 +226,4 @@ router.route("/register")
     });
   });
 
-app.use('/api/', router);
-app.listen(port);
-console.log('api listening at /api/todos on port ' + port);
+module.exports = router;

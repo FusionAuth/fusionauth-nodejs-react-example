@@ -26,7 +26,7 @@ app.use(session({
 }));
 
 app.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', 'http://10.0.1.13:8080/*');
+  // res.setHeader('Access-Control-Allow-Origin', 'https://10.0.1.13:8081/*');
   next();
 });
 

@@ -7,11 +7,28 @@ var passportClient = new Passport.PassportClient(config.passport.apiKey, config.
 
 var router = express.Router();
 
+checkRegistration = function (registrations) {
+  for(var i = 0; i < registrations.length; i++){
+    if(registrations[i].applicationId == config.passport.applicationId){
+      return i;
+    }
+  }
+  return -1;
+}
+
 router.route("/todos")
   .get(function (req, res) {
-    if (req.session && req.session.user_id !== undefined) {
+    if (req.session && req.session.user !== undefined) {
+      var index = checkRegistration(req.session.user.registrations);
+      if(index > 0){
+        if(req.session.user.registrations[index].indexOf(config.passport.applicationId)){
+          console.log("authorized");
+        } else {
+
+        }
+      }
       if (req.query.completed) {
-        todo.retrieveCompletedTodos(req.session.user_id)
+        todo.retrieveCompletedTodos(req.session.user.id)
           .then(function (todos) {
             var success_response = {};
             var data = [];
@@ -32,7 +49,7 @@ router.route("/todos")
           res.sendStatus(500);
         });
       } else {
-        todo.retrieveTodos(req.session.user_id)
+        todo.retrieveTodos(req.session.user.id)
           .then(function (todos) {
             var success_response = {};
             var data = [];
@@ -69,8 +86,8 @@ router.route("/todos")
       });
     }
   }).post(function (req, res) {
-  if (req.session && req.session.user_id !== undefined) {
-    todo.createTodo(req.body.task, sess.user_id)
+  if (req.session && req.session.user.id !== undefined) {
+    todo.createTodo(req.body.task, sess.user.id)
       .then(function (todo) {
         var success_response = {};
         var data = {
@@ -99,9 +116,9 @@ router.route("/todos")
 
 router.route("/todos/:id")
   .put(function (req, res) {
-    if (req.session && req.session.user_id !== undefined) {
+    if (req.session && req.session.user.id !== undefined) {
       todo.retrieveTodo(req.params.id).then(function (todo) {
-        if (todo.user_id === sess.user_id) {
+        if (todo.user.id === sess.user.id) {
           todo.updateTodoStatus(req.params.id)
             .then(function (todo) {
               res.send({
@@ -135,9 +152,9 @@ router.route("/todos/:id")
       res.status(401).end(error_response);
     }
   }).delete(function (req, res) {
-  if (req.session && req.session.user_id !== undefined) {
+  if (req.session && req.session.user.id !== undefined) {
     todo.retrieveTodo(req.params.id).then(function (todo) {
-      if (todo.user_id === sess.user_id) {
+      if (todo.user.id === sess.user.id) {
         todo.deleteTodo(req.params.id)
           .then(function (todo) {
             res.send({
@@ -166,13 +183,17 @@ router.route("/login")
   .post(function (req, res) {
     passportClient.login(req.body, function (clientResponse) {
       if (clientResponse.wasSuccessful()) {
-        req.session.user_id = clientResponse.successResponse.user.id;
+        req.session.user = clientResponse.successResponse.user;
         res.sendStatus(200);
       } else if (clientResponse.errorResponse) {
         // TODO pull apart clientResponse to send to ember
         res.send(clientResponse.errorResponse);
       } else if (clientResponse.statusCode === 404) {
-        // TODO pull apart clientResponse to send to ember
+        var error_response = {
+          "errors": [{
+            "msg": "please log in"
+          }]
+        };
         res.send("Invalid Email or Password");
       } else {
         console.error(clientResponse);
@@ -207,7 +228,7 @@ router.route("/register")
         }
       },
       "registration": {
-        "applicationId": applicationId
+        "applicationId": config.passport.applicationId
       }
     };
     passportClient.register(registrationRequest, function (clientResponse) {

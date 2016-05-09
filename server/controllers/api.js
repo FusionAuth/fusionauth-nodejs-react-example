@@ -1,9 +1,9 @@
 var express = require("express"), app = express(), bodyParser = require("body-parser");
-var todo = require("./todo.js");
+var todo = require("../models/todo.js");
 var uuid = require('uuid');
 // var https = require('https');
 // const fs = require('fs');
-var Passport = require('./PassportClient.js');
+var Passport = require('../lib/PassportClient.js');
 var session = require('express-session');
 var helmet = require('helmet');
 app.use(helmet());
@@ -25,7 +25,8 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use(express.static(__dirname + '/dist'));
+// app.use(express.static(__dirname + '/public'));
+app.use(express.static('/Users/dklatt/dev/inversoft/hacker/server/public'));
 
 var applicationId = "4ed5eb32-0a97-40eb-a6d7-cca1f9fa3a0c";
 var apiKey = "47ee0a5a-51a7-4cc3-a351-eeade8a02c4a";

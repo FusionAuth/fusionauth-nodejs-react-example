@@ -1,47 +1,22 @@
 var fs = require("fs");
-//
-// var foo = {
-//   "foo": "bar",
-//   "bar": function() {
-//     this.foo = "hello";
-//     this[foo] = "bar";
-//     this["foo"] = "bar";
-//     this.setProperty("foo", "bar");
-//   }
-// };
-//
-// foo.prototype = {
-//
-// };
-//
-// Foo = function() {
-//   this.foo = "bar";
-//   this.bar = function() {
-//
-//   };
-// };
-//
-// Foo.prototype = {
-//   foo: "hello",
-//   bar: function() {
-//
-//   }
-// };
-//
-// var f = new Foo();
-// f.foo = "hello";
-// f.bar();
 
+/**
+ * This module loads a configuration files. It defaults to loading the config-dev.json in the current directory.
+ * However, it also checks if the file <code>/usr/local/inversoft/config/config-production.json</code> exists and if
+ * it does, it loads that file instead.
+ *
+ * This is useful for production environments because you don't check in things like the database username and password
+ * into source control. You can also lock down the production file on the file system so that only the application can
+ * read it.
+ */
+var config = require("./config-dev.json");
 try {
   var stats = fs.statSync("/usr/local/inversoft/config/config-production.json");
-} catch(err) {
-  //goes to dev mode
-}
-var config = "";
-if (stats && stats.isFile()) {
-  config = require("/usr/local/inversoft/config/config-production.json");
-} else {
-  config = require("./config-dev.json");
+  if (stats.isFile()) {
+    config = require("/usr/local/inversoft/config/config-production.json");
+  }
+} catch (err) {
+  // Already initialized to a good value, ignoring the exception for now
 }
 
 for (var property in config) {

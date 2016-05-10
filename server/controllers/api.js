@@ -182,19 +182,21 @@ router.route("/todos/:id")
 router.route("/login")
   .post(function (req, res) {
     passportClient.login(req.body, function (clientResponse) {
+      var error_response = {
+        "errors": []
+      };
       if (clientResponse.wasSuccessful()) {
         req.session.user = clientResponse.successResponse.user;
         res.sendStatus(200);
       } else if (clientResponse.errorResponse) {
-        // TODO pull apart clientResponse to send to ember
-        res.send(clientResponse.errorResponse);
+        error_response.errors = clientResponse.errorResponse.fieldErrors;
+        res.send(error_response);
       } else if (clientResponse.statusCode === 404) {
-        var error_response = {
-          "errors": [{
-            "msg": "please log in"
-          }]
+        error_response.errors = {
+          "email" : [{"message":"Invalid email"}],
+          "password" : [{"message":"Invalid password"}]
         };
-        res.send("Invalid Email or Password");
+        res.send(error_response);
       } else {
         console.error(clientResponse);
         res.sendStatus(500);

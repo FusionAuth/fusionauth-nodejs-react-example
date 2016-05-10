@@ -1,0 +1,23 @@
+<div class="form-div">
+    <h1 class="h1-pp">HACKERs WELCOME!</h1>
+    <p class="paragraph-pp">We dare you to try to hack Passport's user database.</p>
+    <div class="w-form w-clearfix form-wrapper">
+        <form id="email-form" name="email-form" data-name="Email Form">
+          {{input class="w-input" type="text" placeholder="example@email.com" value=email}}
+          {{input class="w-input" type="password" placeholder="password" value=password}}
+          {{#each errors as |error|}}
+              <div class="error">
+                {{error.message}}
+              </div>
+          {{/each}}
+            <button class="w-button login-register-button" {{action "login"}}>Login</button>
+            <button class="w-button login-register-button green" {{action "register"}}>Register</button>
+        </form>
+        <div class="w-form-done">
+            <p>Thank you! Your submission has been received!</p>
+        </div>
+        <div class="w-form-fail">
+            <p>Oops! Something went wrong while submitting the form</p>
+        </div>
+    </div>
+</div>

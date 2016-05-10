@@ -6,9 +6,10 @@
       <sourceFolder url="file://$MODULE_DIR$/app" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/vendor" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/hacker/bower_components" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/node_modules" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/bower_components" />
       <excludeFolder url="file://$MODULE_DIR$/dist" />
-      <excludeFolder url="file://$MODULE_DIR$/node_modules" />
       <excludeFolder url="file://$MODULE_DIR$/server/public" />
       <excludeFolder url="file://$MODULE_DIR$/tmp" />
     </content>

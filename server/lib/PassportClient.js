@@ -33,7 +33,6 @@ PassportClient.prototype = {
           if (clientResponse.wasSuccessful()) {
             clientResponse.successResponse = json;
           } else {
-            console.log("error response");
             clientResponse.errorResponse = json;
           }
         }).on("error", function (error) {
@@ -54,7 +53,6 @@ PassportClient.prototype = {
           if (clientResponse.wasSuccessful()) {
             clientResponse.successResponse = json;
           } else {
-            console.log("error response");
             clientResponse.errorResponse = json;
           }
         }).on("error", function (error) {
@@ -93,7 +91,6 @@ PassportClient.prototype = {
           if (clientResponse.wasSuccessful()) {
             clientResponse.successResponse = json;
           } else {
-            console.log("error response");
             clientResponse.errorResponse = json;
           }
         }).on("error", function (error) {
@@ -115,7 +112,6 @@ PassportClient.prototype = {
           if (clientResponse.wasSuccessful()) {
             clientResponse.successResponse = json;
           } else {
-            console.log("error response");
             clientResponse.errorResponse = json;
           }
         }).on("error", function (error) {

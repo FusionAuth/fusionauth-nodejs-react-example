@@ -8,6 +8,9 @@ export default Ember.Route.extend({
     error(error, transition) {
       if (error) {
         return this.transitionTo('login');
+      } else {
+        console.log(transition);
+        return true;
       }
     }
   },

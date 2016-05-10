@@ -3,14 +3,17 @@
     <p class="paragraph-pp">We dare you to try to hack Passport's user database.</p>
     <div class="w-form w-clearfix form-wrapper">
         <form id="email-form" name="email-form" data-name="Email Form">
-            {{#each errors.email as |error|}}
-                <span>{{error}}</span>
-            {{/each}}
+          {{#if errors.general}}
+              <div>{{errors.general}}</div>
+          {{/if}}
           {{input class="w-input" type="text" placeholder="example@email.com" value=email}}
-          {{#each errors.password as |error|}}
-            <span>{{error}}</span>
-          {{/each}}
+          {{#if errors.email}}
+              <div>{{errors.email}}</div>
+          {{/if}}
           {{input class="w-input" type="password" placeholder="password" value=password}}
+          {{#if errors.password}}
+              <div>{{errors.password}}</div>
+          {{/if}}
             <button class="w-button login-register-button" {{action "login"}}>Login</button>
             <button class="w-button login-register-button green" {{action "register"}}>Register</button>
         </form>

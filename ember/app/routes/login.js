@@ -2,9 +2,6 @@ import Ember from "ember";
 import errorHandler from "../lib/errors";
 
 export default Ember.Route.extend({
-  renderTemplate() {
-    this.render('login');
-  },
   actions: {
     login: function () {
       var router = this;

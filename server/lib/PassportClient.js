@@ -24,7 +24,6 @@ PassportClient.prototype = {
         "Content-Length": postData.length
       }
     };
-
     if (uri[0] === "https") {
       https.request(options, function (response) {
         var clientResponse = new RestClient.ClientResponse(response.statusCode, null);
@@ -44,6 +43,10 @@ PassportClient.prototype = {
         }).on("end", function () {
           responseHandler(clientResponse);
         });
+      }).on("error", function (error) {
+        var clientResponse = new RestClient.ClientResponse(500, null);
+        clientResponse.exception = error;
+        responseHandler(clientResponse);
       }).end(postData);
     } else {
       http.request(options, function (response) {
@@ -64,6 +67,10 @@ PassportClient.prototype = {
         }).on("end", function () {
           responseHandler(clientResponse);
         });
+      }).on("error", function (error) {
+        var clientResponse = new RestClient.ClientResponse(500, null);
+        clientResponse.exception = error;
+        responseHandler(clientResponse);
       }).end(postData);
     }
   },
@@ -86,7 +93,6 @@ PassportClient.prototype = {
       https.request(options, function (response) {
         var clientResponse = new RestClient.ClientResponse(response.statusCode, null);
         response.on("data", function (data) {
-          console.log("data handler........");
           var json = JSON.parse(data);
           if (clientResponse.wasSuccessful()) {
             clientResponse.successResponse = json;
@@ -102,12 +108,15 @@ PassportClient.prototype = {
         }).on("end", function () {
           responseHandler(clientResponse);
         });
+      }).on("error", function (error) {
+        var clientResponse = new RestClient.ClientResponse(500, null);
+        clientResponse.exception = error;
+        responseHandler(clientResponse);
       }).end(postData);
     } else {
       http.request(options, function (response) {
         var clientResponse = new RestClient.ClientResponse(response.statusCode, null);
         response.on("data", function (data) {
-          console.log("data handler........");
           var json = JSON.parse(data);
           if (clientResponse.wasSuccessful()) {
             clientResponse.successResponse = json;
@@ -123,6 +132,10 @@ PassportClient.prototype = {
         }).on("end", function () {
           responseHandler(clientResponse);
         });
+      }).on("error", function (error) {
+        var clientResponse = new RestClient.ClientResponse(500, null);
+        clientResponse.exception = error;
+        responseHandler(clientResponse);
       }).end(postData);
     }
   }

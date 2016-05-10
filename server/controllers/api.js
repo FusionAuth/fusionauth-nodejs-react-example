@@ -199,7 +199,10 @@ router.route("/login")
         res.send(error_response);
       } else {
         console.error(clientResponse);
-        res.sendStatus(500);
+        error_response.errors = {
+          "general" : [{"message":"Passport unreachable"}]
+        };
+        res.send(error_response);
       }
     });
   });
@@ -234,17 +237,20 @@ router.route("/register")
       }
     };
     passportClient.register(registrationRequest, function (clientResponse) {
+      var error_response = {
+        "errors": []
+      };
       if (clientResponse.wasSuccessful()) {
         res.sendStatus(200);
       } else if (clientResponse.errorResponse) {
-        // TODO pull apart clientResponse to send to ember
-        res.send(clientResponse.errorResponse);
-      } else if (clientResponse.statusCode === 404) {
-        // TODO pull apart clientResponse to send to ember
-        res.send("Missing");
+        error_response.errors = clientResponse.errorResponse.fieldErrors;
+        res.send(error_response);
       } else {
         console.error(clientResponse);
-        res.sendStatus(500);
+        error_response.errors = {
+          "general" : [{"message":"Passport unreachable"}]
+        };
+        res.send(error_response);
       }
     });
   });

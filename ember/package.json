@@ -1,7 +1,7 @@
 {
-  "name": "hacker",
+  "name": "ember",
   "version": "0.0.0",
-  "description": "Small description for hacker goes here",
+  "description": "Small description for ember goes here",
   "private": true,
   "directories": {
     "doc": "doc",

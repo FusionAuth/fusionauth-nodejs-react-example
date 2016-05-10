@@ -49,7 +49,7 @@
   </component>
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/hacker.iml" filepath="$PROJECT_DIR$/hacker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/passport-js-example.iml" filepath="$PROJECT_DIR$/passport-js-example.iml" />
     </modules>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_3" default="false" assert-keyword="false" jdk-15="false">

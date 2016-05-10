@@ -1,7 +1,7 @@
 {
-  "name": "ember",
+  "name": "passport-js-example",
   "version": "0.0.0",
-  "description": "Small description for ember goes here",
+  "description": "Small description for inversoft goes here",
   "private": true,
   "directories": {
     "doc": "doc",

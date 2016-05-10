@@ -2,7 +2,7 @@
 
 module.exports = function (environment) {
   var ENV = {
-    modulePrefix: 'hacker',
+    modulePrefix: 'passport-js-example',
     environment: environment,
     baseURL: '/',
     locationType: 'auto',

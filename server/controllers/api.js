@@ -8,8 +8,8 @@ var passportClient = new Passport.PassportClient(config.passport.apiKey, config.
 var router = express.Router();
 
 checkRegistration = function (registrations) {
-  for(var i = 0; i < registrations.length; i++){
-    if(registrations[i].applicationId == config.passport.applicationId){
+  for (var i = 0; i < registrations.length; i++) {
+    if (registrations[i].applicationId == config.passport.applicationId) {
       return i;
     }
   }
@@ -20,8 +20,8 @@ router.route("/todos")
   .get(function (req, res) {
     if (req.session && req.session.user !== undefined) {
       var index = checkRegistration(req.session.user.registrations);
-      if(index > 0){
-        if(req.session.user.registrations[index].indexOf(config.passport.applicationId)){
+      if (index > 0) {
+        if (req.session.user.registrations[index].indexOf(config.passport.applicationId)) {
           console.log("authorized");
         } else {
 

@@ -12,7 +12,7 @@ export default Ember.Route.extend({
         "password": password
       }, function (response) {
         if (response.errors) {
-          var errors = errorHandler.handleLoginErrors(response);
+          var errors = errorHandler.handleErrors(response);
           router.controller.set("errors", errors);
         } else {
           return router.transitionTo('index');

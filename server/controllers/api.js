@@ -7,13 +7,31 @@ var passportClient = new Passport.PassportClient(config.passport.apiKey, config.
 
 var router = express.Router();
 
-checkRegistration = function (registrations) {
+var checkRegistration = function (registrations) {
   for (var i = 0; i < registrations.length; i++) {
     if (registrations[i].applicationId == config.passport.applicationId) {
       return i;
     }
   }
   return -1;
+};
+
+var passportResponse = function (res, clientResponse) {
+  var error_response = {
+    "errors": []
+  };
+  if (clientResponse.wasSuccessful()) {
+    res.sendStatus(200);
+  } else if (clientResponse.errorResponse) {
+    error_response.errors = clientResponse.errorResponse.fieldErrors;
+    res.send(error_response);
+  } else {
+    console.error(clientResponse);
+    error_response.errors = {
+      "general": [{"message": "Passport unreachable"}]
+    };
+    res.send(error_response);
+  }
 };
 
 router.route("/todos")
@@ -142,7 +160,6 @@ router.route("/todos/:id")
           res.status(401).end(error_response);
         }
       });
-
     } else {
       var error_response = {
         "errors": [{
@@ -182,32 +199,22 @@ router.route("/todos/:id")
 router.route("/login")
   .post(function (req, res) {
     passportClient.login(req.body, function (clientResponse) {
-      var error_response = {
-        "errors": []
-      };
       if (clientResponse.wasSuccessful()) {
         req.session.user = clientResponse.successResponse.user;
         res.sendStatus(200);
-      } else if (clientResponse.errorResponse) {
-        error_response.errors = clientResponse.errorResponse.fieldErrors;
-        res.send(error_response);
       } else if (clientResponse.statusCode === 404) {
         error_response.errors = {
-          "email" : [{"message":"Invalid email"}],
-          "password" : [{"message":"Invalid password"}]
+          "email": [{"message": "Invalid email"}],
+          "password": [{"message": "Invalid password"}]
         };
         res.send(error_response);
-      } else if(clientResponse.statusCode === 412) {
+      } else if (clientResponse.statusCode === 412) {
         error_response.errors = {
-          "email" : [{"message":"Please verify email"}]
+          "email": [{"message": "Please verify email"}]
         };
         res.send(error_response);
       } else {
-        console.error(clientResponse);
-        error_response.errors = {
-          "general" : [{"message":"Passport unreachable"}]
-        };
-        res.send(error_response);
+        passportResponse(res, clientResponse);
       }
     });
   });
@@ -242,21 +249,14 @@ router.route("/register")
       }
     };
     passportClient.register(registrationRequest, function (clientResponse) {
-      var error_response = {
-        "errors": []
-      };
-      if (clientResponse.wasSuccessful()) {
-        res.sendStatus(200);
-      } else if (clientResponse.errorResponse) {
-        error_response.errors = clientResponse.errorResponse.fieldErrors;
-        res.send(error_response);
-      } else {
-        console.error(clientResponse);
-        error_response.errors = {
-          "general" : [{"message":"Passport unreachable"}]
-        };
-        res.send(error_response);
-      }
+      passportResponse(res, clientResponse);
+    });
+  });
+
+router.route("/email/verify/:id")
+  .get(function (req, res) {
+    passportClient.verifyEmail(req.params.id, function (clientResponse) {
+      passportResponse(res, clientResponse);
     });
   });
 

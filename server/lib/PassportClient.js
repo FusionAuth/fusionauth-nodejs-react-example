@@ -15,6 +15,9 @@ PassportClient.prototype = {
   },
   register: function (request, responseHandler) {
     this.client.uri("/api/user/registration").setBody(request).post().go(responseHandler);
+  },
+  verifyEmail: function (verificationId, responseHandler) {
+    this.client.uri("/api/user/verify-email").urlSegment(verificationId).post().go(responseHandler);
   }
 };
 module.exports.PassportClient = PassportClient;

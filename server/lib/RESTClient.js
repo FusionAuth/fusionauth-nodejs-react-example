@@ -62,6 +62,29 @@ RESTClient.prototype = {
   go: function (responseHandler) {
     var uri = this.restUrl.split(':');
     var myHttp = uri[0] === "https" ? https : http;
+
+    if(this.parameters){
+      if(this.uriPath.indexOf("?") === -1){
+        this.uriPath = this.uriPath = "?";
+      }
+      var paramKeys = Object.keys(this.parameters);
+      for(var param in this.parameters){
+        this.uriPath = this.uriPath + param + "=";
+        var values = this.parameters[param];
+        for(var j = 0; j < values.length; j++){
+          if(j !== 0){
+            this.uriPath = this.uriPath + "&";
+          }
+          this.uriPath = this.uriPath + values[j];
+        }
+        if(paramKeys[paramKeys.length - 1] !== param){
+          this.uriPath = this.uriPath + "&";
+        }
+      }
+    }
+
+    console.log(this.uriPath);
+
     var options = {
       hostname: uri[1].split("//")[1] !== null ? uri[1].split("//")[1] : "127.0.0.1",
       port: uri[2] !== null ? uri[2] : "80",
@@ -119,8 +142,11 @@ RESTClient.prototype = {
     this.restUrl = url;
     return this;
   },
-  urlParamater: function (name, value) {
+  urlParameter: function (name, value) {
     if (value) {
+      if(this.parameters === null){
+        this.parameters = {};
+      }
       var values = this.parameters[name];
       if (values === undefined) {
         this.parameters[name] = [];
@@ -131,14 +157,12 @@ RESTClient.prototype = {
   },
   urlSegment: function (segment) {
     if (segment) {
-      if (this.restUrl.charAt(this.restUrl.length - 1) !== "/") {
-        this.restUrl = this.restUrl + "/";
+      if (this.uriPath.charAt(this.uriPath.length - 1) !== "/") {
+        this.uriPath = this.uriPath + "/";
       }
-      this.restUrl = this.restUrl + segment;
+      this.uriPath = this.uriPath + segment;
     }
     return this;
   }
 };
-
-
 module.exports.RESTClient = RESTClient;

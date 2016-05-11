@@ -15,18 +15,18 @@ export default Ember.Route.extend({
       var errors = {};
       var flag = true;
       if(!first_name) {
-        errors["first_name"] = "Can't be blank";
+        errors["first_name"] = "Required";
         flag = false;
         // router.controller.set("errors", errors);
       }
       if(!last_name) {
-        errors["last_name"] = "Can't be blank";
+        errors["last_name"] = "Required";
         flag = false;
         // router.controller.set("errors", errors);
       }
       if(password !== confirm_password) {
-        errors["password"] = "passwords do not match";
-        errors["password_confirm"] = "passwords do not match";
+        errors["password"] = "Passwords do not match";
+        errors["password_confirm"] = "Passwords do not match";
         flag = false;
         // router.controller.set("errors", errors);
       }
@@ -39,7 +39,7 @@ export default Ember.Route.extend({
           "twoFactor": two_factor
         }, function (response) {
           if (response.errors) {
-            errors = errorHandler.handleRegistrationErrors(response);
+            errors = errorHandler.handleErrors(response);
             router.controller.set("errors", errors);
           } else {
             return router.transitionTo('index');

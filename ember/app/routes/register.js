@@ -11,7 +11,26 @@ export default Ember.Route.extend({
       var first_name = this.controller.get('first_name');
       var last_name = this.controller.get('last_name');
       var two_factor = !!this.controller.get('two_factor');
-      if(password === confirm_password) {
+
+      var errors = {};
+      var flag = true;
+      if(!first_name) {
+        errors["first_name"] = "Can't be blank";
+        flag = false;
+        // router.controller.set("errors", errors);
+      }
+      if(!last_name) {
+        errors["last_name"] = "Can't be blank";
+        flag = false;
+        // router.controller.set("errors", errors);
+      }
+      if(password !== confirm_password) {
+        errors["password"] = "passwords do not match";
+        errors["password_confirm"] = "passwords do not match";
+        flag = false;
+        // router.controller.set("errors", errors);
+      }
+      if(flag) {
         Ember.$.post('/api/register', {
           "email": email,
           "password": password,
@@ -20,16 +39,13 @@ export default Ember.Route.extend({
           "twoFactor": two_factor
         }, function (response) {
           if (response.errors) {
-            var errors = errorHandler.handleErrors(response);
+            errors = errorHandler.handleRegistrationErrors(response);
             router.controller.set("errors", errors);
           } else {
             return router.transitionTo('index');
           }
         });
       } else {
-        var errors = {
-          password: "passwords do not match"
-        };
         router.controller.set("errors", errors);
       }
     },

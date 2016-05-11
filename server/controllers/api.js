@@ -14,7 +14,7 @@ checkRegistration = function (registrations) {
     }
   }
   return -1;
-}
+};
 
 router.route("/todos")
   .get(function (req, res) {
@@ -195,6 +195,11 @@ router.route("/login")
         error_response.errors = {
           "email" : [{"message":"Invalid email"}],
           "password" : [{"message":"Invalid password"}]
+        };
+        res.send(error_response);
+      } else if(clientResponse.statusCode === 412) {
+        error_response.errors = {
+          "email" : [{"message":"Please verify email"}]
         };
         res.send(error_response);
       } else {

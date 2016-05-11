@@ -5,7 +5,13 @@
               <div>{{errors.general}}</div>
           {{/if}}
           {{input class="w-input" type="text" placeholder="Bob" value=first_name}}
+          {{#if errors.first_name}}
+              <div>{{errors.first_name}}</div>
+          {{/if}}
           {{input class="w-input" type="text" placeholder="Smith" value=last_name}}
+          {{#if errors.last_name}}
+              <div>{{errors.last_name}}</div>
+          {{/if}}
           {{input class="w-input" type="text" placeholder="example@email.com" value=email}}
           {{#if errors.email}}
               <div>{{errors.email}}</div>
@@ -15,6 +21,9 @@
               <div>{{errors.password}}</div>
           {{/if}}
           {{input class="w-input" type="password" placeholder="password" value=confirm_password}}
+          {{#if errors.password_confirm}}
+              <div>{{errors.password_confirm}}</div>
+          {{/if}}
           {{input class="w-input" type="checkbox" checked=two_factor}}
             <button class="w-button login-register-button" {{action "register"}}>Register</button>
             <button class="w-button login-register-button green" {{action "back"}}>Back</button>

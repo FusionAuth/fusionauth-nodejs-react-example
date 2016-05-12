@@ -25,19 +25,37 @@ app.use(session({
   }
 }));
 
-app.use(function (req, res, next) {
-  // res.setHeader('Access-Control-Allow-Origin', 'https://10.0.1.13:8081/*');
-  next();
-});
-
 app.use(express.static(__dirname + '/public'));
 
 app.use('/api/', api);
 
-http.createServer(function(req, res) {
+app.use(function (req, res) {
+  if (req.accepts('html') || req.accepts('text/html')) {
+    var options = {
+      root: __dirname + '/public/',
+      dotfiles: 'deny',
+      headers: {
+        'x-timestamp': Date.now(),
+        'x-sent': true
+      }
+    };
+    res.sendFile('index.html', options, function (err) {
+      if (err) {
+        console.log(err);
+        res.status(err.status).end();
+      }
+    });
+  } else if (req.accepts('json') || req.accepts('application/json')) {
+    res.status(404).send(JSON.stringify({error: "Not found"}));
+  } else {
+    res.status(404).send("Not Found");
+  }
+});
+
+http.createServer(function (req, res) {
   var host = req.headers.host;
   var hostname = host.split(":")[0];
-  res.writeHead(301, {"Location" : "https://" + hostname + ":" + config.httpsPort + req.url});
+  res.writeHead(301, {"Location": "https://" + hostname + ":" + config.httpsPort + req.url});
   res.end();
 }).listen(config.httpPort);
 https.createServer(options, app).listen(config.httpsPort);

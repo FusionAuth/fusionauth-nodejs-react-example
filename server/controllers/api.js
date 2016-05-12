@@ -199,6 +199,9 @@ router.route("/todos/:id")
 router.route("/login")
   .post(function (req, res) {
     passportClient.login(req.body, function (clientResponse) {
+      var error_response = {
+        "errors": {}
+      };
       if (clientResponse.wasSuccessful()) {
         req.session.user = clientResponse.successResponse.user;
         res.sendStatus(200);
@@ -256,7 +259,15 @@ router.route("/register")
 router.route("/email/verify/:id")
   .get(function (req, res) {
     passportClient.verifyEmail(req.params.id, function (clientResponse) {
-      passportResponse(res, clientResponse);
+      //Redirecting on success until frontend is built...
+      if (clientResponse.wasSuccessful()) {
+        var host = req.headers.host;
+        var hostname = host.split(":")[0];
+        res.writeHead(301, {"Location": "https://" + hostname + ":" + config.httpsPort});
+        res.end();
+      } else {
+        passportResponse(res, clientResponse);
+      }
     });
   });
 

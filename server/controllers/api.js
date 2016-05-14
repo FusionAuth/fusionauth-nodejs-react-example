@@ -25,7 +25,8 @@ var passportResponse = function (res, clientResponse) {
   } else if (clientResponse.errorResponse) {
     error_response.errors = clientResponse.errorResponse.fieldErrors;
     res.send(error_response);
-  } else {
+  }
+  else {
     console.error(clientResponse);
     error_response.errors = {
       "general": [{"message": "Passport unreachable"}]
@@ -259,16 +260,23 @@ router.route("/register")
 router.route("/verify/:id")
   .get(function (req, res) {
     passportClient.verifyEmail(req.params.id, function (clientResponse) {
-      res.send(clientResponse);
+      passportResponse(res, clientResponse);
     });
   });
 
 router.route("/verify")
   .post(function (req, res) {
-    passportClient.resendEmail(req.body, function (clientResponse) {
-      //Error handling
-      res.send(clientResponse);
-    })
-  })
+    passportClient.resendEmail(req.body.email, function (clientResponse) {
+      if (clientResponse.statusCode === 404) {
+        var error_response = {};
+        error_response.errors = {
+          "general": [{"message": "Unable to resend verification email"}]
+        };
+        res.send(error_response);
+      } else {
+        passportResponse(res, clientResponse);
+      }
+    });
+  });
 
 module.exports = router;

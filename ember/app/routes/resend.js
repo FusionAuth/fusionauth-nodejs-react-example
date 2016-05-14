@@ -6,19 +6,19 @@ export default Ember.Route.extend({
     resend: function () {
       var router = this;
       var email = this.controller.get('email');
-      Ember.$.post('/api/verifies', {
+      Ember.$.post('/api/verify', {
         "email": email
       }, function (response) {
+        console.log(response);
         var errors;
         if (response.errors) {
           errors = errorHandler.handleErrors(response);
-          router.controller.set("errors", errors);
         } else {
           errors = {
-            "general" : "Email resent"
+            "general": "Email resent"
           };
-          router.controller.set("errors", errors);
         }
+        router.controller.set("errors", errors);
       });
     }
   }

@@ -9,7 +9,8 @@ Router.map(function () {
   this.route('index', {path: '/'});
   this.route('login');
   this.route('register');
-  this.route('verify');
+  this.route('verify', {path: '/verify/:verify_id'});
+  this.route('resend');
 });
 
 export default Router;

@@ -15,13 +15,13 @@ export default Ember.Route.extend({
           var errors = errorHandler.handleErrors(response);
           router.controller.set("errors", errors);
         } else {
-          return router.transitionTo('index');
+          return router.transitionTo("index");
         }
       });
     },
     register: function () {
       var router = this;
-      return router.transitionTo('register');
+      return router.transitionTo("register");
     }
   }
 });

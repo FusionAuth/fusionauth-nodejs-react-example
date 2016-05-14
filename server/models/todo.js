@@ -69,9 +69,9 @@ exports.updateTodoStatus = function (id) {
 
 exports.updateTodoText = function (id, task) {
   // return Todo.findById(id).then(function (todo) {
-    return Todo.update(
-      {task: task}, {where: {id: id}}
-    );
+  return Todo.update(
+    {task: task}, {where: {id: id}}
+  );
   // });
 };
 

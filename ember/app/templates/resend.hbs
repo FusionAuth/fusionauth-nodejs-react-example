@@ -1,0 +1,15 @@
+<div class="form-div">
+    <h1 class="h1-pp">resend verification email?</h1>
+    <div class="w-form w-clearfix form-wrapper">
+        <form id="email-form" name="email-form" data-name="Email Form">
+          {{#if errors.general}}
+              <div>{{errors.general}}</div>
+          {{/if}}
+          {{input class="w-input" type="text" placeholder="example@email.com" value=email}}
+          {{#if errors.email}}
+              <div>{{errors.email}}</div>
+          {{/if}}
+            <button class="w-button login-register-button" {{action "resend"}}>Resend Email</button>
+        </form>
+    </div>
+</div>

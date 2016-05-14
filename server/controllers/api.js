@@ -21,7 +21,7 @@ var passportResponse = function (res, clientResponse) {
     "errors": []
   };
   if (clientResponse.wasSuccessful()) {
-    res.sendStatus(200);
+    res.send(clientResponse);
   } else if (clientResponse.errorResponse) {
     error_response.errors = clientResponse.errorResponse.fieldErrors;
     res.send(error_response);
@@ -256,19 +256,19 @@ router.route("/register")
     });
   });
 
-router.route("/email/verify/:id")
+router.route("/verify/:id")
   .get(function (req, res) {
     passportClient.verifyEmail(req.params.id, function (clientResponse) {
-      //Redirecting on success until frontend is built...
-      if (clientResponse.wasSuccessful()) {
-        var host = req.headers.host;
-        var hostname = host.split(":")[0];
-        res.writeHead(301, {"Location": "https://" + hostname + ":" + config.httpsPort});
-        res.end();
-      } else {
-        passportResponse(res, clientResponse);
-      }
+      res.send(clientResponse);
     });
   });
+
+router.route("/verify")
+  .post(function (req, res) {
+    passportClient.resendEmail(req.body, function (clientResponse) {
+      //Error handling
+      res.send(clientResponse);
+    })
+  })
 
 module.exports = router;

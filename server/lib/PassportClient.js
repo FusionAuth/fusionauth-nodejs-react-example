@@ -25,6 +25,14 @@ PassportClient.prototype = {
     this.start().uri("/api/user/registration").setBody(request).post().go(responseHandler);
   },
   /**
+   * Resends the verification email
+   * @param request contains the email to resend the verification code
+   * @param responseHandler
+     */
+  resendEmail: function (request, responseHandler) {
+    this.start().uri("/api/user/verify-email").setBody(request).put().go(responseHandler);
+  },
+  /**
    * Verifies the email of a user so they can log in.
    * @param verificationId the uuid sent to a user in an email.
    * @param responseHandler responseHandler function that handles the response from Passport.

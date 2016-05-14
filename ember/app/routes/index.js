@@ -1,17 +1,12 @@
-import Ember from 'ember';
+import Ember from "ember";
 
 export default Ember.Route.extend({
   model() {
     return this.store.findAll('todo');
   },
   actions: {
-    error(error, transition) {
-      if (error) {
-        return this.transitionTo('login');
-      } else {
-        console.log(transition);
-        return true;
-      }
+    error() {
+      return this.transitionTo('login');
     }
   },
   post() {

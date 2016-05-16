@@ -16,6 +16,17 @@ var checkRegistration = function (registrations) {
   return -1;
 };
 
+var hasRole = function (req, role) {
+  var registrations = req.session.user.registrations;
+  var index = checkRegistration(registrations);
+  if (index !== -1) {
+    if (registrations[index].roles.indexOf(role) !== -1) {
+      return true;
+    }
+  }
+  return false;
+};
+
 var passportResponse = function (res, clientResponse) {
   var error_response = {
     "errors": []
@@ -35,165 +46,111 @@ var passportResponse = function (res, clientResponse) {
   }
 };
 
-router.route("/todos")
-  .get(function (req, res) {
-    if (req.session && req.session.user !== undefined) {
-      var index = checkRegistration(req.session.user.registrations);
-      if (index > 0) {
-        if (req.session.user.registrations[index].indexOf(config.passport.applicationId)) {
-          console.log("authorized");
-        } else {
+var todoResponse = function (todos) {
+  var success_response = {};
+  var data = [];
+  for (var i = 0; i < todos.length; i++) {
+    data.push({
+      "type": "todo",
+      "id": todos[i].id,
+      "attributes": {
+        "task": todos[i].task,
+        "completed": todos[i].completed
+      }
+    });
+  }
+  success_response.data = data;
+  return success_response;
+}
+var unauthorized = function (res) {
+  var unauthorized_response = {
+    "errors": [{
+      "msg": "please log in"
+    }]
+  };
+  res.status(401).send(unauthorized_response);
+};
 
-        }
-      }
-      if (req.query.completed) {
-        todo.retrieveCompletedTodos(req.session.user.id)
-          .then(function (todos) {
-            var success_response = {};
-            var data = [];
-            for (var i = 0; i < todos.length; i++) {
-              data.push({
-                "type": "todo",
-                "id": todos[i].id,
-                "attributes": {
-                  "task": todos[i].task,
-                  "completed": todos[i].completed
-                }
-              });
-            }
-            success_response.data = data;
-            res.send(success_response);
-          }).catch(function (err) {
-          console.error(err);
-          res.sendStatus(500);
-        });
-      } else {
-        todo.retrieveTodos(req.session.user.id)
-          .then(function (todos) {
-            var success_response = {};
-            var data = [];
-            for (var i = 0; i < todos.length; i++) {
-              data.push({
-                "type": "todo",
-                "id": todos[i].id,
-                "attributes": {
-                  "task": todos[i].task,
-                  "completed": todos[i].completed
-                }
-              });
-            }
-            success_response.data = data;
-            res.send(success_response);
-          }).catch(function (err) {
-          console.error(err);
-          res.sendStatus(500);
-        });
-      }
+var isAuthenticated = function (req, todoUserId) {
+  if (todoUserId !== undefined) {
+    return req.session.user.id === todoUserId;
+  }
+  return req.session.user.id !== undefined;
+};
+
+router.route("/todos").get(function (req, res) {
+  if (isAuthenticated(req) && hasRole(req, "GET")) {
+    if (req.query.completed) {
+      todo.retrieveCompletedTodos(req.session.user.id)
+        .then(function (todos) {
+          res.send(todoResponse(todos));
+        }).catch(function (err) {
+        console.error(err);
+        res.sendStatus(500);
+      });
     } else {
-      req.session.destroy(function (err) {
-        if (err) {
-          console.error(err);
-          res.sendStatus(500);
-        } else {
-          var error_response = {
-            "errors": [{
-              "msg": "please log in"
-            }]
-          };
-          res.status(401).send(error_response);
-        }
+      todo.retrieveTodos(req.session.user.id)
+        .then(function (todos) {
+          res.send(todoResponse(todos));
+        }).catch(function (err) {
+        console.error(err);
+        res.sendStatus(500);
       });
     }
-  }).post(function (req, res) {
-  if (req.session && req.session.user.id !== undefined) {
-    todo.createTodo(req.body.task, sess.user.id)
+  } else {
+    unauthorized(res);
+  }
+});
+router.route("/todos").post(function (req, res) {
+  if (isAuthenticated(req) && hasRole(req, "POST")) {
+    todo.createTodo(req.body.task, req.session.user.id)
       .then(function (todo) {
-        var success_response = {};
-        var data = {
-          "type": "todo",
-          "id": todo.id,
-          "attributes": {
-            "task": todo.task,
-            "completed": todo.completed
-          }
-        };
-        success_response.data = data;
-        res.send(success_response);
+        res.send(todoResponse([todo]));
       }).catch(function (err) {
       console.error(err);
       res.sendStatus(500);
     });
   } else {
-    var error_response = {
-      "errors": [{
-        "msg": "please log in"
-      }]
-    };
-    res.sendStatus(401).end(error_response);
+    unauthorized(res);
   }
 });
 
-router.route("/todos/:id")
-  .put(function (req, res) {
-    if (req.session && req.session.user.id !== undefined) {
-      todo.retrieveTodo(req.params.id).then(function (todo) {
-        if (todo.user.id === sess.user.id) {
-          todo.updateTodoStatus(req.params.id)
-            .then(function (todo) {
-              res.send({
-                todo: todo
-              });
-            }).catch(function (err) {
-            console.error(err);
-            var error_response = {
-              "errors": [{
-                "msg": ""
-              }]
-            };
-            res.sendStatus(500).end(error_response);
-          });
-        } else {
-          var error_response = {
-            "errors": [{
-              "msg": "please log in"
-            }]
-          };
-          res.status(401).end(error_response);
-        }
-      });
-    } else {
-      var error_response = {
-        "errors": [{
-          "msg": "please log in"
-        }]
-      };
-      res.status(401).end(error_response);
-    }
-  }).delete(function (req, res) {
-  if (req.session && req.session.user.id !== undefined) {
+router.route("/todos/:id").put(function (req, res) {
+  if (isAuthenticated(req) && hasRole(req, "PUT")) {
     todo.retrieveTodo(req.params.id).then(function (todo) {
-      if (todo.user.id === sess.user.id) {
-        todo.deleteTodo(req.params.id)
+      if (isAuthenticated(req, todo.user_id)) {
+        todo.updateTodoStatus(req.params.id)
           .then(function (todo) {
-            res.send({
-              todo: todo
-            });
+            res.send(todoResponse([todo]));
           }).catch(function (err) {
           console.error(err);
-          res.sendStatus(500).end(error_response);
+          res.sendStatus(500);
         });
       } else {
-        var error_response = {
-          "errors": [{
-            "msg": "please log in"
-          }]
-        };
-        res.sendStatus(401).end(error_response);
+        unauthorized(res);
       }
     });
-
   } else {
-    res.send("please log in");
+    unauthorized(res);
+  }
+});
+router.route("/todos/:id").delete(function (req, res) {
+  if (isAuthenticated(req) && hasRole(req, "DELETE")) {
+    todo.retrieveTodo(req.params.id).then(function (todo) {
+      if (isAuthenticated(req, todo.user_id)) {
+        todo.deleteTodo(req.params.id)
+          .then(function (todo) {
+            res.send(todoResponse([todo]));
+          }).catch(function (err) {
+          console.error(err);
+          res.sendStatus(500);
+        });
+      } else {
+        unauthorized(res);
+      }
+    });
+  } else {
+    unauthorized(res);
   }
 });
 

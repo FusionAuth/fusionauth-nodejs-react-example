@@ -6,16 +6,16 @@
           {{#if errors.general}}
               <div>{{errors.general}}</div>
           {{/if}}
-          {{input class="w-input" type="text" placeholder="example@email.com" value=email}}
+          {{input id="email" class="w-input" type="text" placeholder="example@email.com" value=email}}
           {{#if errors.email}}
               <div>{{errors.email}}</div>
           {{/if}}
-          {{input class="w-input" type="password" placeholder="password" value=password}}
+          {{input id="password" class="w-input" type="password" placeholder="password" value=password}}
           {{#if errors.password}}
               <div>{{errors.password}}</div>
           {{/if}}
-            <button class="w-button login-register-button" {{action "login"}}>Login</button>
-            <button class="w-button login-register-button green" {{action "register"}}>Register</button>
+            <button id="login" class="w-button login-register-button" {{action "login"}}>Login</button>
+            <button id="register" class="w-button login-register-button green" {{action "register"}}>Register</button>
         </form>
     </div>
 </div>

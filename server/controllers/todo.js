@@ -21,7 +21,7 @@ _handleTodosResponse = function (todos) {
   var success_response = {};
   var data = [];
   for (var i = 0; i < todos.length; i++) {
-    data.push(todoResponse(todos[i]));
+    data.push(_handleTodoResponse(todos[i]));
   }
   success_response.data = data;
   return success_response;
@@ -44,7 +44,7 @@ _isAuthenticated = function (user, todoUserId) {
 };
 
 router.route("/todos").get(function (req, res) {
-  var sessionUser = new user.User(req.session.user);
+  if(req.session.user){var sessionUser = new user.User(req.session.user);}
   if (_isAuthenticated(sessionUser) && sessionUser.hasRole(appId, "GET")) {
     var get;
     if (req.query.completed) {
@@ -64,7 +64,7 @@ router.route("/todos").get(function (req, res) {
 });
 
 router.route("/todos").post(function (req, res) {
-  var sessionUser = new user.User(req.session.user);
+  if(req.session.user){var sessionUser = new user.User(req.session.user);}
   if (_isAuthenticated(sessionUser) && sessionUser.hasRole(appId, "POST")) {
     Todo.createTodo(req.body.task, sessionUser.id)
       .then(function (todo) {
@@ -81,7 +81,7 @@ router.route("/todos").post(function (req, res) {
 });
 
 router.route("/todos/:id").put(function (req, res) {
-  var sessionUser = new user.User(req.session.user);
+  if(req.session.user){var sessionUser = new user.User(req.session.user);}
   if (_isAuthenticated(sessionUser) && sessionUser.hasRole(appId, "PUT")) {
     Todo.retrieveTodo(req.params.id).then(function (todo) {
       if (_isAuthenticated(sessionUser, todo.user_id)) {
@@ -108,7 +108,7 @@ router.route("/todos/:id").put(function (req, res) {
   }
 });
 router.route("/todos/:id").delete(function (req, res) {
-  var sessionUser = new user.User(req.session.user);
+  if(req.session.user){var sessionUser = new user.User(req.session.user);}
   if (_isAuthenticated(sessionUser) && sessionUser.hasRole(appId, "DELETE")) {
     Todo.retrieveTodo(req.params.id).then(function (todo) {
       if (todo === null) {

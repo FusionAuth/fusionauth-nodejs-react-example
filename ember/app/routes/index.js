@@ -12,6 +12,17 @@ export default Ember.Route.extend({
       console.log(errors);
       return this.transitionTo('login');
     },
+    completeTodo(todo){
+      Ember.$.ajax({
+        url: "/api/todos/" + todo.get('id') + "?completed=true",
+        type: "PUT"
+      }).then(function(response) {
+        if(response.errors){
+
+        }
+        return todo.set('complated', true);
+      });
+    },
     createTodo() {
       var route = this;
       var task = this.controller.get('task');

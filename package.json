@@ -43,9 +43,12 @@
     "express-session": "1.13.0",
     "glob": "^4.5.3",
     "loader.js": "^4.0.1",
+    "mocha": "^2.4.5",
     "morgan": "^1.7.0",
     "mysql": "2.10.2",
     "sequelize": "3.22.0",
+    "should": "^8.3.1",
+    "supertest": "^1.2.0",
     "uuid": "2.0.2"
   },
   "dependencies": {

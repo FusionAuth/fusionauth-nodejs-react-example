@@ -2,17 +2,56 @@ import Ember from "ember";
 
 export default Ember.Route.extend({
   model() {
-    return this.store.findAll('todo');
+    return Ember.RSVP.hash({
+      completed: this.store.query('todo', {completed: true}),
+      todos: this.store.findAll('todo')
+    });
   },
   actions: {
-    error() {
+    error(errors) {
+      console.log(errors);
       return this.transitionTo('login');
+    },
+    createTodo() {
+      var route = this;
+      var task = this.controller.get('task');
+      Ember.$.post('/api/todos', {
+        "task": task
+      }, function (response) {
+        if (response.errors) {
+          console.log(response.errors);
+        } else {
+          return route.store.createRecord('todo', {
+            id: response.data.id,
+            task: task,
+            completed: false
+          });
+        }
+      });
+    },
+    deleteTodo(todo) {
+      todo.deleteRecord();
+      todo.save().then(function() {
+        console.log('Save OK.');
+      }).catch((err) => {
+        console.log('Save failed.');
+      });
+    },
+    updateTodo(todo) {
+      var task = todo.get('task');
+      Ember.$.ajax({
+        url: "/api/todos/" + todo.get('id'),
+        type: "PUT",
+        dataType: "json",
+        data: {
+          task: task
+        }
+      }).then(function(response) {
+        if(response.errors){
+
+        }
+        return todo.set('task', task);
+      });
     }
-  },
-  post() {
-    this.store.createRecord('todo', {
-      task: this.get('task'),
-      completed: false
-    });
   }
 });

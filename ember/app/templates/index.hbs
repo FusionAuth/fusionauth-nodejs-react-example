@@ -1,8 +1,35 @@
 <div>
-    <h1>My Todos</h1>
-  {{#each model as |todo|}}
-      <h2>{{todo.task}}</h2>
-      <p>Id: {{todo.id}}</p>
-      <p>Completed: {{todo.completed}}</p>
-  {{/each}}
+    <h1 class="h1-pp">My Todos</h1>
+    <div class="form-div">
+        <div class="w-form w-clearfix form-wrapper">
+            <form id="task-form" name="email-form" data-name="Email Form">
+              {{#if errors.general}}
+                  <div>{{errors.general}}</div>
+              {{/if}}
+              {{input id="task" class="w-input" type="text" placeholder="Create a task" value=task}}
+              {{#each todo.errors.task as |error|}}
+                  <div class="error">{{error.message}}</div>
+              {{/each}}
+                <button id="post" class="w-button login-register-button" {{action "createTodo"}}>Add</button>
+            </form>
+        </div>
+    </div>
+    <div>
+        <table>
+            <th>Completed</th>
+            <th>Task</th>
+            <th>Id</th>
+            <th>Update?</th>
+            <th>Delete?</th>
+          {{#each model.todos as |todo|}}
+              <tr>
+                  <td>{{todo.completed}}</td>
+                  <td>{{input type="text" value=todo.task}}</td>
+                  <td>{{todo.id}}</td>
+                  <td><button id="update" {{action "updateTodo" todo}}>update</button></td>
+                  <td><button id="delete" {{action "deleteTodo" todo}}>delete</button></td>
+              </tr>
+          {{/each}}
+        </table>
+    </div>
 </div>

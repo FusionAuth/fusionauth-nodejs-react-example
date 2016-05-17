@@ -136,7 +136,10 @@ RESTClient.prototype = {
     var request = myHttp.request(options, function (response) {
       clientResponse.statusCode = response.statusCode;
       response.on("data", function (data) {
-        var json = JSON.parse(data);
+        var json = data;
+        try {
+          json = JSON.parse(data);
+        } catch(err){}
         if (clientResponse.wasSuccessful()) {
           clientResponse.successResponse = json;
         } else {

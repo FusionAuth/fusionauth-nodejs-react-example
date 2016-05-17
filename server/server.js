@@ -2,7 +2,8 @@ var express = require("express"), app = express(), bodyParser = require("body-pa
 var uuid = require('uuid');
 var session = require('express-session');
 
-var api = require("./controllers/api.js");
+var passport = require("./controllers/passport.js");
+var todo = require("./controllers/todo.js");
 
 var config = require("./config/config.js");
 const http = require('http');
@@ -27,7 +28,8 @@ app.use(session({
 
 app.use(express.static(__dirname + '/public'));
 
-app.use('/api/', api);
+app.use('/api/', passport);
+app.use('/api/', todo);
 
 app.use(function (req, res) {
   if (req.accepts('html') || req.accepts('text/html')) {

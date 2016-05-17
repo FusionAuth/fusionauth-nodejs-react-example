@@ -17,18 +17,15 @@ export default Ember.Route.extend({
       if (!first_name) {
         errors["first_name"] = "Required";
         flag = false;
-        // router.controller.set("errors", errors);
       }
       if (!last_name) {
         errors["last_name"] = "Required";
         flag = false;
-        // router.controller.set("errors", errors);
       }
       if (password !== confirm_password) {
         errors["password"] = "Passwords do not match";
         errors["password_confirm"] = "Passwords do not match";
         flag = false;
-        // router.controller.set("errors", errors);
       }
       if (flag) {
         Ember.$.post('/api/register', {

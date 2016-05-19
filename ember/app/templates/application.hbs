@@ -1,18 +1,26 @@
-<div class="flex-parent-login background">
+<div class="flex-parent background">
     <div class="header">
-        <div><img alt="inversoft todo logo" width="275" src="images/Passport-App-UI-4.png">
+        <div>
+            <a href="/">
+              <img alt="inversoft todo logo" width="275" src="images/Passport-App-UI-4.png">
+            </a>
         </div>
     </div>
-    <div class="main-content-div">
-        <div class="side-block"></div>
-        <div class="main-content-div">
-          {{outlet}}
-        </div>
-        <div class="side-block"></div>
+
+    <div class="w-section">
+      <div class="main-content-div">
+          <div class="side-block"></div>
+          <div class="main-content-div">
+            {{outlet}}
+          </div>
+          <div class="side-block"></div>
+      </div>
     </div>
-    <div class="footer-wrapper">
-        <a href="http://www.inversoft.com/products/user-database-sso" class="w-inline-block"><img
-                alt="powered by passport" width="350" src="images/Passport-App-UI-5.png"></a>
+
+    <div class="w-section">
+        <div class="footer-wrapper">
+            <a target="_blank" href="http://www.inversoft.com/products/user-database-sso" class="w-inline-block"><img
+                    alt="powered by passport" width="350" src="images/Passport-App-UI-5.png"></a>
+        </div>
     </div>
 </div>
-

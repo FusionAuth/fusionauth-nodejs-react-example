@@ -25,6 +25,7 @@ You will need the following things properly installed on your computer.
 
 ## Running / Development
 
+* `cd server`
 * `ember server`
 * Visit your app at [http://localhost:4200](http://localhost:4200).
 

@@ -22,8 +22,8 @@
                                       {{#if errors.general}}
                                           <div>{{errors.general}}</div>
                                       {{/if}}
-                                      {{input id="task" class="w-input" type="text" placeholder="Create a task" value=task}}
-                                      {{#each todo.errors.task as |error|}}
+                                      {{input id="text" class="w-input" type="text" placeholder="Create a todo" value=text}}
+                                      {{#each todo.errors.text as |error|}}
                                           <div class="error">{{error.message}}</div>
                                       {{/each}}
                                     </div>
@@ -42,7 +42,7 @@
                                   </div>
                                   <div class="task-div">
                                       <div class="w-richtext">
-                                        {{input class="w-input" type="text" value=todo.task}}
+                                        {{input class="w-input" type="text" value=todo.text}}
                                       </div>
                                   </div>
                                   <div class="option-div">

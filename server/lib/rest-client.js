@@ -1,15 +1,16 @@
+var http = require("http");
+var https = require("https");
+var url = require("url");
+var queryString = require("querystring");
+var myResponse = require("./client-response.js");
+
 /**
  * RESTful WebService call builder. This provides the ability to call RESTful WebServices using a builder pattern to
  * set up all the necessary request information and parse the response.
  *
  * @author Derek Klatt
+ * @constructor
  */
-var http = require("http");
-var https = require("https");
-var url = require("url");
-var queryString = require("querystring");
-var myResponse = require("./ClientResponse.js");
-
 RESTClient = function () {
   this.headers = {};
   this.parameters = null;
@@ -259,4 +260,5 @@ RESTClient.prototype = {
     return this;
   }
 };
-module.exports.RESTClient = RESTClient;
+
+module.exports = RESTClient;

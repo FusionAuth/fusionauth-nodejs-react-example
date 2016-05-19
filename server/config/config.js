@@ -19,8 +19,4 @@ try {
   // Already initialized to a good value, ignoring the exception for now
 }
 
-for (var property in config) {
-  if (config.hasOwnProperty(property)) {
-    module.exports[property] = config[property];
-  }
-}
+module.exports = config;

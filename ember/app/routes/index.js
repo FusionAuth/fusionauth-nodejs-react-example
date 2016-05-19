@@ -24,21 +24,26 @@ export default Ember.Route.extend({
       });
     },
     createTodo() {
-      var route = this;
-      var task = this.controller.get('task');
-      Ember.$.post('/api/todos', {
-        "task": task
-      }, function (response) {
-        if (response.errors) {
-          console.log(response.errors);
-        } else {
-          return route.store.createRecord('todo', {
-            id: response.data.id,
-            task: task,
-            completed: false
-          });
-        }
+      var todo = this.store.createRecord("todo", {
+        text: text,
+        completed: false
       });
+      return todo.save();
+      // var route = this;
+      // var task = this.controller.get('task');
+      // Ember.$.post('/api/todos', {
+      //   "task": task
+      // }, function (response) {
+      //   if (response.errors) {
+      //     console.log(response.errors);
+      //   } else {
+      //     return route.store.createRecord('todo', {
+      //       id: response.data.id,
+      //       task: task,
+      //       completed: false
+      //     });
+      //   }
+      // });
     },
     deleteTodo(todo) {
       todo.deleteRecord();

@@ -3,14 +3,13 @@ import errorHandler from "../lib/errors";
 
 export default Ember.Route.extend({
   actions: {
-    register: function() {
+    register() {
       var router = this;
       var email = this.controller.get("email");
       var password = this.controller.get("password");
       var confirm_password = this.controller.get("confirm_password");
       var first_name = this.controller.get("first_name");
       var last_name = this.controller.get("last_name");
-      var two_factor = !!this.controller.get("two_factor");
 
       var errors = {};
       var flag = true;
@@ -32,21 +31,18 @@ export default Ember.Route.extend({
           "email": email,
           "password": password,
           "firstName": first_name,
-          "lastName": last_name,
-          "twoFactor": two_factor
-        }, function(response) {
-          if (response.errors) {
-            errors = errorHandler.handleErrors(response);
-            router.controller.set("errors", errors);
-          } else {
+          "lastName": last_name
+        }, function() {
             return router.transitionTo("index");
-          }
+        }).fail((err) => {
+          errors = errorHandler.handleErrors(JSON.parse(err.responseText));
+          router.controller.set("errors", errors);
         });
       } else {
         router.controller.set("errors", errors);
       }
     },
-    back: function() {
+    back() {
       this.transitionTo("index");
     }
   }

@@ -184,7 +184,7 @@ describe("Testing Todo", function() {
   it("should logout", (done) => {
     agent.get("/api/logout")
       .end((err, res) => {
-        assert.equal(200, res.status);
+        assert.equal(204, res.status);
         Cookies = null;
         done();
       });

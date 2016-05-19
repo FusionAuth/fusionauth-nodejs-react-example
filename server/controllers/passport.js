@@ -33,7 +33,7 @@ router.route("/logout").get(function(req, res) {
   req.session.destroy(function(err) {
     // Ignore for now
   });
-  res.sendStatus(200);
+  res.sendStatus(204);
 });
 
 router.route("/register").post(function(req, res) {

@@ -3,7 +3,6 @@ import Ember from "ember";
 export default Ember.Route.extend({
   model() {
     return this.store.findAll("todo");
-    // return this.store.query("todo", {completed: false});
   },
   actions: {
     error() {

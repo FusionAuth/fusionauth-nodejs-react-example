@@ -10,7 +10,9 @@ You will need the following things properly installed on your computer.
 * [Git](http://git-scm.com/)
 * [Node.js](http://nodejs.org/) (with NPM)
 * [Bower](http://bower.io/)
+  * `npm install -g bower`
 * [Ember CLI](http://ember-cli.com/)
+  * `npm install -g ember-cli` 
 * [PhantomJS](http://phantomjs.org/)
 
 ## Installation
@@ -18,10 +20,12 @@ You will need the following things properly installed on your computer.
 * `git clone <repository-url>` this repository
 * change into the new directory
 * `npm install`
+* `cd ember`
 * `bower install`
 
 ## Running / Development
 
+* `cd server`
 * `ember server`
 * Visit your app at [http://localhost:4200](http://localhost:4200).
 

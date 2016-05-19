@@ -100,7 +100,7 @@ describe("Testing Todo", function() {
   var toDelete = "";
   it("should create a todo", (done) => {
     var req = agent.post("/api/todos")
-      .send({"task": "testing post"});
+      .send({"data" : { "attributes" :{"text": "testing post"}}});
     req.cookies = Cookies;
     req.end((err, res) => {
       assert.equal(200, res.status);
@@ -130,11 +130,11 @@ describe("Testing Todo", function() {
   });
 
   it("should update the todo", (done) => {
-    var req = agent.put("/api/todos/" + toDelete)
-      .send({"text": "testing put"});
+    var req = agent.patch("/api/todos/" + toDelete)
+      .send({"data" : { "attributes" :{"text": "testing put"}}});
     req.cookies = Cookies;
     req.end((err, res) => {
-      assert.equal(200, res.status);
+      assert.equal(204, res.status);
       _getTodo({
         "data": [{
           "type": "todo",
@@ -150,10 +150,11 @@ describe("Testing Todo", function() {
   });
 
   it("should complete the todo", (done) => {
-    var req = agent.put("/api/todos/complete/" + toDelete);
+    var req = agent.patch("/api/todos/" + toDelete)
+      .send({"data" : { "attributes" :{"completed": true}}});
     req.cookies = Cookies;
     req.end((err, res) => {
-      assert.equal(200, res.status);
+      assert.equal(204, res.status);
       _getTodo({
         "data": [{
           "type": "todo",
@@ -173,7 +174,7 @@ describe("Testing Todo", function() {
     var req = agent.delete("/api/todos/" + toDelete);
     req.cookies = Cookies;
     req.end((err, res) => {
-      assert.equal(200, res.status);
+      assert.equal(204, res.status);
       _getTodo({data: []}, {completed: false});
       _getTodo({data: []}, {completed: true});
       done();

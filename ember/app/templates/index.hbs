@@ -5,9 +5,9 @@
                 <a data-w-tab="Tab 1" class="w-tab-link w--current w-inline-block tabs">
                     <div>Active Tasks</div>
                 </a>
-                <a data-w-tab="Tab 2" class="w-tab-link w-inline-block tabs">
-                    <div>completed tasks</div>
-                </a>
+              {{#link-to "completed" data-w-tab="Tab 2" class="w-tab-link w-inline-block tabs"}}
+                  <div>completed tasks</div>
+              {{/link-to}}
             </div>
             <div class="w-tab-content tabs-content-shadow">
                 <div data-w-tab="Tab 1" class="w-tab-pane w--tab-active active-tab-scroll">
@@ -30,10 +30,11 @@
                                 </div>
                                 <div class="option-div"><input type="image" width="30"
                                                                src="images/Passport-App-UI-11.png"
-                                                               class="add" {{action "createTodo"}}></div>
+                                                               class="add" {{action "createTodo" text}}></div>
                             </div>
                         </div>
-                      {{#each model.todos as |todo|}}
+                      {{#each model as |todo|}}
+                        {{#unless todo.completed}}
                           <div>
                               <div class="flex-child-div">
                                   <div class="check-mark-div"><input type="image" width="35"
@@ -52,26 +53,11 @@
                                   </div>
                               </div>
                           </div>
+                        {{/unless}}
                       {{/each}}
                     </div>
                 </div>
-                <div data-w-tab="Tab 2" class="w-tab-pane active-tab-scroll">
-                    <div class="active-tasks-child-div">
-                        <div>
-                            <div class="flex-child-div completed">
-                                <div class="check-mark-div"><img width="35" src="images/Passport-App-UI-2.png"
-                                                                 class="check-box">
-                                </div>
-                                <div class="task-div">
-                                    <div class="w-richtext">
-                                    </div>
-                                </div>
-                                <div class="option-div"><img width="40" src="images/Passport-App-UI-8.png" class="gear">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div data-w-tab="Tab 2" class="w-tab-pane active-tab-scroll"></div>
             </div>
         </div>
     </div>

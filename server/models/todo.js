@@ -30,23 +30,17 @@ Todo = function() {
 };
 
 Todo.prototype = {
-  complete: function(id, userId, text) {
-    return this.todo.update(
-      {text: text}, {where: {id: id, user_id: userId}}
-    );
-  },
-
-  create: function(text, user_id) {
+  create: function(text, userId) {
     return this.todo.create({
       id: uuid.v4(),
       text: text,
       completed: false,
-      user_id: user_id
+      user_id: userId
     });
   },
 
-  delete: function(id) {
-    return this.todo.destroy({where: {id: id}});
+  delete: function(id, userId) {
+    return this.todo.destroy({where: {id: id, user_id: userId}});
   },
 
   retrieveAll: function(userId, completed) {
@@ -58,9 +52,9 @@ Todo.prototype = {
     });
   },
 
-  update: function(id, userId, text) {
+  update: function(id, userId, text, completed) {
     return this.todo.update(
-      {text: text}, {where: {id: id, user_id: userId}}
+      {text: text, completed: completed}, {where: {id: id, user_id: userId}}
     );
   }
 };

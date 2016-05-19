@@ -1,0 +1,42 @@
+<div class="w-section sectionttabs">
+    <div class="w-container tabs-container">
+        <div data-duration-in="300" data-duration-out="100" class="w-tabs">
+            <div class="w-tab-menu w-clearfix tabs-menu">
+              {{#link-to "index" data-w-tab="Tab 2" class="w-tab-link w-inline-block tabs"}}
+                  <div>Active Tasks</div>
+              {{/link-to}}
+                <a data-w-tab="Tab 2" class="w-tab-link w-inline-block tabs">
+                    <div>completed tasks</div>
+                </a>
+            </div>
+            <div class="w-tab-content tabs-content-shadow">
+                <div data-w-tab="Tab 1" class="w-tab-pane w--tab-active active-tab-scroll">
+                    <div class="active-tasks-child-div">
+                      {{#each model as |todo|}}
+                          <div>
+                              <div class="flex-child-div completed">
+                                  <div class="check-mark-div"><input type="image" width="35"
+                                                                     src="images/Passport-App-UI-2.png"
+                                                                     class="check-box" {{action "completeTodo" todo}}>
+                                  </div>
+                                  <div class="task-div">
+                                      <div class="w-richtext">
+                                        {{input class="w-input" type="text" value=todo.text}}
+                                      </div>
+                                  </div>
+                                  <div class="option-div">
+                                      <img width="40" src="images/Passport-App-UI-8.png" class="gear">
+                                      <button id="update" {{action "updateTodo" todo}}>update</button>
+                                      <button id="delete" {{action "deleteTodo" todo}}>delete</button>
+                                  </div>
+                              </div>
+                          </div>
+                      {{/each}}
+                    </div>
+                </div>
+                <div data-w-tab="Tab 2" class="w-tab-pane active-tab-scroll">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -3,14 +3,14 @@ import errorHandler from "../lib/errors";
 
 export default Ember.Route.extend({
   actions: {
-    login: function () {
+    login: function() {
       var router = this;
-      var email = this.controller.get('email');
-      var password = this.controller.get('password');
-      Ember.$.post('/api/login', {
+      var email = this.controller.get("email");
+      var password = this.controller.get("password");
+      Ember.$.post("/api/login", {
         "email": email,
         "password": password
-      }, function (response) {
+      }, function(response) {
         if (response.errors) {
           var errors = errorHandler.handleErrors(response);
           router.controller.set("errors", errors);
@@ -19,7 +19,7 @@ export default Ember.Route.extend({
         }
       });
     },
-    register: function () {
+    register: function() {
       var router = this;
       return router.transitionTo("register");
     }

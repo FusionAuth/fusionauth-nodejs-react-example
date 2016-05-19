@@ -24,8 +24,8 @@ router.route("/todos").get((req, res) => {
     _sendUnauthorized(res);
     return;
   }
-
-  todo.retrieveAll(req.session.user.id, req.query.completed)
+  
+  todo.retrieveAll(req.session.user.id, "true" === req.query.completed)
     .then((todos) => {
       res.send(_convertTodos(todos));
     })
@@ -40,9 +40,7 @@ router.route("/todos").post((req, res) => {
     return;
   }
 
-  console.log(req);
-
-  todo.create(req.body.task, req.session.user.id)
+  todo.create(req.body.data.attributes.text, req.session.user.id)
     .then((todo) => {
       res.send(_convertTodo(todo));
     })
@@ -51,35 +49,16 @@ router.route("/todos").post((req, res) => {
     });
 });
 
-router.route("/todos/:id").put((req, res) => {
+router.route("/todos/:id").patch((req, res) => {
   if (!_isAuthorized(req, "UPDATE_TODO")) {
     _sendUnauthorized(res);
     return;
   }
 
-  todo.update(req.params.id, req.session.user.id, req.body.text)
+  todo.update(req.params.id, req.session.user.id, req.body.data.attributes.text, req.body.data.attributes.completed)
     .then((rowsUpdated) => {
       if (rowsUpdated[0] === 1) {
-        res.sendStatus(200);
-      } else {
-        res.sendStatus(404);
-      }
-    })
-    .catch((err) => {
-      _handleDatabaseError(err)
-    });
-});
-
-router.route("/todos/complete/:id").put((req, res) => {
-  if (!_isAuthorized(req, "UPDATE_TODO")) {
-    _sendUnauthorized(res);
-    return;
-  }
-  todo.complete(req.params.id, req.session.user.id)
-    .then((rowsUpdated) => {
-      console.log(rowsUpdated);
-      if (rowsUpdated[0] === 1) {
-        res.sendStatus(200);
+        res.sendStatus(204);
       } else {
         res.sendStatus(404);
       }
@@ -97,9 +76,7 @@ router.route("/todos/:id").delete((req, res) => {
 
   todo.delete(req.params.id, req.session.user.id)
     .then((noClue) => {
-      res.sendStatus(200);
-      // res.send(_convertTodo(todo));
-      //res.send({"data": {}});
+      res.sendStatus(204);
     })
     .catch(function(err) {
       _handleDatabaseError(err);
@@ -129,7 +106,7 @@ function _convertTodos(todos) {
 
 function _handleDatabaseError(error) {
   console.error(error);
-  res.sendStatus(500);
+  res.status(500).end();
 }
 
 function _isAuthorized(req, role) {

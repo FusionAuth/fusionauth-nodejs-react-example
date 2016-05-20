@@ -4,7 +4,7 @@ import errorHandler from "../lib/errors";
 export default Ember.Route.extend({
   actions: {
     register() {
-      var router = this;
+      var self = this;
       var email = this.controller.get("email");
       var password = this.controller.get("password");
       var confirm_password = this.controller.get("confirm_password");
@@ -33,13 +33,13 @@ export default Ember.Route.extend({
           "firstName": first_name,
           "lastName": last_name
         }, function() {
-            return router.transitionTo("index");
+            return self.transitionTo("index");
         }).fail((err) => {
           errors = errorHandler.handleErrors(JSON.parse(err.responseText));
-          router.controller.set("errors", errors);
+          self.controller.set("errors", errors);
         });
       } else {
-        router.controller.set("errors", errors);
+        self.controller.set("errors", errors);
       }
     },
     back() {

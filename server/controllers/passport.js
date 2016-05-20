@@ -64,7 +64,7 @@ router.route("/register").post(function(req, res) {
 router.route("/verify/:id").get(function(req, res) {
   passportClient.verifyEmail(req.params.id)
     .then(() => {
-      res.sendStatus(200);
+      res.send({data: {type: "verify",id: req.params.id}});
     })
     .catch((clientResponse) => _handlePassportErrorResponse(res, clientResponse));
 });
@@ -72,7 +72,7 @@ router.route("/verify/:id").get(function(req, res) {
 router.route("/verify").post(function(req, res) {
   passportClient.resendEmail(req.body.email)
     .then(() => {
-      res.sendStatus(200);
+      res.sendStatus(204);
     })
     .catch((clientResponse) => _handlePassportErrorResponse(res, clientResponse));
 });

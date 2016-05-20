@@ -4,21 +4,19 @@ import errorHandler from "../lib/errors";
 export default Ember.Route.extend({
   actions: {
     resend() {
-      var router = this;
+      var self = this;
       var email = this.controller.get("email");
       Ember.$.post("/api/verify", {
         "email": email
-      }, function(response) {
-        console.log(response);
-        var errors;
-        if (response.errors) {
-          errors = errorHandler.handleErrors(response);
-        } else {
-          errors = {
-            "general": "Email resent"
-          };
+      }, function() {
+        console.log("here");
+        self.controller.set("errors", { "general": "Email resent" });
+      }).fail((err) => {
+        var errors = {"email" : "Email not found"};
+        if(err.responseText){
+          errors = errorHandler.handleErrors(JSON.parse(err.responseText));
         }
-        router.controller.set("errors", errors);
+        self.controller.set("errors", errors);
       });
     }
   }

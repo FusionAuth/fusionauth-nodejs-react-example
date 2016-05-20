@@ -4,23 +4,22 @@ import errorHandler from "../lib/errors";
 export default Ember.Route.extend({
   actions: {
     login() {
-      var router = this;
+      var self = this;
       var email = this.controller.get("email");
       var password = this.controller.get("password");
       Ember.$.post("/api/login", {
         "email": email,
         "password": password
       }, function() {
-        return router.transitionTo("index");
+        return self.transitionTo("index");
       }).fail((err) => {
-        console.log(err);
         var errors = errorHandler.handleErrors(JSON.parse(err.responseText));
-        router.controller.set("errors", errors);
+        self.controller.set("errors", errors);
       });
     },
     register: function() {
-      var router = this;
-      return router.transitionTo("register");
+      var self = this;
+      return self.transitionTo("register");
     }
   }
 });

@@ -51,7 +51,7 @@ passportClient.updateSystemConfiguration({
       "reportTimezone": "America/Denver",
       "verifyEmail": true,
       "verifyEmailWhenChanged": true,
-      "verificationEmailTemplateId": "8da42c09-461c-45f3-b931-6e9f63b87ab5"
+      "verificationEmailTemplateId": config.passport.verificationEmailTemplateId
     }
   })
   .catch((clientResponse) => console.error(`Unable to initialize Passport. Please check that Passport is installed, running and not in maintenance mode. Status code from Passport was [${clientResponse.statusCode}]. Error response from Passport was [${JSON.stringify(clientResponse.errorResponse)}]`));

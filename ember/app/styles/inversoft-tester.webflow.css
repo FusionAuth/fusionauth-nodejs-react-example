@@ -595,6 +595,13 @@ html.w-mod-js *[data-ix="display-none-on-load"] {
   transform: rotate(50deg) translateY(-3px);
 }
 
+div.warning {
+  border: 1px solid red;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: white;
+}
+
 div.errors {
   float: left;
   color: red;

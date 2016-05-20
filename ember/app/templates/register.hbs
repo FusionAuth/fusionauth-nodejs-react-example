@@ -21,23 +21,23 @@
 
           {{#if errors.email}}
             <div class="errors">{{errors.email}}</div>
-            {{input class="w-input errors" type="text" placeholder="example@email.com" value=email}}
+            {{input class="w-input errors" type="text" placeholder="Your email" value=email}}
           {{else}}
-            {{input class="w-input" type="text" placeholder="example@email.com" value=email}}
+            {{input class="w-input" type="text" placeholder="Your email" value=email}}
           {{/if}}
 
           {{#if errors.password}}
             <div class="errors">{{errors.password}}</div>
-            {{input class="w-input errors" type="password" placeholder="Password" value=password}}
+            {{input class="w-input errors" type="password" placeholder="Create your password" value=password}}
           {{else}}
-            {{input class="w-input" type="password" placeholder="Password" value=password}}
+            {{input class="w-input" type="password" placeholder="Create your password" value=password}}
           {{/if}}
 
           {{#if errors.password_confirm}}
             <div class="errors">{{errors.password_confirm}}</div>
-            {{input class="w-input errors" type="password" placeholder="Confirm password" value=confirm_password}}
+            {{input class="w-input errors" type="password" placeholder="Confirm your password" value=confirm_password}}
           {{else}}
-            {{input class="w-input" type="password" placeholder="Confirm password" value=confirm_password}}
+            {{input class="w-input" type="password" placeholder="Confirm your password" value=confirm_password}}
           {{/if}}
 
           <button class="w-button login-register-button" {{action "register"}}>Register</button>

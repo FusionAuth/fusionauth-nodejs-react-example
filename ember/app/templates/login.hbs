@@ -7,21 +7,21 @@
         <div class="w-form w-clearfix form-wrapper">
             <form id="email-form" name="email-form" data-name="Email Form">
               {{#if errors.general}}
-                  <div>{{errors.general}}</div>
+                  <div class="warning">{{errors.general}}</div>
               {{/if}}
 
               {{#if errors.email}}
                   <div class="errors">{{errors.email}}</div>
-                {{input id="email" class="w-input errors" type="text" placeholder="example@email.com" autofocus="autofocus" value=email}}
+                {{input id="email" class="w-input errors" type="text" placeholder="Email" autofocus="autofocus" value=email}}
               {{else}}
-                {{input id="email" class="w-input" type="text" placeholder="example@email.com" autofocus="autofocus" value=email}}
+                {{input id="email" class="w-input" type="text" placeholder="Email" autofocus="autofocus" value=email}}
               {{/if}}
 
               {{#if errors.password}}
                   <div class="errors">{{errors.password}}</div>
-                {{input id="password errors" class="w-input" type="password" placeholder="password" value=password}}
+                {{input id="password errors" class="w-input" type="password" placeholder="Password" value=password}}
               {{else}}
-                {{input id="password" class="w-input" type="password" placeholder="password" value=password}}
+                {{input id="password" class="w-input" type="password" placeholder="Password" value=password}}
               {{/if}}
 
               <button id="login" class="w-button login-register-button" {{action "login"}}>Login</button>

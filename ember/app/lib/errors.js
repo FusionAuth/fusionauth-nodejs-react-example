@@ -31,7 +31,7 @@ var _private = {
     "[singleCase]user.password": "Password must contain at least one upper and lower case character",
     "[tooShort]user.password": "Password must be at least 8 characters long",
     "[tooLong]user.password": "Password is too long",
-    "[passportDown]": "Unable to reach Passport. Login temporarily unavailable."
+    "[passportDown]": "Unable to reach Passport. Login and registration temporarily unavailable."
   },
 
   mapFieldErrors: function(messages, errors) {

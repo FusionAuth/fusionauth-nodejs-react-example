@@ -105,8 +105,8 @@ blockquote {
   min-height: auto;
 }
 
-.header {
-  padding: 5px;
+.header .logo {
+  padding-top: 10px;
 }
 
 .footer-wrapper {

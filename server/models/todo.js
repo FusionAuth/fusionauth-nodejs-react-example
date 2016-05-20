@@ -1,78 +1,63 @@
-var Sequelize = require('sequelize');
-var uuid = require('uuid');
+var Sequelize = require("sequelize");
+var uuid = require("uuid");
 var config = require("../config/config.js");
 
-var sequelize = new Sequelize('user_todos', config.database.user, config.database.password, {
-  host: config.database.host,
-  dialect: 'mysql',
+Todo = function() {
+  var sequelize = new Sequelize("user_todos", config.database.user, config.database.password, {
+    host: config.database.host,
+    dialect: "mysql",
 
-  pool: {
-    max: 5,
-    min: 0,
-    idle: 10000
-  }
-});
-
-sequelize.sync().then(function () {
-  // console.log("sync successful");
-}).catch(function (error) {
-  console.log(error);
-});
-
-var Todo = sequelize.define('todo', {
-    id: {type: Sequelize.UUID, primaryKey: true, allowNull: false, unique: true},
-    task: {type: Sequelize.STRING(100)},
-    completed: {type: Sequelize.BOOLEAN, allowNull: true, defaultValue: false},
-    user_id: {type: Sequelize.UUID, allowNull: false}
-  }, {
-    indexes: [{fields: ['id', 'user_id']}]
-  }
-);
-
-exports.retrieveTodo = function (id) {
-  return Todo.findById(id);
-};
-
-function retrieveAllTodos(userId, completed) {
-  return Todo.findAll({
-    where: {
-      user_id: userId,
-      completed: completed
+    pool: {
+      max: 5,
+      min: 0,
+      idle: 10000
     }
   });
-};
 
-exports.retrieveCompletedTodos = function (userId) {
-  return retrieveAllTodos(userId, true);
-};
-
-exports.retrieveTodos = function (userId) {
-  return retrieveAllTodos(userId, false);
-};
-
-exports.createTodo = function (task, user_id) {
-  return Todo.create({
-    id: uuid.v4(),
-    task: task,
-    completed: false,
-    user_id: user_id
-  });
-};
-
-exports.updateTodoStatus = function (id) {
-  return Todo.findById(id).then(function (todo) {
-    return Todo.update(
-      {completed: !todo.completed}, {where: {id: id}}
-    );
-  });
-};
-
-exports.updateTodoText = function (id, task) {
-  return Todo.update(
-    {task: task}, {where: {id: id}}
+  this.todo = sequelize.define("todo", {
+      id: {type: Sequelize.UUID, primaryKey: true, allowNull: false, unique: true},
+      text: {type: Sequelize.STRING(2048)},
+      completed: {type: Sequelize.BOOLEAN, allowNull: true, defaultValue: false},
+      user_id: {type: Sequelize.UUID, allowNull: false}
+    }, {
+      indexes: [{fields: ["id", "user_id"]}]
+    }
   );
+
+  sequelize.sync().catch(function(error) {
+    console.log(error);
+  });
 };
 
-exports.deleteTodo = function (id) {
-  return Todo.destroy({where: {id: id}});
+Todo.prototype = {
+  create: function(text, userId) {
+    return this.todo.create({
+      id: uuid.v4(),
+      text: text,
+      completed: false,
+      user_id: userId
+    });
+  },
+
+  delete: function(id, userId) {
+    return this.todo.destroy({where: {id: id, user_id: userId}});
+  },
+
+  retrieveAll: function(userId, completed) {
+    return this.todo.findAll({
+      where: {
+        user_id: userId,
+        completed: completed
+      }
+    });
+  },
+
+  update: function(id, userId, text, completed) {
+    return this.todo.update(
+      {text: text, completed: completed}, {where: {id: id, user_id: userId}}
+    );
+  }
 };
+
+Todo.constructor = Todo;
+module.exports = Todo;

@@ -3,12 +3,12 @@ import errorHandler from "../lib/errors";
 
 export default Ember.Route.extend({
   actions: {
-    resend: function () {
+    resend() {
       var router = this;
-      var email = this.controller.get('email');
-      Ember.$.post('/api/verify', {
+      var email = this.controller.get("email");
+      Ember.$.post("/api/verify", {
         "email": email
-      }, function (response) {
+      }, function(response) {
         console.log(response);
         var errors;
         if (response.errors) {

@@ -1,7 +1,9 @@
 export default {
-  handleErrors: function (errorResponse) {
+  handleErrors: function(errorResponse) {
     var message = {};
-    var errors = errorResponse.errors;
+    var errors = errorResponse["fieldErrors"];
+
+    console.log(errors);
     for (var i in errors) {
       var key = i;
       if (i.split('.')[1] !== undefined) {
@@ -11,7 +13,7 @@ export default {
     }
     return message;
   },
-  translateCode: function (code) {
+  translateCode: function(code) {
     var codes = {
       "[blank]email": "Required",
       "[blank]user.email": "Required",

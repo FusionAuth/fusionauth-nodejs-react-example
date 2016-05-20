@@ -1,5 +1,5 @@
 var config = require("../config/config.js");
-var PassportClient = require('../lib/PassportClient.js');
+var PassportClient = require('../lib/passport-client.js');
 var passportClient = new PassportClient(config.passport.apiKey, config.passport.url);
 
 // Make sure that the application, roles and configuration is setup in Passport

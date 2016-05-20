@@ -1,4 +1,4 @@
-var RESTClient = require("./RESTClient.js");
+var RESTClient = require("./rest-client.js");
 
 PassportClient = function(apiKey, host) {
   this.apiKey = apiKey;

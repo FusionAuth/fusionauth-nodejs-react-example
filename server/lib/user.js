@@ -27,4 +27,4 @@ User.prototype = {
   }
 };
 
-module.exports.User = User;
+module.exports = User;

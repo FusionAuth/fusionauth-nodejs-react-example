@@ -24,9 +24,9 @@
           {{#if errors.password_confirm}}
               <div>{{errors.password_confirm}}</div>
           {{/if}}
-          {{input class="w-input" type="checkbox" checked=two_factor}}
-            <button class="w-button login-register-button" {{action "register"}}>Register</button>
-            <button class="w-button login-register-button green" {{action "back"}}>Back</button>
+
+          <button class="w-button login-register-button" {{action "register"}}>Register</button>
+          <button class="w-button login-register-button green" {{action "back"}}>Back</button>
         </form>
     </div>
 </div>

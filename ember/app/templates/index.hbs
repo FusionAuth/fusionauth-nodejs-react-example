@@ -1,3 +1,8 @@
+<a class="btn btn-default" href="path/to/settings">
+    <i class="fa fa-cog" title="Settings" aria-hidden="true"></i>
+    <span class="sr-only">Settings</span>
+</a>
+
 <div class="w-section sectionttabs">
     <div class="w-container tabs-container">
         <div data-duration-in="300" data-duration-out="100" class="w-tabs">
@@ -5,9 +10,9 @@
                 <a data-w-tab="Tab 1" class="w-tab-link w--current w-inline-block tabs">
                     <div>Active Tasks</div>
                 </a>
-                <a data-w-tab="Tab 2" class="w-tab-link w-inline-block tabs">
-                    <div>completed tasks</div>
-                </a>
+              {{#link-to "completed" data-w-tab="Tab 2" class="w-tab-link w-inline-block tabs"}}
+                  <div>completed tasks</div>
+              {{/link-to}}
             </div>
             <div class="w-tab-content tabs-content-shadow">
                 <div data-w-tab="Tab 1" class="w-tab-pane w--tab-active active-tab-scroll">
@@ -22,18 +27,19 @@
                                       {{#if errors.general}}
                                           <div>{{errors.general}}</div>
                                       {{/if}}
-                                      {{input id="task" class="w-input" type="text" placeholder="Create a task" value=task}}
-                                      {{#each todo.errors.task as |error|}}
+                                      {{input id="text" class="w-input" type="text" placeholder="Create a todo" value=text}}
+                                      {{#each todo.errors.text as |error|}}
                                           <div class="error">{{error.message}}</div>
                                       {{/each}}
                                     </div>
                                 </div>
                                 <div class="option-div"><input type="image" width="30"
                                                                src="images/Passport-App-UI-11.png"
-                                                               class="add" {{action "createTodo"}}></div>
+                                                               class="add" {{action "createTodo" text}}></div>
                             </div>
                         </div>
-                      {{#each model.todos as |todo|}}
+                      {{#each model as |todo|}}
+                        {{#unless todo.completed}}
                           <div>
                               <div class="flex-child-div">
                                   <div class="check-mark-div"><input type="image" width="35"
@@ -42,36 +48,20 @@
                                   </div>
                                   <div class="task-div">
                                       <div class="w-richtext">
-                                        {{input class="w-input" type="text" value=todo.task}}
+                                        {{input class="w-input" type="text" value=todo.text}}
                                       </div>
                                   </div>
                                   <div class="option-div">
-                                      <img width="40" src="images/Passport-App-UI-8.png" class="gear">
-                                      <button id="update" {{action "updateTodo" todo}}>update</button>
-                                      <button id="delete" {{action "deleteTodo" todo}}>delete</button>
+                                      <button id="update"  {{action "updateTodo" todo}}><i class="fa-pencil"></i></button>
+                                      <button id="delete"  {{action "deleteTodo" todo}}><i class="fa-pencil"></i></button>
                                   </div>
                               </div>
                           </div>
+                        {{/unless}}
                       {{/each}}
                     </div>
                 </div>
-                <div data-w-tab="Tab 2" class="w-tab-pane active-tab-scroll">
-                    <div class="active-tasks-child-div">
-                        <div>
-                            <div class="flex-child-div completed">
-                                <div class="check-mark-div"><img width="35" src="images/Passport-App-UI-2.png"
-                                                                 class="check-box">
-                                </div>
-                                <div class="task-div">
-                                    <div class="w-richtext">
-                                    </div>
-                                </div>
-                                <div class="option-div"><img width="40" src="images/Passport-App-UI-8.png" class="gear">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div data-w-tab="Tab 2" class="w-tab-pane active-tab-scroll"></div>
             </div>
         </div>
     </div>

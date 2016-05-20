@@ -26,18 +26,26 @@ var router = express.Router();
 function _handlePassportErrorResponse(res, clientResponse) {
   res.status(clientResponse.statusCode);
   if (clientResponse.errorResponse) {
+    res.set('Content-Type', 'application/json');
     res.send(clientResponse.errorResponse);
   } else if (clientResponse.exception) {
-    res.send({
-      "generalErrors": [
+    res.json({
+      generalErrors: [
         {
           "code": "[passportDown]"
         }
       ]
     });
+  } else {
+    res.end(); // no errorResponse or exception, just statusCode.
   }
 }
 
+/**
+ * Service the /login request.
+ *
+ * Call PassportClient.login passing in the JSON request body to the API.
+ */
 router.route("/login").post(function(req, res) {
   client.login(req.body)
     .then((clientResponse) => {

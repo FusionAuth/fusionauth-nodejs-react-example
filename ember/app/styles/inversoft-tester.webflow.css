@@ -595,6 +595,15 @@ html.w-mod-js *[data-ix="display-none-on-load"] {
   transform: rotate(50deg) translateY(-3px);
 }
 
+div.errors {
+  float: left;
+  color: red;
+}
+
+input.errors {
+  border: 1px solid red;
+}
+
 @media (max-width: 991px) {
   .header {
     -webkit-align-self: center;

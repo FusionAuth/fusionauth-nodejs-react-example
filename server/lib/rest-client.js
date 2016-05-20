@@ -1,8 +1,24 @@
+/*
+ * Copyright (c) 2016, Inversoft Inc., All Rights Reserved
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific
+ * language governing permissions and limitations under the License.
+ */
+
+var ClientResponse = require("./client-response.js");
 var http = require("http");
 var https = require("https");
-var url = require("url");
 var queryString = require("querystring");
-var myResponse = require("./client-response.js");
+var url = require("url");
 
 /**
  * RESTful WebService call builder. This provides the ability to call RESTful WebServices using a builder pattern to
@@ -11,7 +27,7 @@ var myResponse = require("./client-response.js");
  * @author Derek Klatt
  * @constructor
  */
-RESTClient = function () {
+var RESTClient = function() {
   this.headers = {};
   this.parameters = null;
   this.restUrl = null;
@@ -22,14 +38,13 @@ RESTClient = function () {
 };
 
 RESTClient.constructor = RESTClient;
-
 RESTClient.prototype = {
   /**
    * Sets the authorization header using a key
    * @param key String
    * @returns {RESTClient}
    */
-  authorization: function (key) {
+  authorization: function(key) {
     this.header("Authorization", key);
     return this;
   },
@@ -39,7 +54,7 @@ RESTClient.prototype = {
    * @param password String
    * @returns {RESTClient}
    */
-  basicAuthorization: function (username, password) {
+  basicAuthorization: function(username, password) {
     if (username && password) {
       var cred = username + ":" + password;
       this.header("Authorization", "Basic " + window.btoa(cred));
@@ -51,7 +66,7 @@ RESTClient.prototype = {
    * @param body JSON
    * @returns {RESTClient}
    */
-  setBody: function (body) {
+  setBody: function(body) {
     this.body = JSON.stringify(body);
     this.header("Content-Type", "application/json");
     this.header("Content-Length", this.body.length);
@@ -62,7 +77,7 @@ RESTClient.prototype = {
    * @param certificate String
    * @returns {RESTClient}
    */
-  setCertificate: function (certificate) {
+  setCertificate: function(certificate) {
     this.certificate = certificate;
     return this;
   },
@@ -70,7 +85,7 @@ RESTClient.prototype = {
    * Sets the http method to DELETE
    * @returns {RESTClient}
    */
-  delete: function () {
+  delete: function() {
     this.method = "DELETE";
     return this;
   },
@@ -78,7 +93,7 @@ RESTClient.prototype = {
    * Sets the http method to GET
    * @returns {RESTClient}
    */
-  get: function () {
+  get: function() {
     this.method = "GET";
     return this;
   },
@@ -86,7 +101,7 @@ RESTClient.prototype = {
    * Sets the http method to POST
    * @returns {RESTClient}
    */
-  post: function () {
+  post: function() {
     this.method = "POST";
     return this;
   },
@@ -94,7 +109,7 @@ RESTClient.prototype = {
    * Sets the http method to PUT
    * @returns {RESTClient}
    */
-  put: function () {
+  put: function() {
     this.method = "PUT";
     return this;
   },
@@ -102,7 +117,7 @@ RESTClient.prototype = {
    * Creates the request to the REST API.  Takes a responseHandler which is a function that handles the response from the REST API.
    * @param responseHandler function
    */
-  go: function (responseHandler) {
+  go: function(responseHandler) {
     if (this.parameters) {
       if (this.restUrl.indexOf('?') === -1) {
         this.restUrl = this.restUrl + '?';
@@ -115,7 +130,7 @@ RESTClient.prototype = {
     var port = 443;
     if (scheme.port) {
       port = scheme.port;
-    } else if (scheme.protocol == "http:") {
+    } else if (scheme.protocol === "http:") {
       port = 80;
     }
 
@@ -127,34 +142,34 @@ RESTClient.prototype = {
       headers: this.headers
     };
 
-    if (scheme.protocol == "https:") {
+    if (scheme.protocol === "https:") {
       options["key"] = this.key;
       options["cert"] = this.certificate;
     }
 
-    var clientResponse = new myResponse.ClientResponse(null, null);
-
-    var request = myHttp.request(options, function (response) {
+    var clientResponse = new ClientResponse();
+    var request = myHttp.request(options, function(response) {
       clientResponse.statusCode = response.statusCode;
-      response.on("data", function (data) {
+      response.on("data", function(data) {
         var json = data;
         try {
           json = JSON.parse(data);
-        } catch(err){}
+        } catch (err) {
+        }
         if (clientResponse.wasSuccessful()) {
           clientResponse.successResponse = json;
         } else {
           clientResponse.errorResponse = json;
         }
-      }).on("error", function (error) {
+      }).on("error", function(error) {
         clientResponse.exception = error;
-      }).on("exception", function (exception) {
+      }).on("exception", function(exception) {
         clientResponse.exception = exception;
-      }).on("end", function () {
+      }).on("end", function() {
         responseHandler(clientResponse);
       });
     });
-    request.on("error", function (error) {
+    request.on("error", function(error) {
       clientResponse.statusCode = 500;
       clientResponse.exception = error;
       responseHandler(clientResponse);
@@ -167,7 +182,7 @@ RESTClient.prototype = {
    * @param value Object
    * @returns {RESTClient}
    */
-  header: function (key, value) {
+  header: function(key, value) {
     this.headers[key] = value;
     return this;
   },
@@ -176,7 +191,7 @@ RESTClient.prototype = {
    * @param headers JSON
    * @returns {RESTClient}
    */
-  setHeaders: function (headers) {
+  setHeaders: function(headers) {
     this.headers = headers;
     return this;
   },
@@ -185,7 +200,7 @@ RESTClient.prototype = {
    * @param key String
    * @returns {RESTClient}
    */
-  setKey: function (key) {
+  setKey: function(key) {
     this.key = key;
     return this;
   },
@@ -194,7 +209,7 @@ RESTClient.prototype = {
    * @param uri String
    * @returns {RESTClient}
    */
-  uri: function (uri) {
+  uri: function(uri) {
     if (typeof this.restUrl === "undefined") {
       return this;
     }
@@ -214,7 +229,7 @@ RESTClient.prototype = {
    * @param url String
    * @returns {RESTClient}
    */
-  setUrl: function (url) {
+  setUrl: function(url) {
     this.restUrl = url;
     return this;
   },
@@ -224,7 +239,7 @@ RESTClient.prototype = {
    * @param value String
    * @returns {RESTClient}
    */
-  urlParameter: function (name, value) {
+  urlParameter: function(name, value) {
     if (value) {
       if (this.parameters === null) {
         this.parameters = {};
@@ -250,7 +265,7 @@ RESTClient.prototype = {
    * @param segment String
    * @returns {RESTClient}
    */
-  urlSegment: function (segment) {
+  urlSegment: function(segment) {
     if (segment) {
       if (this.restUrl.charAt(this.restUrl.length - 1) !== "/") {
         this.restUrl = this.restUrl + "/";

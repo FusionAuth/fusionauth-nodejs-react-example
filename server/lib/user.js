@@ -38,7 +38,11 @@ User.prototype = {
    * @returns {boolean} True if the user has the role.
    */
   hasRole: function(applicationId, role) {
+    if (this.registrations == undefined) {
+      return false;
+    }
     var userRegistration = null;
+
     for (var i = 0; i < this.registrations.length; i++) {
       if (this.registrations[i].applicationId === applicationId) {
         userRegistration = this.registrations[i];

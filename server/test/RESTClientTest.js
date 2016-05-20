@@ -1,7 +1,8 @@
-var client = require('../../lib/RESTClient.js');
+var RESTClient = require('../../lib/RESTClient.js');
 var chai = require("chai");
 var http = require("http");
 
+// Start the test server
 var testServer = http.createServer(function (req, res) {
   var headers = req.headers;
   var uri = req.url;
@@ -12,18 +13,18 @@ var testServer = http.createServer(function (req, res) {
     method: method
   };
   res.end(JSON.stringify(response));
-});
-testServer.listen(3000);
+}).listen(3000);
+
 var key = "47ee0a5a-51a7-4cc3-a351-eeade8a02c4a";
 var url = "http://127.0.0.1:3000";
 var segment = "5876696f-17dc-47bd-a1f3-94140b5677a4";
 var uri = "/api/user/";
 var body = {"test": "test"};
 
-var restclient = new client.RESTClient();
+var restclient = new RESTClient();
 restclient.authorization(key).setUrl(url);
 
-//Tests urlSegment, urlParameter and get
+// Tests urlSegment, urlParameter and get
 restclient.uri(uri).urlSegment(segment).urlParameter("foo", ["bar", "baz"]).urlParameter("single", "single").get().go(function (response) {
   var success = response.successResponse;
   var headers = success.headers;
@@ -33,7 +34,7 @@ restclient.uri(uri).urlSegment(segment).urlParameter("foo", ["bar", "baz"]).urlP
   chai.assert.isOk(headers.host, url);
 });
 
-//Tests setBody and post
+// Tests setBody and post
 restclient.setBody(body).post().go(function (response) {
   var success = response.successResponse;
   var headers = success.headers;
@@ -42,19 +43,19 @@ restclient.setBody(body).post().go(function (response) {
   chai.assert.equal(headers["content-length"], JSON.stringify(body).length);
 });
 
-//Tests put
+// Tests put
 restclient.put().go(function (response) {
   chai.assert.strictEqual(response.successResponse.method, "PUT");
 });
 
-//Tests delete
+// Tests delete
 restclient.delete().go(function (response) {
   chai.assert.strictEqual(response.successResponse.method, "DELETE");
   testServer.close();
 });
 
-//Tests handling error on connection
-restclient = new client.RESTClient();
+// Tests handling error on connection
+restclient = new RESTClient();
 restclient.setUrl("http://127.0.0.1:3001");
 restclient.get().go(function (response) {
   chai.assert.strictEqual(response.statusCode, 500);

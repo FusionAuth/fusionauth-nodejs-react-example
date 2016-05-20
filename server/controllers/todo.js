@@ -4,7 +4,7 @@ var todo = new Todo();
 var config = require("../config/config.js");
 var appId = config.passport.applicationId;
 var router = express.Router();
-require('../lib/user.js');
+var User = require('../lib/user.js');
 
 // Ensure the user is logged in for every request in this route and if they aren't return 401 with an error
 router.all("/todos", (req, res, next) => {
@@ -24,7 +24,7 @@ router.route("/todos").get((req, res) => {
     _sendUnauthorized(res);
     return;
   }
-  
+
   todo.retrieveAll(req.session.user.id, "true" === req.query.completed)
     .then((todos) => {
       res.send(_convertTodos(todos));

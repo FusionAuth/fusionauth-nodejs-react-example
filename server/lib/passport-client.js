@@ -1,12 +1,27 @@
+/*
+ * Copyright (c) 2016, Inversoft Inc., All Rights Reserved
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific
+ * language governing permissions and limitations under the License.
+ */
+
 var RESTClient = require("./rest-client.js");
 
-PassportClient = function(apiKey, host) {
+var PassportClient = function(apiKey, host) {
   this.apiKey = apiKey;
   this.host = host;
 };
 
 PassportClient.constructor = PassportClient;
-
 PassportClient.prototype = {
   /**
    * Creates the given application.
@@ -17,7 +32,12 @@ PassportClient.prototype = {
    */
   createApplication: function(id, request) {
     return new Promise((resolve, reject) => {
-      this._start().uri("/api/application").urlSegment(id).setBody(request).post().go(this._promiseHandler(resolve, reject));
+      this._start()
+        .uri("/api/application")
+        .urlSegment(id)
+        .setBody(request)
+        .post()
+        .go(this._responseHandler(resolve, reject));
     });
   },
 
@@ -29,7 +49,12 @@ PassportClient.prototype = {
    */
   deleteUser: function(userId) {
     return new Promise((resolve, reject) => {
-      this._start().uri("/api/user").urlSegment(userId).urlParameter("hardDelete", true).delete().go(this._promiseHandler(resolve, reject));
+      this._start()
+        .uri("/api/user")
+        .urlSegment(userId)
+        .urlParameter("hardDelete", true)
+        .delete()
+        .go(this._responseHandler(resolve, reject));
     });
   },
 
@@ -41,7 +66,11 @@ PassportClient.prototype = {
    */
   login: function(request) {
     return new Promise((resolve, reject) => {
-      this._start().uri("/api/login").setBody(request).post().go(this._promiseHandler(resolve, reject));
+      this._start()
+        .uri("/api/login")
+        .setBody(request)
+        .post()
+        .go(this._responseHandler(resolve, reject));
     });
   },
 
@@ -54,7 +83,12 @@ PassportClient.prototype = {
    */
   register: function(userId, request) {
     return new Promise((resolve, reject) => {
-      this._start().uri("/api/user/registration").urlSegment(userId).setBody(request).post().go(this._promiseHandler(resolve, reject));
+      this._start()
+        .uri("/api/user/registration")
+        .urlSegment(userId)
+        .setBody(request)
+        .post()
+        .go(this._responseHandler(resolve, reject));
     });
   },
 
@@ -66,7 +100,11 @@ PassportClient.prototype = {
    */
   resendEmail: function(email) {
     return new Promise((resolve, reject) => {
-      this._start().uri("/api/user/verify-email").urlParameter("email", email).put().go(this._promiseHandler(resolve, reject));
+      this._start()
+        .uri("/api/user/verify-email")
+        .urlParameter("email", email)
+        .put()
+        .go(this._responseHandler(resolve, reject));
     });
   },
 
@@ -78,7 +116,11 @@ PassportClient.prototype = {
    */
   retrieveApplication: function(id) {
     return new Promise((resolve, reject) => {
-      this._start().uri("/api/application/").urlSegment(id).get().go(this._promiseHandler(resolve, reject));
+      this._start()
+        .uri("/api/application/")
+        .urlSegment(id)
+        .get()
+        .go(this._responseHandler(resolve, reject));
     });
   },
 
@@ -89,7 +131,10 @@ PassportClient.prototype = {
    */
   retrieveSystemConfiguration: function() {
     return new Promise((resolve, reject) => {
-      this._start().uri("/api/system-configuration").get().go(this._promiseHandler(resolve, reject));
+      this._start()
+        .uri("/api/system-configuration")
+        .get()
+        .go(this._responseHandler(resolve, reject));
     });
   },
 
@@ -101,7 +146,11 @@ PassportClient.prototype = {
    */
   updateSystemConfiguration: function(request) {
     return new Promise((resolve, reject) => {
-      this._start().uri("/api/system-configuration").setBody(request).put().go(this._promiseHandler(resolve, reject));
+      this._start()
+        .uri("/api/system-configuration")
+        .setBody(request)
+        .put()
+        .go(this._responseHandler(resolve, reject));
     });
   },
 
@@ -113,9 +162,17 @@ PassportClient.prototype = {
    */
   verifyEmail: function(verificationId) {
     return new Promise((resolve, reject) => {
-      this._start().uri("/api/user/verify-email").urlSegment(verificationId).post().go(this._promiseHandler(resolve, reject));
+      this._start()
+        .uri("/api/user/verify-email")
+        .urlSegment(verificationId)
+        .post()
+        .go(this._responseHandler(resolve, reject));
     });
   },
+
+  /* ===================================================================================================================
+   * Private methods
+   * ===================================================================================================================*/
 
   /**
    * creates a rest client
@@ -137,7 +194,7 @@ PassportClient.prototype = {
    * @returns {Function} The function that will call either the resolve or reject functions based on the ClientResponse.
    * @private
    */
-  _promiseHandler: function(resolve, reject) {
+  _responseHandler: function(resolve, reject) {
     return function(response) {
       if (response.wasSuccessful()) {
         resolve(response);

@@ -1,7 +1,25 @@
+/*
+ * Copyright (c) 2016, Inversoft Inc., All Rights Reserved
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific
+ * language governing permissions and limitations under the License.
+ */
+
 var express = require("express");
 var config = require("../config/config.js");
 var PassportClient = require('../lib/passport-client.js');
-var passportClient = new PassportClient(config.passport.apiKey, config.passport.url);
+
+// Build a Passport REST Client
+var client = new PassportClient(config.passport.apiKey, config.passport.url);
 
 var router = express.Router();
 
@@ -21,7 +39,7 @@ function _handlePassportErrorResponse(res, clientResponse) {
 }
 
 router.route("/login").post(function(req, res) {
-  passportClient.login(req.body)
+  client.login(req.body)
     .then((clientResponse) => {
       req.session.user = clientResponse.successResponse.user;
       res.sendStatus(200);
@@ -54,7 +72,7 @@ router.route("/register").post(function(req, res) {
     }
   };
 
-  passportClient.register(null, registrationRequest)
+  client.register(null, registrationRequest)
     .then(() => {
       res.sendStatus(200);
     })
@@ -62,7 +80,7 @@ router.route("/register").post(function(req, res) {
 });
 
 router.route("/verify/:id").get(function(req, res) {
-  passportClient.verifyEmail(req.params.id)
+  client.verifyEmail(req.params.id)
     .then(() => {
       res.sendStatus(200);
     })
@@ -70,7 +88,7 @@ router.route("/verify/:id").get(function(req, res) {
 });
 
 router.route("/verify").post(function(req, res) {
-  passportClient.resendEmail(req.body.email)
+  client.resendEmail(req.body.email)
     .then(() => {
       res.sendStatus(200);
     })

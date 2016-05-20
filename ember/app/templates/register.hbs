@@ -4,11 +4,11 @@
           {{#if errors.general}}
               <div>{{errors.general}}</div>
           {{/if}}
-          {{input class="w-input" type="text" placeholder="Bob" value=first_name}}
+          {{input class="w-input" type="text" placeholder="First Name" autofocus="autofocus" value=first_name}}
           {{#if errors.first_name}}
               <div>{{errors.first_name}}</div>
           {{/if}}
-          {{input class="w-input" type="text" placeholder="Smith" value=last_name}}
+          {{input class="w-input" type="text" placeholder="Last Name" value=last_name}}
           {{#if errors.last_name}}
               <div>{{errors.last_name}}</div>
           {{/if}}
@@ -20,7 +20,7 @@
           {{#if errors.password}}
               <div>{{errors.password}}</div>
           {{/if}}
-          {{input class="w-input" type="password" placeholder="password" value=confirm_password}}
+          {{input class="w-input" type="password" placeholder="confirm password" value=confirm_password}}
           {{#if errors.password_confirm}}
               <div>{{errors.password_confirm}}</div>
           {{/if}}

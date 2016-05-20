@@ -21,6 +21,7 @@ export default Ember.Route.extend({
   actions: {
     register() {
       var self = this;
+      //Get all the field data
       var email = this.controller.get("email");
       var password = this.controller.get("password");
       var confirm_password = this.controller.get("confirm_password");
@@ -29,14 +30,19 @@ export default Ember.Route.extend({
 
       var errors = {};
       var flag = true;
+
+      //Check to see if first name is filled out
       if (!first_name) {
         errors["first_name"] = "Required";
         flag = false;
       }
+      //Check to see if last name is filled out
       if (!last_name) {
         errors["last_name"] = "Required";
         flag = false;
       }
+
+      //Check to see if the passwords match
       if (password !== confirm_password) {
         errors["password"] = "Passwords do not match";
         errors["password_confirm"] = "Passwords do not match";
@@ -48,18 +54,19 @@ export default Ember.Route.extend({
           "password": password,
           "firstName": first_name,
           "lastName": last_name
-        }, function() {
-            return self.transitionTo("index");
         }).fail((err) => {
           errors = errorHandler.handleErrors(JSON.parse(err.responseText));
           self.controller.set("errors", errors);
+        }).done(()=> {
+          //TODO notify user to check email
+          return self.transitionTo("login");
         });
       } else {
         self.controller.set("errors", errors);
       }
     },
     back() {
-      this.transitionTo("index");
+      this.transitionTo("login");
     }
   }
 });

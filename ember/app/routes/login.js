@@ -38,6 +38,7 @@ export default Ember.Route.extend({
           if (xhr.status === 412) {
             // Email not verified. User needs to check their inbox or resend the verification.
             // TODO Need message to the user.
+            self.controller.set("errors", {"email": "Account not verified, please check your email or visit /resend"});
           } else {
             if (xhr.responseText !== "") {
               var errors = errorHandler.handleErrors(JSON.parse(xhr.responseText));

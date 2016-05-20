@@ -62,6 +62,8 @@ router.route("/logout").get(function(req, res) {
   res.sendStatus(204);
 });
 
+
+
 router.route("/register").post(function(req, res) {
   var registrationRequest = {
     "user": {

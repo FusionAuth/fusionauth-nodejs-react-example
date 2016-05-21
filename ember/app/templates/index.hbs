@@ -25,12 +25,13 @@
                                 <div class="task-div">
                                     <div class="w-richtext">
                                       {{#if errors.general}}
-                                          <div>{{errors.general}}</div>
+                                          <div class="warning">{{errors.general}}</div>
                                       {{/if}}
-                                      {{input id="text" class="w-input" type="text" placeholder="Create a todo" value=text}}
+
                                       {{#each todo.errors.text as |error|}}
                                           <div class="error">{{error.message}}</div>
                                       {{/each}}
+                                      {{input id="text" class="w-input" type="text" placeholder="Create a todo" value=text}}
                                     </div>
                                 </div>
                                 <div class="option-div"><input type="image" width="30"
@@ -48,21 +49,24 @@
                                   </div>
                                   <div class="task-div">
                                       <div class="w-richtext">
-                                        {{input class="w-input" type="text" value=todo.text}}
+                                          {{!    If in edit mode, show input else just text    }}
+                                          {{todo.text}}
+                                        {{!--    {{input id="text" class="w-input" type="text" placeholder="Create a todo" value=text}}      --}}
                                       </div>
                                   </div>
                                   <div class="option-div">
                                       <button id="update"  {{action "updateTodo" todo}}><i class="fa fa-pencil fa-2x"></i></button>
-                                      <button id="delete"  {{action "deleteTodo" todo}}><i class="fa fa-trash fa-2x"></i></button>
-                                  </div>
-                              </div>
-                          </div>
-                        {{/unless}}
-                      {{/each}}
-                    </div>
-                </div>
-                <div data-w-tab="Tab 2" class="w-tab-pane active-tab-scroll"></div>
-            </div>
+                                      {{!    Show Delete once in Edit Mode    }}
+                                      {{!-- <button id="delete"  {{action "deleteTodo" todo}}><i class="fa fa-trash fa-2x"></i></button> }}   ---}}
+                      </div>
+                  </div>
+              </div>
+            {{/unless}}
+          {{/each}}
         </div>
     </div>
+    <div data-w-tab="Tab 2" class="w-tab-pane active-tab-scroll"></div>
+</div>
+</div>
+</div>
 </div>

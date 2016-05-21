@@ -19,8 +19,9 @@ import Ember from "ember";
 export default Ember.Route.extend({
   model(){
     var self = this;
-    Ember.$.get("/api/logout").done(() => {
-      return self.transitionTo("login");
-    });
+    Ember.$.get("/api/logout")
+      .done(() => {
+        return self.transitionTo("login");
+      });
   }
 });

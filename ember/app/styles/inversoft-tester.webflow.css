@@ -315,6 +315,14 @@ blockquote {
   box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, .28);
 }
 
+.flex-child-div i {
+  color: rgb(52, 72, 95);
+}
+
+.flex-child-div button {
+  background: transparent;
+}
+
 .flex-child-div.completed {
   background-color: rgba(237, 239, 241, .38);
 }

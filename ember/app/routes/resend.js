@@ -21,18 +21,20 @@ export default Ember.Route.extend({
   actions: {
     resend() {
       var self = this;
-      var email = this.controller.get("email");
-      Ember.$.post("/api/verify", {
-        "email": email
-      }).fail((err) => {
-        var errors = {"email": "Email not found"};
-        if (err.responseText) {
-          errors = errorHandler.handleErrors(JSON.parse(err.responseText));
-        }
-        self.controller.set("errors", errors);
-      }).done(() => {
-        self.controller.set("errors", {"general": "Email resent"});
-      });
+      var verifyRequest = {
+        email: this.controller.get("email")
+      };
+      Ember.$.post("/api/verify", verifyRequest)
+        .done(() => {
+          self.controller.set("errors", {"general": "Email resent"});
+        })
+        .fail((err) => {
+          var errors = {"email": "Email not found"};
+          if (err.responseText) {
+            errors = errorHandler.handleErrors(JSON.parse(err.responseText));
+          }
+          self.controller.set("errors", errors);
+        });
     }
   }
 });

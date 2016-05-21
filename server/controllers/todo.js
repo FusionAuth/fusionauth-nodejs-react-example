@@ -23,8 +23,8 @@ var router = express.Router();
 var User = require('../lib/user.js');
 
 var fs = require("fs");
+// Open file for appending. The file is created if it does not exist.
 var logFile = fs.openSync(config.logName, "a");
-
 
 // Ensure the user is logged in for every request in this route and if they aren't return 401 with an error
 router.all("/todos", (req, res, next) => {
@@ -50,7 +50,7 @@ router.route("/todos").get((req, res) => {
       res.send(_convertTodos(todos));
     })
     .catch((err) => {
-      _handleDatabaseError(err);
+      _handleDatabaseError(res, err);
     });
 });
 
@@ -65,7 +65,7 @@ router.route("/todos").post((req, res) => {
       res.send(_convertTodo(todo));
     })
     .catch((err) => {
-      _handleDatabaseError(err);
+      _handleDatabaseError(res, err);
     });
 });
 
@@ -84,7 +84,7 @@ router.route("/todos/:id").patch((req, res) => {
       }
     })
     .catch((err) => {
-      _handleDatabaseError(err)
+      _handleDatabaseError(res, err)
     });
 });
 
@@ -99,7 +99,7 @@ router.route("/todos/:id").delete((req, res) => {
       res.sendStatus(204);
     })
     .catch(function(err) {
-      _handleDatabaseError(err);
+      _handleDatabaseError(res, err);
     });
 });
 
@@ -124,7 +124,7 @@ function _convertTodos(todos) {
   return response;
 }
 
-function _handleDatabaseError(error) {
+function _handleDatabaseError(res, error) {
   console.error(error);
   //Logging to file
   fs.appendFile(config.logName, error, (fileError) => {

@@ -109,6 +109,28 @@ blockquote {
   padding-top: 10px;
 }
 
+.header .user-actions {
+  float: right;
+  display: inline-block;
+  text-align: right;
+  padding-top: 10px;
+  padding-right: 15px;
+  font-family: 'Open Sans', sans-serif;
+  color: #e4dfdf;
+  font-weight: 300;
+}
+
+.header .user-actions span.logout {
+  margin-left: 20px;
+  background-color: #3898EC;
+  cursor: pointer;
+  padding: 7px 10px;
+}
+.header .user-actions span.logout a {
+  color: white;
+  text-decoration: none;
+}
+
 .footer-wrapper {
   display: -webkit-box;
   display: -webkit-flex;

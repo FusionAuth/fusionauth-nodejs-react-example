@@ -41,32 +41,33 @@
                         </div>
                       {{#each model as |todo|}}
                         {{#unless todo.completed}}
-                          <div>
-                              <div class="flex-child-div">
-                                  <div class="check-mark-div"><input type="image" width="35"
-                                                                     src="images/Passport-App-UI-2.png"
-                                                                     class="check-box" {{action "completeTodo" todo}}>
-                                  </div>
-                                  <div class="task-div">
-                                      <div class="w-richtext">
+                            <div>
+                                <div class="flex-child-div">
+                                    <div class="check-mark-div"><input type="image" width="35"
+                                                                       src="images/Passport-App-UI-2.png"
+                                                                       class="check-box" {{action "completeTodo" todo}}>
+                                    </div>
+                                    <div class="task-div">
+                                        <div class="w-richtext">
                                           {{!    If in edit mode, show input else just text    }}
                                           {{todo.text}}
-                                        {{!--    {{input id="text" class="w-input" type="text" placeholder="Create a todo" value=text}}      --}}
-                                      </div>
-                                  </div>
-                                  <div class="option-div">
-                                      <button id="update"  {{action "updateTodo" todo}}><i class="fa fa-pencil fa-2x"></i></button>
+                                          {{!--    {{input id="text" class="w-input" type="text" placeholder="Create a todo" value=text}}      --}}
+                                        </div>
+                                    </div>
+                                    <div class="option-div">
+                                        <button id="update"  {{action "updateTodo" todo}}><i
+                                                class="fa fa-pencil fa-2x"></i></button>
                                       {{!    Show Delete once in Edit Mode    }}
                                       {{!-- <button id="delete"  {{action "deleteTodo" todo}}><i class="fa fa-trash fa-2x"></i></button> }}   ---}}
-                      </div>
-                  </div>
-              </div>
-            {{/unless}}
-          {{/each}}
+                                    </div>
+                                </div>
+                            </div>
+                        {{/unless}}
+                      {{/each}}
+                    </div>
+                </div>
+                <div data-w-tab="Tab 2" class="w-tab-pane active-tab-scroll"></div>
+            </div>
         </div>
     </div>
-    <div data-w-tab="Tab 2" class="w-tab-pane active-tab-scroll"></div>
-</div>
-</div>
-</div>
 </div>

@@ -175,7 +175,7 @@ blockquote {
   margin-right: 10px;
   margin-left: 10px;
   padding: 13px 0px;
-  border-radius: 26px;
+  border-radius: 2px;
   background-color: #365a8b;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .69);
   font-family: 'Open Sans', sans-serif;
@@ -441,7 +441,7 @@ blockquote {
   margin-top: 5px;
   padding-top: 11px;
   float: right;
-  border-radius: 4px;
+  border-radius: 2px;
   background-color: #fff;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .16);
   font-family: Lato, sans-serif;
@@ -556,7 +556,7 @@ blockquote {
 
 .active-tab-scroll {
   overflow: scroll;
-  height: 700px;
+  max-height: 700px;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .31);
 }
 

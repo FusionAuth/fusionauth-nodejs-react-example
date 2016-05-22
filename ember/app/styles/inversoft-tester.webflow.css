@@ -118,6 +118,14 @@ blockquote {
   color: #dc0000;
 }
 
+.todo-task .text {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  white-space: pre-wrap;
+  padding: 8px 12px;
+  display: block;
+}
+
 .header .logo {
   padding-top: 10px;
 }
@@ -278,12 +286,6 @@ blockquote {
   border-right: 2px solid #d7e0dc;
 }
 
-input[type="text"]:disabled {
-  cursor: default;
-  /*background-color: #eeeeee;*/
-  border: none;
-}
-
 .check-mark-div img {
   cursor: pointer;
 }
@@ -310,10 +312,6 @@ div.action {
   -ms-flex-item-align: stretch;
   align-self: stretch;
   border-left: 2px solid #d7e0dc;
-}
-
-div.action.multiple {
-  width: 7%;
 }
 
 .active-tasks-scroll-container {

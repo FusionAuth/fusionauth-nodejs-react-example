@@ -9,16 +9,16 @@
     <div class="task-div">
         <div class="w-richtext">
            {{#if editing}}
-             {{input class="w-input" type="text" placeholder="Create a todo" value=todo.text}}
+             {{input class="w-input" type="text" autofocus="autofocus" value=todo.text}}
            {{else}}
-             {{input class="w-input" disabled="true" type="text" placeholder="Create a todo" value=todo.text}}
+             <span class="text">{{todo.text}}</span>
            {{/if}}
         </div>
     </div>
 
     {{#unless todo.completed}}
       {{#if editing}}
-          <div class="action multiple">
+          <div class="action">
               <button {{action "update" todo}}><i class="fa fa-save fa-2x"></i></button>
           </div>
       {{else}}

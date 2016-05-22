@@ -1,72 +1,38 @@
-<a class="btn btn-default" href="path/to/settings">
-    <i class="fa fa-cog" title="Settings" aria-hidden="true"></i>
-    <span class="sr-only">Settings</span>
-</a>
-
 <div class="w-section sectionttabs">
     <div class="w-container tabs-container">
         <div data-duration-in="300" data-duration-out="100" class="w-tabs">
             <div class="w-tab-menu w-clearfix tabs-menu">
-                <a data-w-tab="Tab 1" class="w-tab-link w--current w-inline-block tabs">
+                <a data-w-tab="active" class="w-tab-link w--current w-inline-block tabs">
                     <div>Active Tasks</div>
                 </a>
-              {{#link-to "completed" data-w-tab="Tab 2" class="w-tab-link w-inline-block tabs"}}
+              {{#link-to "completed" data-w-tab="completed" class="w-tab-link w-inline-block tabs"}}
                   <div>completed tasks</div>
               {{/link-to}}
             </div>
             <div class="w-tab-content tabs-content-shadow">
-                <div data-w-tab="Tab 1" class="w-tab-pane w--tab-active active-tab-scroll">
+                <div data-w-tab="active" class="w-tab-pane w--tab-active active-tab-scroll">
                     <div class="active-tasks-child-div">
-                        <div>
-                            <div class="flex-child-div">
-                                <div class="check-mark-div"><img width="35" src="images/Passport-App-UI-2.png"
-                                                                 class="check-box">
-                                </div>
-                                <div class="task-div">
-                                    <div class="w-richtext">
-                                      {{#if errors.general}}
-                                          <div class="warning">{{errors.general}}</div>
-                                      {{/if}}
-
-                                      {{#each todo.errors.text as |error|}}
-                                          <div class="error">{{error.message}}</div>
-                                      {{/each}}
-                                      {{input id="text" class="w-input" type="text" placeholder="Create a todo" value=text}}
-                                    </div>
-                                </div>
-                                <div class="option-div"><input type="image" width="30"
-                                                               src="images/Passport-App-UI-11.png"
-                                                               class="add" {{action "createTodo" text}}></div>
-                            </div>
-                        </div>
+                        {{!-- Open ToDo TO be Added --}}
+                        <div class="todo-task open flex-child-div">
+                          <div class="check-mark-div">
+                              <i class="fa fa-square-o fa-2x"></i>
+                          </div>
+                          <div class="task-div">
+                              <div class="w-richtext">
+                                {{input id="text" class="w-input" type="text" placeholder="Add a ToDo..." value=text}}
+                              </div>
+                          </div>
+                          <div class="action"><input type="image" width="30" src="images/Passport-App-UI-11.png" class="add" {{action "create" text}}></div>
+                      </div>
+                      {{!-- List all current ToDos --}}
                       {{#each model as |todo|}}
                         {{#unless todo.completed}}
-                            <div>
-                                <div class="flex-child-div">
-                                    <div class="check-mark-div"><input type="image" width="35"
-                                                                       src="images/Passport-App-UI-2.png"
-                                                                       class="check-box" {{action "completeTodo" todo}}>
-                                    </div>
-                                    <div class="task-div">
-                                        <div class="w-richtext">
-                                          {{!    If in edit mode, show input else just text    }}
-                                          {{todo.text}}
-                                          {{!--    {{input id="text" class="w-input" type="text" placeholder="Create a todo" value=text}}      --}}
-                                        </div>
-                                    </div>
-                                    <div class="option-div">
-                                        <button id="update"  {{action "updateTodo" todo}}><i
-                                                class="fa fa-pencil fa-2x"></i></button>
-                                      {{!    Show Delete once in Edit Mode    }}
-                                      {{!-- <button id="delete"  {{action "deleteTodo" todo}}><i class="fa fa-trash fa-2x"></i></button> }}   ---}}
-                                    </div>
-                                </div>
-                            </div>
+                          {{to-do todo=todo complete="complete" delete="delete" update="update"}}
                         {{/unless}}
                       {{/each}}
                     </div>
                 </div>
-                <div data-w-tab="Tab 2" class="w-tab-pane active-tab-scroll"></div>
+                <div data-w-tab="completed" class="w-tab-pane active-tab-scroll"></div>
             </div>
         </div>
     </div>

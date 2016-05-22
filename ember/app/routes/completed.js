@@ -24,16 +24,16 @@ export default Ember.Route.extend({
     error() {
       return this.transitionTo("login");
     },
-    completeTodo(todo){
-      todo.set("completed", false);
+    complete(todo){
+      todo.set("completed", !todo.get("completed"));
       todo.save().then(() => {
         return this.store.unloadRecord(todo);
       });
     },
-    deleteTodo(todo) {
+    delete(todo) {
       return todo.destroyRecord();
     },
-    updateTodo(todo) {
+    update(todo) {
       return todo.save();
     }
   }

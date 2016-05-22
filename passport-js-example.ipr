@@ -23,7 +23,31 @@
   <component name="Encoding">
     <file url="PROJECT" charset="UTF-8" />
   </component>
+  <component name="InspectionProjectProfileManager">
+    <profile version="1.0">
+      <option name="myName" value="Project Default" />
+      <option name="myLocal" value="true" />
+      <inspection_tool class="JSHint" enabled="true" level="ERROR" enabled_by_default="true" />
+    </profile>
+    <option name="PROJECT_PROFILE" value="Project Default" />
+    <option name="USE_PROJECT_PROFILE" value="true" />
+    <version value="1.0" />
+  </component>
+  <component name="JSHintConfiguration" version="2.9.1" use-config-file="true">
+    <option bitwise="true" />
+    <option browser="true" />
+    <option curly="true" />
+    <option eqeqeq="true" />
+    <option forin="true" />
+    <option maxerr="50" />
+    <option noarg="true" />
+    <option noempty="true" />
+    <option nonew="true" />
+    <option strict="true" />
+    <option undef="true" />
+  </component>
   <component name="JavaScriptLibraryMappings">
+    <file url="PROJECT" libraries="{node_modules passport-js-example}" />
     <includedPredefinedLibrary name="ECMAScript 6" />
   </component>
   <component name="JavaScriptSettings">
@@ -33,12 +57,10 @@
     <option name="PER_PROJECT_SETTINGS">
       <value>
         <option name="LINE_SEPARATOR" value="&#10;" />
+        <option name="HTML_ATTRIBUTE_WRAP" value="0" />
         <JSCodeStyleSettings>
           <option name="SPACE_BEFORE_FUNCTION_LEFT_PARENTH" value="false" />
         </JSCodeStyleSettings>
-        <MarkdownNavigatorCodeStyleSettings>
-          <option name="RIGHT_MARGIN" value="72" />
-        </MarkdownNavigatorCodeStyleSettings>
         <XML>
           <option name="XML_LEGACY_SETTINGS_IMPORTED" value="true" />
         </XML>
@@ -85,5 +107,20 @@
         </entryData>
       </entry>
     </contentEntries>
+  </component>
+  <component name="libraryTable">
+    <library name="node_modules passport-js-example" type="javaScript">
+      <properties>
+        <option name="frameworkName" value="node_modules" />
+        <sourceFilesUrls>
+          <item url="file://$PROJECT_DIR$/node_modules" />
+        </sourceFilesUrls>
+      </properties>
+      <CLASSES>
+        <root url="file://$PROJECT_DIR$/node_modules" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
+    </library>
   </component>
 </project>

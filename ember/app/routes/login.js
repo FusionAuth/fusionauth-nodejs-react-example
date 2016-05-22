@@ -35,7 +35,9 @@ export default Ember.Route.extend({
           return self.transitionTo("index");
         })
         .fail((xhr) => {
-          if (xhr.status === 412) {
+          if (xhr.status === 404) {
+            self.controller.set("errors", {"general": "Invalid login credentials."});
+          } else if (xhr.status === 412) {
             // Email not verified. User needs to check their inbox or resend the verification.
             // TODO Need message to the user.
             self.controller.set("errors", {"email": "Account not verified, please check your email or visit /resend"});

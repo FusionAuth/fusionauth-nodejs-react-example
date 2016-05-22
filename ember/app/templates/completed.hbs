@@ -13,24 +13,7 @@
                 <div data-w-tab="Tab 1" class="w-tab-pane w--tab-active active-tab-scroll">
                     <div class="active-tasks-child-div">
                       {{#each model as |todo|}}
-                          <div>
-                              <div class="flex-child-div completed">
-                                  <div class="check-mark-div"><input type="image" width="35"
-                                                                     src="images/Passport-App-UI-2.png"
-                                                                     class="check-box" {{action "completeTodo" todo}}>
-                                  </div>
-                                  <div class="task-div">
-                                      <div class="w-richtext">
-                                        {{input class="w-input" type="text" value=todo.text}}
-                                      </div>
-                                  </div>
-                                  <div class="option-div">
-                                    {{!    Can you edit a completed task? I would say no - can you mark it as un-completed? If so, that would be the way to edit?    }}
-                                      {{!-- <button id="update"  {{action "updateTodo" todo}}><i class="fa fa-pencil fa-2x"></i></button> --}}
-                                      <button id="delete"  {{action "deleteTodo" todo}}><i class="fa fa-trash fa-2x"></i></button>
-                                  </div>
-                              </div>
-                          </div>
+                        {{to-do todo=todo complete="complete" delete="delete"}}
                       {{/each}}
                     </div>
                 </div>

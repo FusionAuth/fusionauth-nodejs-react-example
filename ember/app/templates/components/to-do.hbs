@@ -1,0 +1,37 @@
+<div class="todo-task flex-child-div">
+    <div class="check-mark-div">
+        {{#if todo.completed}}
+            <i title="Un-Complete" class="fa fa-check-square-o fa-2x action" {{action "complete" todo}}></i>
+        {{else}}
+            <i title="Complete" class="fa fa-square-o fa-2x action" {{action "complete" todo}}></i>
+        {{/if}}
+    </div>
+    <div class="task-div">
+        <div class="w-richtext">
+           {{#if editing}}
+             {{input class="w-input" type="text" placeholder="Create a todo" value=todo.text}}
+           {{else}}
+             {{input class="w-input" disabled="true" type="text" placeholder="Create a todo" value=todo.text}}
+           {{/if}}
+        </div>
+    </div>
+
+    {{#unless todo.completed}}
+      {{#if editing}}
+          <div class="action multiple">
+              <button {{action "update" todo}}><i class="fa fa-save fa-2x"></i></button>
+          </div>
+      {{else}}
+          <div class="action">
+              <button {{action "edit"}}><i class="fa fa-pencil fa-2x"></i></button>
+          </div>
+      {{/if}}
+    {{/unless}}
+
+    {{#if (if-or editing todo.completed) }}
+      <div class="action multiple delete">
+          <i title="Delete" class="fa fa-trash fa-2x action" {{action "delete" todo}}></i>
+      </div>
+    {{/if}}
+
+</div>

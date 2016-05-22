@@ -24,13 +24,13 @@ export default Ember.Route.extend({
     error() {
       return this.transitionTo("login");
     },
-    completeTodo(todo){
-      todo.set("completed", true);
+    complete(todo){
+      todo.set("completed", !todo.get("completed"));
       todo.save().then(() => {
         return this.store.unloadRecord(todo);
       });
     },
-    createTodo(text) {
+    create(text) {
       var todo = this.store.createRecord("todo", {
         text: text,
         completed: false
@@ -38,10 +38,10 @@ export default Ember.Route.extend({
       this.controller.set("text", "");
       return todo.save();
     },
-    deleteTodo(todo) {
+    delete(todo) {
       return todo.destroyRecord();
     },
-    updateTodo(todo) {
+    update(todo) {
       return todo.save();
     }
   }

@@ -9,6 +9,10 @@
       <sourceFolder url="file://$MODULE_DIR$/ember/bower_components" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/node_modules" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/ember/node_modules" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/addon" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/public" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/tests/unit" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/tests/integration" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/bower_components" />
       <excludeFolder url="file://$MODULE_DIR$/dist" />
       <excludeFolder url="file://$MODULE_DIR$/ember/dist" />
@@ -18,5 +22,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="node_modules passport-js-example" level="project" />
   </component>
 </module>

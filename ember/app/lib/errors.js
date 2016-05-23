@@ -31,15 +31,15 @@ var _private = {
     "[singleCase]user.password": "Password must contain at least one upper and lower case character",
     "[tooShort]user.password": "Password must be at least 8 characters long",
     "[tooLong]user.password": "Password is too long",
-    "[passportDown]": "Unable to reach Passport. Login and registration temporarily unavailable."
+    "[passportDown]": "Login and registration temporarily unavailable."
   },
 
   mapFieldErrors: function(messages, errors) {
     for (var i in errors) {
       var key = i;
       if (errors.hasOwnProperty(key)) {
-        if (i.split('.')[1] !== undefined) {
-          key = i.split('.')[1];
+        if (i.split(".")[1] !== undefined) {
+          key = i.split(".")[1];
         }
         messages[key] = errors[i][0].code !== undefined ? this.codes[errors[i][0].code] : errors[i][0].message;
       }
@@ -53,7 +53,7 @@ var _private = {
         if (i.split('.')[1] !== undefined) {
           key = i.split('.')[1];
         }
-        messages['general'] = errors[i].code !== undefined ? this.codes[errors[i].code] : errors[i].message;
+        messages["general"] = errors[i].code !== undefined ? this.codes[errors[i].code] : errors[i].message;
       }
     }
   }

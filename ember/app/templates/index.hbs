@@ -12,22 +12,13 @@
             <div class="w-tab-content tabs-content-shadow">
                 <div data-w-tab="active" class="w-tab-pane w--tab-active active-tab-scroll">
                     <div class="active-tasks-child-div">
-                        {{!-- Open ToDo TO be Added --}}
-                        <div class="todo-task open flex-child-div">
-                          <div class="check-mark-div">
-                              <i class="fa fa-square-o fa-2x"></i>
-                          </div>
-                          <div class="task-div">
-                              <div class="w-richtext">
-                                {{input id="text" class="w-input" type="text" placeholder="Add a ToDo..." value=text}}
-                              </div>
-                          </div>
-                          <div class="action"><input type="image" width="30" src="images/Passport-App-UI-11.png" class="add" {{action "create" text}}></div>
-                      </div>
-                      {{!-- List all current ToDos --}}
+                      {{!-- Create a new ToDo --}}
+                      {{new-to-do create="create"}}
+
+                      {{!-- List all non-completed (active) ToDos --}}
                       {{#each model as |todo|}}
                         {{#unless todo.completed}}
-                          {{to-do todo=todo complete="complete" delete="delete" update="update"}}
+                          {{to-do todo=todo complete="complete" delete="delete" reload="reload" update="update"}}
                         {{/unless}}
                       {{/each}}
                     </div>

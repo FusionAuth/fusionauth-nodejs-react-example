@@ -84,7 +84,7 @@ router.route("/todos/:id").patch((req, res) => {
       }
     })
     .catch((err) => {
-      _handleDatabaseError(res, err)
+      _handleDatabaseError(res, err);
     });
 });
 
@@ -95,7 +95,7 @@ router.route("/todos/:id").delete((req, res) => {
   }
 
   todo.delete(req.params.id, req.session.user.id)
-    .then((noClue) => {
+    .then(() => {
       res.sendStatus(204);
     })
     .catch(function(err) {

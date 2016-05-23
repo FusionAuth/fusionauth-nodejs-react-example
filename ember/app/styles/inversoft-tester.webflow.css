@@ -456,8 +456,8 @@ div.action {
 }
 
 .completed-tasks-scroll-container {
-  overflow: scroll;
-  height: 420px;
+  /*overflow: scroll;*/
+  /*height: 420px;*/
   /*border-radius: 4px;*/
   box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, .37);
 }
@@ -609,8 +609,8 @@ div.action {
 }
 
 .active-tab-scroll {
-  overflow: scroll;
-  max-height: 700px;
+  /*overflow: scroll;*/
+  /*max-height: 700px;*/
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .31);
 }
 

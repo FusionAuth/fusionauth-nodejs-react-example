@@ -16,31 +16,18 @@
 
 import Ember from "ember";
 
+// New ToDo entry
 export default Ember.Component.extend({
   actions: {
-    complete(todo) {
-      this.sendAction("complete", todo);
-    },
-    delete(todo) {
-      this.sendAction("delete", todo);
-    },
-    edit() {
-      this.toggleProperty("editing");
-    },
-    update(todo) {
-      this.sendAction("update", todo);
-      this.toggleProperty("editing");
+    create(text) {
+      this.sendAction("create", text);
+      this.set("text", ""); // reset the text field.
     }
   },
   keyDown: function(event) {
     if (event.keyCode === 13)  {
-      // Capture 'Enter' - send the 'update' action.
-      this.send("update", this.attrs.todo.value);
-      return false;
-    } else if (event.keyCode === 27) {
-      // Capture 'ESC' - Exit Edit mode, and send the 'rollback' action.
-      this.sendAction("rollback", this.attrs.todo.value);
-      this.toggleProperty('editing');
+      // Capture 'Enter' - Send the 'create' action.
+      this.send("create", this.text);
       return false;
     }
   }

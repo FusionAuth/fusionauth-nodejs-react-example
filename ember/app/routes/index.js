@@ -31,6 +31,9 @@ export default Ember.Route.extend({
       });
     },
     create(text) {
+      if (typeof(text) === "undefined" || text === "") {
+        return;
+      }
       var todo = this.store.createRecord("todo", {
         text: text,
         completed: false
@@ -41,8 +44,16 @@ export default Ember.Route.extend({
     delete(todo) {
       return todo.destroyRecord();
     },
+    rollback(todo) {
+      todo.rollbackAttributes();
+    },
     update(todo) {
-      return todo.save();
+      // You may not clear a ToDo, only delete, or complete.
+      if (todo.get("text") === "") {
+        todo.rollbackAttributes();
+      } else {
+        return todo.save();
+      }
     }
   }
 });

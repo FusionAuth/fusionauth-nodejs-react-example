@@ -6,7 +6,8 @@
                     <img class="logo" alt="Inversoft ToDo's" width="275" src="images/Passport-App-UI-4.png">
                 </a>
             </div>
-            <!-- Only show if logged in -->
+
+            {{#if loggedIn}}
             <div class="w-col w-col-4">
                 <div class="w-clearfix">
                   {{#link-to "logout"  class="w-button logout-button"}}
@@ -14,6 +15,7 @@
                   {{/link-to}}
                 </div>
             </div>
+            {{/if}}
         </div>
     </div>
 

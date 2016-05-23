@@ -31,7 +31,7 @@ export default Ember.Route.extend({
 
       Ember.$.post("/api/login", loginRequest)
         .done(() => {
-          // TODO Need message to the user, success
+          this.controllerFor("application").set("loggedIn", true);
           return self.transitionTo("index");
         })
         .fail((xhr) => {

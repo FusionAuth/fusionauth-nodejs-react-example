@@ -1,37 +1,35 @@
 <div class="todo-task flex-child-div">
-    <div class="check-mark-div">
-        {{#if todo.completed}}
-            <i title="Un-Complete" class="fa fa-check-square-o fa-2x action" {{action "complete" todo}}></i>
-        {{else}}
-            <i title="Complete" class="fa fa-square-o fa-2x action" {{action "complete" todo}}></i>
-        {{/if}}
-    </div>
-    <div class="task-div">
-        <div class="w-richtext">
-           {{#if editing}}
-               {{input class="w-input" type="text" autofocus="autofocus" value=todo.text}}
-           {{else}}
-             <span class="text">{{todo.text}}</span>
-           {{/if}}
-        </div>
-    </div>
-
-    {{#unless todo.completed}}
+  <div class="check-mark-div">
+    {{check-box todo=todo complete="complete"}}
+  </div>
+  <div class="task-div">
+    <div class="w-richtext">
       {{#if editing}}
-          <div class="action">
-              <button {{action "update" todo}}><i class="fa fa-save fa-2x"></i></button>
-          </div>
+        {{input class="w-input" type="text" autofocus="autofocus" value=todo.text}}
       {{else}}
-          <div class="action">
-              <button {{action "edit"}}><i class="fa fa-pencil fa-2x"></i></button>
-          </div>
+        <span class="text">{{todo.text}}</span>
       {{/if}}
-    {{/unless}}
+    </div>
+  </div>
 
-    {{#if (if-or editing todo.completed) }}
-      <div class="action multiple delete">
-          <i title="Delete" class="fa fa-trash fa-2x action" {{action "delete" todo}}></i>
+  {{#unless todo.completed}}
+    {{#if editing}}
+      <div class="action">
+        <i class="fa fa-save fa-2x link" {{action "update" todo}}></i>
       </div>
+    {{else}}
+      {{#if showAction}}
+        <div class="action">
+          <i class="fa fa-pencil fa-2x link" {{action "edit"}}></i>
+        </div>
+      {{/if}}
     {{/if}}
+  {{/unless}}
+
+  {{#if (if-or editing todo.completed) }}
+    <div class="action multiple delete">
+      <i title="Delete" class="fa fa-trash fa-2x action" {{action "delete" todo}}></i>
+    </div>
+  {{/if}}
 
 </div>

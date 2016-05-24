@@ -1,30 +1,31 @@
-<div class="flex-parent logo background">
-    <div class="header">
-        <div class="w-row">
-            <div class="w-col w-col-8">
-                <a href="/">
-                    <img class="logo" alt="Inversoft ToDo's" width="275" src="images/Passport-App-UI-4.png">
-                </a>
-            </div>
+<div class="body-background">
+  <div class="header">
+    <div class="w-row">
+      <div class="w-col w-col-8">
+        <a href="/">
+          <img class="logo" alt="Inversoft ToDo's" width="275" src="images/Passport-App-UI-4.png">
+        </a>
+      </div>
 
-            {{#if loggedIn}}
-            <div class="w-col w-col-4">
-                <div class="w-clearfix">
-                  {{#link-to "logout"  class="w-button logout-button"}}
-                      Logout
-                  {{/link-to}}
-                </div>
-            </div>
-            {{/if}}
+      {{#if loggedIn}}
+        <div class="w-col w-col-4">
+          <div class="w-clearfix">
+            {{#link-to "logout"  class="w-button logout-button"}}
+              Logout
+            {{/link-to}}
+          </div>
         </div>
+      {{/if}}
     </div>
+  </div>
 
+  <div class="main-content">
     {{outlet}}
+  </div>
 
-    <div class="w-section">
-        <div class="footer-wrapper">
-            <a target="_blank" href="http://www.inversoft.com/products/user-database-sso" class="w-inline-block"><img
-                    alt="powered by passport" width="350" src="images/Passport-App-UI-5.png"></a>
-        </div>
-    </div>
+  <div class="footer">
+    <a target="_blank" href="http://www.inversoft.com/products/user-database-sso" class="w-inline-block">
+      <img alt="Powered by Passport" width="350" src="images/Passport-App-UI-5.png">
+    </a>
+  </div>
 </div>

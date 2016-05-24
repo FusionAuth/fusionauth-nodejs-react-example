@@ -7,5 +7,7 @@
           {{input id="text" class="w-input" type="text" placeholder="Add a ToDo..." value=text}}
         </div>
     </div>
-    <div class="action"><input type="image" width="30" src="images/Passport-App-UI-11.png" class="add" {{action "create" text}}></div>
+    <div class="action">
+      <i class="link fa fa-plus fa-2x" {{action "create" text}}></i>
+    </div>
 </div>

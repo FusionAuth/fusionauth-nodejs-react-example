@@ -62,12 +62,15 @@ PassportClient.prototype = {
    * Logs a user in.
    *
    * @param request contains the user credentials to log in.
+   * @param callerIpAddress (Optional) The IP address of the end-user that is logging in. If a null value is
+   *  provided the IP address will be that of the client or last proxy that sent the request.
    * @return {Promise} A Promise for the Passport call.
    */
-  login: function(request) {
+  login: function(request, callerIpAddress) {
     return new Promise((resolve, reject) => {
       this._start()
         .uri("/api/login")
+        .urlParameter("X-Forwarded-For", callerIpAddress)
         .setBody(request)
         .post()
         .go(this._responseHandler(resolve, reject));

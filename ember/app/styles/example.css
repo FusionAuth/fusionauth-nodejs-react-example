@@ -35,9 +35,6 @@ body {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  /*height: 100vh;*/
-
-  min-height: 85vh;
   max-height: 85vh;
 
   margin-left: auto;
@@ -142,7 +139,8 @@ select:focus {
   flex: 1;
   text-align: center;
 
-  padding: 25px 30px 30px 30px;
+
+  padding: 25px 50px 30px 50px;
   border-radius: 2px;
   background-color: rgba(183, 183, 183, 0.2);
   box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, .16);
@@ -150,13 +148,27 @@ select:focus {
 
 /* Login */
 .login {
-  width: 600px;
   margin: 0 auto;
-
+  display: flex;
   -webkit-box-flex: 1;
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
+
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+
 }
 
 .login form {
@@ -236,3 +248,222 @@ input.errors {
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .3);
 }
 
+.todo-task {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 2px;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  border-radius: 0;
+  background-color: #edeff1;
+  box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, .28);
+}
+
+.todo-task input[type="text"] {
+  margin-bottom: 0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.todo-task.open {
+  margin-bottom: 5px;
+}
+
+.todo-task div.action.delete i {
+  color: #dc0000;
+}
+
+.todo-task .text {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  white-space: pre-wrap;
+  padding: 8px 12px;
+  display: block;
+}
+
+.todo-task .action {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 7%;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 auto;
+  -ms-flex: 0 auto;
+  flex: 0 auto;
+}
+
+.todo-task .action i {
+  cursor: pointer;
+}
+
+.todo-task .action:first-of-type {
+  border-left: none;
+  border-right: 2px solid #d7e0dc;
+}
+
+
+/* Code Tag  </>  */
+.code-tag {
+  padding: 0 1px 0 5px;
+  display: inline-block;
+  margin-bottom: -20px;
+}
+
+.code-tag span {
+  font-weight: 300;
+  color: rgb(51, 71, 95);
+  line-height: 1.4em;
+  font-size: 1.0em;
+  font-family: 'Lucida Sans Unicode', 'Lucida Sans Typewriter', sans-serif;
+  display: table-cell;
+  vertical-align: middle;
+  letter-spacing: -7px;
+}
+
+.code-tag span:nth-child(1) {
+  letter-spacing: -10px;
+  -webkit-transform: rotate(50deg) translateY(-3px);
+  -moz-transform: rotate(50deg) translateY(-3px);
+  -o-transform: rotate(50deg) translateY(-3px);
+  -ms-transform: rotate(50deg) translateY(-3px);
+  transform: rotate(50deg) translateY(-3px);
+}
+
+.code-tag span:nth-child(2) {
+  line-height: 1.4em;
+  font-size: 1.4em;
+  vertical-align: inherit;
+}
+
+.code-tag span:nth-child(3) {
+  letter-spacing: 2px;
+  -webkit-transform: rotate(220deg) translateY(-8px);
+  -moz-transform: rotate(220deg) translateY(-8px);
+  -o-transform: rotate(220deg) translateY(-8px);
+  -ms-transform: rotate(220deg) translateY(-8px);
+  transform: rotate(220deg) translateY(-8px);
+}
+
+
+/* Media */
+@media (max-width: 991px) {
+  .header {
+    -webkit-align-self: center;
+    -ms-flex-item-align: center;
+    align-self: center;
+  }
+  .login .login-button {
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .68);
+  }
+  .form {
+    margin-top: 50px;
+    margin-bottom: 0px;
+    -webkit-align-self: flex-start;
+    -ms-flex-item-align: start;
+    align-self: flex-start;
+  }
+  .logout-button {
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 767px) {
+  h3 {
+    margin-bottom: 8px;
+  }
+  .content {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .header {
+    text-align: center;
+  }
+  .todo-task .action {
+    -webkit-align-self: stretch;
+    -ms-flex-item-align: stretch;
+    align-self: stretch;
+  }
+  .active-tasks-scroll-container {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+  .text-block {
+    font-weight: 400;
+  }
+  .text-flex-child-div {
+    margin-right: 10px;
+    margin-left: 10px;
+    font-size: 14px;
+  }
+  .check-box {
+    margin-top: 10px;
+  }
+  .completed-tasks-scroll-container {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+  .add {
+    margin-top: 10px;
+  }
+  .logout-button {
+    margin-top: 0px;
+    float: none;
+  }
+  .tabs {
+    font-size: 19px;
+  }
+  .sectionttabs {
+    margin-right: 7px;
+    margin-left: 7px;
+  }
+}
+
+@media (max-width: 479px) {
+  .content {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .form {
+    width: 100vw;
+    border-radius: 0;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  .login {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .todo-task .action {
+    width: 12%;
+  }
+  .text-flex-child-div {
+    margin-right: 12px;
+    margin-left: 12px;
+    padding-right: 25px;
+    font-size: 14px;
+  }
+  .tabs {
+    display: inline-block;
+    padding-right: 0px;
+    padding-left: 0px;
+    font-size: 14px;
+  }
+}

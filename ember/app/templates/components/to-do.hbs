@@ -1,5 +1,5 @@
 <div class="todo-task flex-child-div">
-  <div class="check-mark-div">
+  <div class="action">
     {{check-box todo=todo complete="complete"}}
   </div>
   <div class="task-div">
@@ -27,8 +27,8 @@
   {{/unless}}
 
   {{#if (if-or editing todo.completed) }}
-    <div class="action multiple delete">
-      <i title="Delete" class="fa fa-trash fa-2x action" {{action "delete" todo}}></i>
+    <div class="action  delete">
+      <i title="Delete" class="fa fa-trash fa-2x" {{action "delete" todo}}></i>
     </div>
   {{/if}}
 

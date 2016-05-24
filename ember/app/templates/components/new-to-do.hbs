@@ -2,10 +2,8 @@
     <div class="action">
         <i class="fa fa-square-o fa-2x"></i>
     </div>
-    <div class="task-div">
-        <div class="w-richtext">
-          {{input id="text" class="w-input" type="text" placeholder="Add a ToDo..." value=text}}
-        </div>
+    <div class="text">
+        {{input id="text" type="text" placeholder="Add a ToDo..." value=text}}
     </div>
     <div class="action">
       <i class="link fa fa-plus fa-2x" {{action "create" text}}></i>

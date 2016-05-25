@@ -25,9 +25,11 @@
   {{/unless}}
 
   {{#if (if-or editing todo.completed) }}
-    <div class="action  delete">
-      <i title="Delete" class="fa fa-trash fa-2x" {{action "delete" todo}}></i>
-    </div>
+    {{#if showAction}}
+      <div class="action  delete">
+        <i title="Delete" class="fa fa-trash fa-2x" {{action "delete" todo}}></i>
+      </div>
+    {{/if}}
   {{/if}}
 
 </div>

@@ -1,34 +1,26 @@
-<div class="w-section sectionttabs">
-    <div class="w-container tabs-container">
-        <div class="w-tabs">
-            <div class="w-tab-menu w-clearfix tabs-menu">
-              {{#link-to "index" data-w-tab="Tab 2" class="w-tab-link w-inline-block tabs"}}
-                  <div>Active</div>
-              {{/link-to}}
-                <a class="w-tab-link w--current w-inline-block tabs">
-                    <div>Completed</div>
-                </a>
-            </div>
-            <div class="w-tab-content tabs-content-shadow">
-                <div data-w-tab="Tab 1" class="w-tab-pane w--tab-active active-tab-scroll">
-                    <div class="active-tasks-child-div">
-                      <div class="todo-container">
-                        <div class="shadow">
-                          {{#each model as |todo|}}
-                            {{to-do todo=todo complete="complete" delete="delete"}}
-                          {{else}}
-                            <div class="todo-task flex-child-div">
-                              <div class="text">
-                                <p>You do not have any completed tasks. Get to work!</p>
-                              </div>
-                            </div>
-                          {{/each}}
+  <div class="tabs">
+      <div class="tabs-menu">
+        {{#link-to "index" data-w-tab="Tab 2" class="tab"}}<div>Active</div>{{/link-to}}
+        <a class="tab selected"><div>Completed</div></a>
+      </div>
+      <div class="tab-content tabs-content-shadow">
+          <div class="w-tab-pane w--tab-active active-tab-scroll">
+              <div class="active-tasks-child-div">
+                <div class="todo-container">
+                  <div class="shadow">
+                    {{#each model as |todo|}}
+                      {{to-do todo=todo complete="complete" delete="delete"}}
+                    {{else}}
+                      <div class="todo-task flex-child-div">
+                        <div class="text">
+                          <p>You do not have any completed tasks. Get to work!</p>
                         </div>
                       </div>
-                    </div>
+                    {{/each}}
+                  </div>
                 </div>
-                <div class="w-tab-pane active-tab-scroll"></div>
-            </div>
-        </div>
-    </div>
-</div>
+              </div>
+          </div>
+          <div class="w-tab-pane active-tab-scroll"></div>
+      </div>
+  </div>

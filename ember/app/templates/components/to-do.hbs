@@ -1,4 +1,4 @@
-<div class="todo-task flex-child-div">
+<div class="todo-task flex-child">
   <div class="action">
     {{check-box todo=todo complete="complete"}}
   </div>
@@ -24,12 +24,16 @@
     {{/if}}
   {{/unless}}
 
-  {{#if (if-or editing todo.completed) }}
-    {{#if showAction}}
-      <div class="action  delete">
-        <i title="Delete" class="fa fa-trash fa-2x" {{action "delete" todo}}></i>
-      </div>
-    {{/if}}
+  {{#if editing}}
+    <div class="action  delete">
+      <i title="Delete" class="fa fa-trash fa-2x" {{action "delete" todo}}></i>
+    </div>
+  {{/if}}
+
+  {{#if (if-and todo.completed showAction) }}
+    <div class="action  delete">
+      <i title="Delete" class="fa fa-trash fa-2x" {{action "delete" todo}}></i>
+    </div>
   {{/if}}
 
 </div>

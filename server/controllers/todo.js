@@ -98,6 +98,7 @@ router.route("/todos/:id").delete((req, res) => {
     });
 });
 
+// Convert to JSON API format
 function _convertTodo(todo) {
   var response = {"data": {}};
   response.data = {

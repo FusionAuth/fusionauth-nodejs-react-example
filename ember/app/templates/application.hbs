@@ -1,25 +1,21 @@
-<div class="body-background">
+<div class="main-content body-background">
   <div class="header">
-    <div class="w-row">
-      <div class="w-col w-col-8">
+      <div class="logo left">
         <a href="/">
-          <img class="logo" alt="Inversoft ToDo's" width="275" src="images/Passport-App-UI-4.png">
+          <img alt="Inversoft ToDo's" width="275" src="images/Passport-App-UI-4.png">
         </a>
       </div>
 
       {{#if loggedIn}}
-        <div class="w-col w-col-4">
-          <div class="w-clearfix">
-            {{#link-to "logout"  class="w-button logout-button"}}
-              Logout
-            {{/link-to}}
-          </div>
+        <div class="right clearfix">
+          {{#link-to "logout"  class="w-button logout-button"}}
+            Logout
+          {{/link-to}}
         </div>
       {{/if}}
-    </div>
   </div>
 
-  <div class="main-content">
+  <div class="container">
     {{outlet}}
   </div>
 

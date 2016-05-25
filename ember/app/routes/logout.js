@@ -21,7 +21,6 @@ export default Ember.Route.extend({
     var self = this;
     Ember.$.get("/api/logout")
       .done(() => {
-        this.controllerFor("application").set("loggedIn", false);
         return self.transitionTo("login");
       });
   }

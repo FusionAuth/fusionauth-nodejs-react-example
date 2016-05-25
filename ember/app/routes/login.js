@@ -31,15 +31,12 @@ export default Ember.Route.extend({
 
       Ember.$.post("/api/login", loginRequest)
         .done(() => {
-          this.controllerFor("application").set("loggedIn", true);
           return self.transitionTo("index");
         })
         .fail((xhr) => {
           if (xhr.status === 404) {
             self.controller.set("errors", {"general": "Invalid login credentials."});
           } else if (xhr.status === 412) {
-            // Email not verified. User needs to check their inbox or resend the verification.
-            // TODO Need message to the user.
             self.controller.set("errors", {"email": "Email not verified. Check your Inbox."});
           } else {
             if (xhr.responseText !== "") {

@@ -1,5 +1,8 @@
 body {
   font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  color: #333;
 }
 
 .body-background {
@@ -347,6 +350,10 @@ input.errors {
   padding: 8px 12px;
 }
 
+.todo-task .text span {
+  border: 1px solid transparent;
+}
+
 .todo-task .action {
   display: -webkit-box;
   display: -webkit-flex;
@@ -378,7 +385,6 @@ input.errors {
   border-left: none;
   border-right: 2px solid #d7e0dc;
 }
-
 
 /* Code Tag  </>  */
 .code-tag {
@@ -542,9 +548,6 @@ input.errors {
 }
 
 @media (max-width: 767px) {
-  h3 {
-    margin-bottom: 8px;
-  }
   .content {
     padding-left: 0;
     padding-right: 0;
@@ -564,14 +567,6 @@ input.errors {
   }
   .text-block {
     font-weight: 400;
-  }
-  .text-flex-child-div {
-    margin-right: 10px;
-    margin-left: 10px;
-    font-size: 14px;
-  }
-  .check-box {
-    margin-top: 10px;
   }
   .completed-tasks-scroll-container {
     padding-right: 10px;
@@ -625,7 +620,7 @@ input.errors {
   .todo-task .action {
     width: 14%;
   }
-  .text-flex-child-div {
+  .text-flex-child {
     margin-right: 12px;
     margin-left: 12px;
     padding-right: 25px;

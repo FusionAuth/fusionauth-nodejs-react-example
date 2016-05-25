@@ -25,6 +25,8 @@ You will need the following things properly installed on your computer.
 * Log into Passport Backend and create a new API key using the value from the `server/config/config-dev.json` configuration file
 * Create a MySQL database called `user_todos` by executing this in the MySQL shell
   * `create database user_todos character set = 'utf8mb4' collate = 'utf8mb4_bin';`
+* Grant privileges to the dev user to this database by executing this in the MySQL shell 
+  * `grant all on user_todos.* to 'dev'@'localhost' identified by 'dev';`
 * `cd ember`
 * `ember server --output="../server/public"`
 * `cd ../server`

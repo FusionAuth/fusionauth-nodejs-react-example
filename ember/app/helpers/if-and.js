@@ -1,6 +1,5 @@
 /*
  * Copyright (c) 2016, Inversoft Inc., All Rights Reserved
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -12,16 +11,18 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
  * either express or implied. See the License for the specific
  * language governing permissions and limitations under the License.
+ *
  */
 
 import Ember from "ember";
 
-export default Ember.Route.extend({
-  model(){
-    var self = this;
-    Ember.$.get("/api/logout")
-      .done(() => {
-        return self.transitionTo("login");
-      });
-  }
-});
+/**
+ * Return true if one both of the parameters evaluates true. Expecting two boolean arguments.
+ * @param params
+ * @returns {boolean} true if both of the parameters are true.
+ */
+export function ifAnd(params/*, hash*/) {
+  return params[0] && params[1];
+}
+
+export default Ember.Helper.helper(ifAnd);

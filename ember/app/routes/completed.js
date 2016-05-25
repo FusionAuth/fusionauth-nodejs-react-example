@@ -22,10 +22,11 @@ export default Ember.Route.extend({
   },
   actions: {
     error() {
+      // On error return to login page. Only expecting a 401 - Unauthorized.
       return this.transitionTo("login");
     },
     complete(todo){
-      todo.set("completed", !todo.get("completed"));
+      todo.set("completed", !todo.get("completed")); // toggle completed
       todo.save().then(() => {
         return this.store.unloadRecord(todo);
       });

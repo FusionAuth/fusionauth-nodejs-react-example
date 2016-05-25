@@ -16,7 +16,7 @@
   "engines": {
     "node": ">= 0.10.0"
   },
-  "author": "Brian Pontare and Daniel DeGroff",
+  "author": "Brian Pontarelli and Daniel DeGroff",
   "license": "Apache v2.0",
   "devDependencies": {
     "body-parser": "1.15.0",

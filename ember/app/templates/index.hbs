@@ -1,15 +1,15 @@
-<div class="w-section sectionttabs">
-    <div class="w-container tabs-container">
-        <div class="w-tabs">
-            <div class="w-tab-menu w-clearfix tabs-menu">
-                <a class="w-tab-link w--current w-inline-block tabs">
+<div class="sectionttabs">
+    <div class="tabs-container">
+        <div class="tabs">
+            <div class="tabs-menu">
+                <a class="tab selected">
                     <div>Active</div>
                 </a>
-              {{#link-to "completed" class="w-tab-link w-inline-block tabs"}}
+              {{#link-to "completed" class="tab"}}
                   <div>Completed</div>
               {{/link-to}}
             </div>
-            <div class="w-tab-content tabs-content-shadow">
+            <div class="tab-content tabs-content-shadow">
                 <div class="w-tab-pane w--tab-active active-tab-scroll">
                     <div class="active-tasks-child-div">
                       {{!-- Create a new ToDo --}}

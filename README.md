@@ -1,10 +1,8 @@
-# Ember
+# Passport JS Example
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+This project contains an example project that illustrates using Passport with Node and Ember.
 
 ## Prerequisites
-
 You will need the following things properly installed on your computer.
 
 * [Git](http://git-scm.com/)
@@ -15,41 +13,42 @@ You will need the following things properly installed on your computer.
 * [Mocha](http://mochajs.org/)
 
 ## Installation
-
 * `git clone https://github.com/inversoft/passport-js-example` this repository
-* change into the new directory
+* Change into the new directory
 * `npm install`
 * `cd ember`
 * `npm install`
 * `bower install`
 
 ## Running / Development
-* `run passport backend`
-* `add the api key from server/config/config-dev.json to passport backend`
+* Start up Passport Backend
+* Log into Passport Backend and create a new API key using the value from the `server/config/config-dev.json` configuration file
+* Create a MySQL database called `user_todos` by executing this in the MySQL shell
+  * `create database user_todos character set = 'utf8mb4' collate = 'utf8mb4_bin';`
 * `cd ember`
 * `ember server --output="../server/public"`
 * `cd ../server`
 * `node server.js`
 * Visit your app at [https://localhost:8081](https://localhost:8081).
 
-### Running Tests
-
+## Running Tests
 * `ember test`
 * `ember test --server`
 * `mocha`
 
-### Building
+## Building
 
 * `ember build --output="../server/public"` (development)
 * `ember build --output="../server/public" --environment production` (production)
 
-### Deploying
-* Have a mysql database running
-* Have a passport backend running
-* Generate an api key in passport backend
-* Generate an email verification template that points to https://hostname/verify/${user.verificationId}
-* Copy server/config/config-dev.json to /usr/local/inversoft/config/config-production.json
+## Deploying to Production
+* Copy `server/config/config-dev.json` to `/usr/local/inversoft/config/config-production.json`
 * Replace values in config-production.json with your production values
+* Have a MySQL database running and create the `user_todos` database as described above
+* Have a Passport Backend running
+* Generate an API key in Passport Backend and copy it to the production configuration file
+* Edit the **Email Verification** template in Passport Backend so that the URL points to your web server and will hit the Ember route correctly. 
+  * The URL should be something like `https://your-hostname.com/verify/${user.verificationId}`
 * `cd ember`
 * `npm install`
 * `bower install`

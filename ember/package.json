@@ -16,8 +16,8 @@
   "engines": {
     "node": ">= 0.10.0"
   },
-  "author": "Derek Klatt",
-  "license": "MIT",
+  "author": "Brian Pontare and Daniel DeGroff",
+  "license": "Apache v2.0",
   "devDependencies": {
     "body-parser": "1.15.0",
     "broccoli-asset-rev": "^2.4.2",

@@ -13,13 +13,9 @@
  * either express or implied. See the License for the specific
  * language governing permissions and limitations under the License.
  */
-
 var Sequelize = require("sequelize");
 var uuid = require("uuid");
 var config = require("../config/config.js");
-
-var fs = require("fs");
-var logFile = fs.openSync(config.logName, "a");
 
 Todo = function() {
   var sequelize = new Sequelize(config.database.name, config.database.user, config.database.password, {
@@ -43,12 +39,8 @@ Todo = function() {
     }
   );
 
-  sequelize.sync().catch(function(error) {
-    fs.appendFile(config.logName, error, (fileError) => {
-      if (fileError) {
-        console.error(fileError);
-      }
-    });
+  sequelize.sync().catch((error) => {
+    console.error(error);
   });
 };
 

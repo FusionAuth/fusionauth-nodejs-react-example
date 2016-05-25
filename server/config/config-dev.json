@@ -14,6 +14,5 @@
   "httpPort": 8080,
   "httpsPort": 8081,
   "cert": "%DIRNAME%/config/server.crt",
-  "key": "%DIRNAME%/config/server.key",
-  "logName": "/usr/local/inversoft/logs/node-js-example.log"
+  "key": "%DIRNAME%/config/server.key"
 }

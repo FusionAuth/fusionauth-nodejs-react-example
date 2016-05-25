@@ -13,7 +13,6 @@
  * either express or implied. See the License for the specific
  * language governing permissions and limitations under the License.
  */
-
 var express = require("express");
 var config = require("../config/config.js");
 var PassportClient = require('../lib/passport-client.js');
@@ -62,19 +61,13 @@ router.route("/logout").get(function(req, res) {
   res.sendStatus(204);
 });
 
-
-
 router.route("/register").post(function(req, res) {
   var registrationRequest = {
     "user": {
       "email": req.body.email,
-      "password": req.body.password,
-      "data": {
-        "attributes": {
-          "firstName": req.body.firstName,
-          "lastName": req.body.lastName
-        }
-      }
+      "firstName": req.body.firstName,
+      "lastName": req.body.lastName,
+      "password": req.body.password
     },
     "registration": {
       "applicationId": config.passport.applicationId,

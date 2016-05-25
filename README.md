@@ -20,6 +20,7 @@ You will need the following things properly installed on your computer.
 * change into the new directory
 * `npm install`
 * `cd ember`
+* `npm install`
 * `bower install`
 
 ## Running / Development
@@ -39,19 +40,19 @@ You will need the following things properly installed on your computer.
 
 ### Building
 
-* `ember build` (development)
-* `ember build --environment production` (production)
+* `ember build --output="../server/public"` (development)
+* `ember build --output="../server/public" --environment production` (production)
 
 ### Deploying
-* `have a mysql database running`
-* `have a passport backend running`
-* `generate an api key in passport backend`
-* `generate an email verification template that points to https://hostname/verify/${user.verificationId}`
-* `copy server/config/config-dev.json to /usr/local/inversoft/config/config-production.json`
-* `replace values in config-production.json with your production values`
+* Have a mysql database running
+* Have a passport backend running
+* Generate an api key in passport backend
+* Generate an email verification template that points to https://hostname/verify/${user.verificationId}
+* Copy server/config/config-dev.json to /usr/local/inversoft/config/config-production.json
+* Replace values in config-production.json with your production values
 * `cd ember`
-* `bower install`
 * `npm install`
+* `bower install`
 * `ember build --environment production --output "../server/public"`
 * `cd ..`
 * `npm install`

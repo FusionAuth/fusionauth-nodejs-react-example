@@ -37,7 +37,7 @@ export default Ember.Route.extend({
           if (xhr.status === 404) {
             self.controller.set("errors", {"general": "Invalid login credentials."});
           } else if (xhr.status === 412) {
-            self.controller.set("errors", {"email": "Email not verified. Check your Inbox."});
+            self.controller.set("errors", {"general": "Your email has not been verified. Check your Inbox."});
           } else {
             if (xhr.responseText !== "") {
               var errors = errorHandler.handleErrors(JSON.parse(xhr.responseText));

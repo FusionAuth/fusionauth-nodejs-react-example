@@ -82,6 +82,7 @@ body {
   text-align: center;
 }
 
+a.button,
 button {
   color: white;
   border: 0;
@@ -231,6 +232,7 @@ select:focus {
   color: #fff;
 }
 
+.logout .button:hover,
 .login .login-button:hover {
   background-color: #2d476b;
   color: #fff;
@@ -243,6 +245,21 @@ select:focus {
 .login .register-button:hover {
   background-color: #358a68;
   color: #fff;
+}
+
+.logout {
+  margin-top: 0;
+  margin-right: 20px;
+  padding-top: 5px;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+  display: inline-block;
+}
+
+.logout .button {
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 5px;
 }
 
 /* Errors and Warnings */
@@ -541,6 +558,7 @@ input.errors {
   .tabs {
     margin-left: 2em;
     margin-right: 2em;
+    width: inherit;
   }
   .logout-button {
     margin-top: 10px;
@@ -578,9 +596,6 @@ input.errors {
   .logout-button {
     margin-top: 0px;
     float: none;
-  }
-  .tabs {
-    font-size: 19px;
   }
 }
 

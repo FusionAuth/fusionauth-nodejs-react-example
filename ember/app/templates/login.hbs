@@ -8,7 +8,13 @@
         <p>We dare you to try to hack Passport's user database.</p>
         <form id="email-form" name="email-form" data-name="Email Form">
           {{#if errors.general}}
-            <div class="warning">{{errors.general}}</div>
+            {{#warning-message}}{{errors.general}}{{/warning-message}}
+          {{/if}}
+
+          {{#if registered-successfully}}
+            {{#information-message}}
+              You have been registered successfully. Before you may login you'll need to verify your email. Check your inbox.
+            {{/information-message}}
           {{/if}}
 
           {{#if errors.email}}

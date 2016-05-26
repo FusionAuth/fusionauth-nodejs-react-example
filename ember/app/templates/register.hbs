@@ -8,7 +8,7 @@
               <p>With just a few details we'll be on our way!</p>
               <form id="email-form" name="email-form" data-name="Email Form">
                 {{#if errors.general}}
-                    <div class="warning">{{errors.general}}</div>
+                  {{#warning-message}}{{errors.general}}{{/warning-message}}
                 {{/if}}
 
                 {{#if errors.first_name}}

@@ -262,12 +262,45 @@ select:focus {
   padding-bottom: 5px;
 }
 
-/* Errors and Warnings */
+/* Errors and Infos and Warnings */
+div.information,
 div.warning {
-  border: 1px solid #b91f0f;
-  padding: 10px;
+  padding: 5px 10px;
   margin-bottom: 10px;
   background-color: white;
+  text-align: left;
+  min-height: 50px;
+}
+
+div.warning {
+  border: 1px solid #b91f0f;
+  border-left-width: 5px;
+}
+
+div.information {
+  border: 1px solid #374db9;
+  border-left-width: 5px;
+}
+
+div.information i {
+  color: #374db9;
+}
+
+div.warning i {
+  color: #b91f0f;
+}
+
+div.information i,
+div.warning i {
+  font-size: 2em;
+  float: left;
+  margin-top: 5px;
+  margin-right: 8px;
+}
+
+div.information span,
+div.warning span {
+  display: flex;
 }
 
 div.errors {

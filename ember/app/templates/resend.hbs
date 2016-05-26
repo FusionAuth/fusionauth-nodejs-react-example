@@ -10,7 +10,7 @@
                   <div class="w-form clearfix form-wrapper">
                       <form id="email-form" name="email-form" data-name="Email Form">
                         {{#if errors.general}}
-                            <div class="warning">{{errors.general}}</div>
+                          {{#warning-message}}{{errors.general}}{{/warning-message}}
                         {{/if}}
                         {{#if errors.email}}
                             <div class="errors">{{errors.email}}</div>

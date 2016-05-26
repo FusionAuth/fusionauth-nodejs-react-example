@@ -29,26 +29,23 @@ export default Ember.Route.extend({
       var last_name = this.controller.get("last_name");
 
       var errors = {};
-      var flag = true;
 
       //Check to see if first name is filled out
       if (!first_name) {
         errors["first_name"] = "Required";
-        flag = false;
       }
       //Check to see if last name is filled out
       if (!last_name) {
         errors["last_name"] = "Required";
-        flag = false;
       }
 
       //Check to see if the passwords match
       if (password !== confirm_password) {
         errors["password"] = "Passwords do not match";
         errors["password_confirm"] = "Passwords do not match";
-        flag = false;
       }
-      if (flag) {
+
+      if (Object.keys(errors).length === 0) {
         Ember.$.post("/api/register", {
           "email": email,
           "password": password,
@@ -58,7 +55,7 @@ export default Ember.Route.extend({
           errors = errorHandler.handleErrors(JSON.parse(err.responseText));
           self.controller.set("errors", errors);
         }).done(()=> {
-          //TODO notify user to check email
+          this.controllerFor("login").set("registered-successfully", true);
           return self.transitionTo("login");
         });
       } else {

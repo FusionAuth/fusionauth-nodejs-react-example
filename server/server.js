@@ -83,7 +83,11 @@ const options = {
 http.createServer(function(req, res) {
   var host = req.headers.host;
   var hostname = host.split(":")[0];
-  res.writeHead(301, {"Location": "https://" + hostname + ":" + config.httpsPort + req.url});
+  var redirectURL = "https://" + hostname;
+  if (config.httpsRedirectPort !== 443) {
+    redirectURL += ":" + config.httpsPort;
+  }
+  res.writeHead(301, {"Location": redirectURL + req.url});
   res.end();
 }).listen(config.httpPort);
 

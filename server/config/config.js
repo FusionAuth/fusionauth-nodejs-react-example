@@ -17,7 +17,7 @@ var fs = require("fs");
 
 /**
  * This module loads a configuration files. It defaults to loading the config-dev.json in the current directory.
- * However, it also checks if the file <code>/usr/local/inversoft/config/config-production.json</code> exists and if
+ * However, it also checks if the file <code>/usr/local/application/config/config-production.json</code> exists and if
  * it does, it loads that file instead.
  *
  * This is useful for production environments because you don't check in things like the database username and password
@@ -26,12 +26,13 @@ var fs = require("fs");
  */
 var config = require("./config-dev.json");
 try {
-  var stats = fs.statSync("/usr/local/inversoft/config/config-production.json");
+  var stats = fs.statSync("/usr/local/application/config/config-production.json");
   if (stats.isFile()) {
-    config = require("/usr/local/inversoft/config/config-production.json");
+    config = require("/usr/local/application/config/config-production.json");
   }
 } catch (err) {
   // Already initialized to a good value, ignoring the exception for now
+  console.error(err);
 }
 
 module.exports = config;

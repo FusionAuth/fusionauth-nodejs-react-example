@@ -2,30 +2,26 @@
   {{authenticated-content-header}}
 
   <div class="tabs">
-      <div class="tabs-menu">
-        <a class="tab selected"><div>Active</div></a>
-        {{#link-to "completed" class="tab"}}<div>Completed</div>{{/link-to}}
-      </div>
-      <div class="tab-content tabs-content-shadow">
-          <div class="w-tab-pane w--tab-active active-tab-scroll">
-              <div class="active-tasks-child-div">
-                {{!-- Create a new ToDo --}}
-                {{new-to-do create="create"}}
 
-                {{!-- List all active ToDos --}}
-                  <div class="todo-container">
-                    <div class="shadow">
-                      {{#each model as |todo|}}
-                        {{#unless todo.completed}}
-                          {{to-do todo=todo complete="complete" delete="delete" rollback="rollback" update="update"}}
-                        {{/unless}}
-                      {{/each}}
-                    </div>
-                  </div>
-              </div>
-          </div>
-          <div class="w-tab-pane active-tab-scroll"></div>
+    <div class="tabs-menu">
+      <a class="tab selected">Active</a>
+      {{link-to "Completed" "completed" class="tab"}}
+    </div>
+
+    <div class="tab-content">
+      {{new-to-do create="create"}}
+
+      <div class="todo-container">
+        <div class="shadow">
+          {{#each model as |todo|}}
+            {{#unless todo.completed}}
+              {{to-do todo=todo complete="complete" delete="delete" rollback="rollback" update="update"}}
+            {{/unless}}
+          {{/each}}
+        </div>
       </div>
+    </div>
+
   </div>
 
 {{/content-main}}

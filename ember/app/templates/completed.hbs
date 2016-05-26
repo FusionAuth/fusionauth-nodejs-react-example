@@ -2,30 +2,28 @@
   {{authenticated-content-header}}
 
   <div class="tabs">
+
       <div class="tabs-menu">
-        {{#link-to "index" data-w-tab="Tab 2" class="tab"}}<div>Active</div>{{/link-to}}
-        <a class="tab selected"><div>Completed</div></a>
+        {{link-to "Active" "index" class="tab" }}
+        <a class="tab selected">Completed</a>
       </div>
-      <div class="tab-content tabs-content-shadow">
-          <div class="w-tab-pane w--tab-active active-tab-scroll">
-              <div class="active-tasks-child-div">
-                <div class="todo-container">
-                  <div class="shadow">
-                    {{#each model as |todo|}}
-                      {{to-do todo=todo complete="complete" delete="delete"}}
-                    {{else}}
-                      <div class="todo-task flex-child-div">
-                        <div class="text">
-                          <p>You do not have any completed tasks. Get to work!</p>
-                        </div>
-                      </div>
-                    {{/each}}
-                  </div>
+
+      <div class="tab-content">
+        <div class="todo-container">
+          <div class="shadow">
+            {{#each model as |todo|}}
+              {{to-do todo=todo complete="complete" delete="delete"}}
+            {{else}}
+              <div class="todo-task flex-child-div">
+                <div class="text">
+                  <p>You do not have any completed tasks. Get to work!</p>
                 </div>
               </div>
+            {{/each}}
           </div>
-          <div class="w-tab-pane active-tab-scroll"></div>
+        </div>
       </div>
+
   </div>
 
 {{/content-main}}

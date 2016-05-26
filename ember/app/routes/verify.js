@@ -14,10 +14,10 @@
  * language governing permissions and limitations under the License.
  */
 
-import Ember from "ember";
+import Ember from 'ember';
 
 export default Ember.Route.extend({
-  model(params){
+  model(params) {
     return this.store.findRecord('verify', params.verify_id);
   },
   actions: {

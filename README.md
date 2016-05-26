@@ -15,8 +15,9 @@ You will need the following things properly installed on your computer.
 ## Installation
 * `git clone https://github.com/inversoft/passport-js-example` this repository
 * Change into the new directory
+* `cd server`
 * `npm install`
-* `cd ember`
+* `cd ../ember`
 * `npm install`
 * `bower install`
 
@@ -55,8 +56,7 @@ You will need the following things properly installed on your computer.
 * `npm install`
 * `bower install`
 * `ember build --environment production --output "../server/public"`
-* `cd ..`
+* `cd ../server`
 * `npm install`
-* `cd server`
 * `node server.js`
 

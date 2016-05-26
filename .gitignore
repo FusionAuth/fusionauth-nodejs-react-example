@@ -3,7 +3,6 @@ bower_components
 dist
 node_modules
 tmp
-
+application.zip
 *.DS_Store
-
 server/public

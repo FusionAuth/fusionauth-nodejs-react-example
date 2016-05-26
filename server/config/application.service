@@ -1,0 +1,16 @@
+[Unit]
+Description=Hackthis Node.js Application
+
+[Service]
+ExecStart=/usr/bin/nodejs /usr/local/application/server/server.js
+Restart=always
+RestartSec=10
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=nodejs-example
+User=application
+Group=application
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target

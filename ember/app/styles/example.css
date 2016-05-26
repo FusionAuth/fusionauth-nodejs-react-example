@@ -407,7 +407,7 @@ input.errors {
 .code-tag {
   padding: 0 1px 0 5px;
   display: inline-block;
-  margin-bottom: -20px;
+  margin-bottom: -12px;
 }
 
 .code-tag span {
@@ -422,7 +422,7 @@ input.errors {
 }
 
 .code-tag span:nth-child(1) {
-  letter-spacing: -10px;
+  letter-spacing: -9px;
   -webkit-transform: rotate(50deg) translateY(-3px);
   -moz-transform: rotate(50deg) translateY(-3px);
   -o-transform: rotate(50deg) translateY(-3px);
@@ -549,7 +549,7 @@ input.errors {
     width: 9%;
   }
   .form {
-    margin-top: 50px;
+    margin-top: 10px;
     margin-bottom: 0px;
     -webkit-align-self: flex-start;
     -ms-flex-item-align: start;

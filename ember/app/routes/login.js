@@ -19,7 +19,6 @@ import errorHandler from '../lib/errors';
 
 export default Ember.Route.extend({
   actions: {
-
     // Handle login action, call /api/login
     login() {
       var self = this;
@@ -31,15 +30,15 @@ export default Ember.Route.extend({
 
       Ember.$.post('/api/login', loginRequest)
         .done(() => {
-          // Clear the email after a successful login.
-          this.controller.set('email','');
+          // Clear the email and errors after a successful login.
+          self.controller.send('clearForm');
           return self.transitionTo('index');
         })
         .fail((xhr) => {
           if (xhr.status === 404) {
             self.controller.set('errors', {'general': 'Invalid login credentials.'});
           } else if (xhr.status === 412) {
-            self.controller.set('showResendLink', true);
+            self.controller.set('info', {showResendLink: true});
             self.controller.set('errors', {'general': 'Your email has not been verified. Check your Inbox.'});
           } else {
             if (xhr.responseText !== '') {
@@ -49,13 +48,14 @@ export default Ember.Route.extend({
           }
         });
       // Always clear the password field.
-      this.controller.set('password', '');
+      self.controller.send('clearPassword');
     },
 
     // Handle register action, redirect to register
     register: function() {
       var self = this;
-      self.controller.set('errors', {});
+      self.controller.send('clearPassword');
+      self.controllerFor('register').send('clearPassword');
       return self.transitionTo('register');
     }
   }

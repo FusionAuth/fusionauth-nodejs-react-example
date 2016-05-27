@@ -11,13 +11,13 @@
             {{#warning-message}}{{errors.general}}{{/warning-message}}
           {{/if}}
 
-          {{#if registered-successfully}}
+          {{#if info.registered-successfully}}
             {{#information-message}}
               You have been registered successfully. Before you may login you'll need to verify your email. Check your inbox.
             {{/information-message}}
           {{/if}}
 
-          {{#if verificationSent}}
+          {{#if info.verificationSent}}
             {{#information-message}}
               A verification email was successfully sent. Before you may login you'll need to verify your email.
             {{/information-message}}
@@ -38,10 +38,8 @@
           {{/if}}
 
           <button class="login-button" {{action "login"}}>Login</button>
-          {{#if showResendLink}}
-            <p>
-              {{link-to "Click here to resend the verification email." "resend" }}
-            </p>
+          {{#if info.showResendLink}}
+            {{link-to "Click here to resend the verification email." "resend" class="resend" }}
           {{/if}}
 
         </form>

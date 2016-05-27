@@ -16,5 +16,18 @@
 
 import Ember from 'ember';
 
-// Used to store state
-export default Ember.Controller.extend({});
+export default Ember.Controller.extend({
+  actions: {
+    clearPassword() {
+      this.set('password', '');
+      this.set('errors', {});
+      this.set('info', {});
+    },
+    clearForm() {
+      this.set('email','');
+      this.set('password', '');
+      this.set('errors', {});
+      this.set('info', {});
+    }
+  }
+});

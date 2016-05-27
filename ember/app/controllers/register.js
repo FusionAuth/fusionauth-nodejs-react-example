@@ -1,6 +1,5 @@
 /*
  * Copyright (c) 2016, Inversoft Inc., All Rights Reserved
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -12,19 +11,27 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
  * either express or implied. See the License for the specific
  * language governing permissions and limitations under the License.
+ *
  */
 
 import Ember from 'ember';
 
-export default Ember.Route.extend({
-  model(params) {
-    return this.store.findRecord('verify', params.verify_id);
-  },
+export default Ember.Controller.extend({
   actions: {
-    error() {
-      var self = this;
-      self.controllerFor('resend').set('error', {badVerificationId: true});
-      return self.transitionTo('resend');
+    clearPassword() {
+      this.set('password', '');
+      this.set('confirm_password', '');
+      this.set('errors', {});
+      this.set('info', {});
+    },
+    clearForm() {
+      this.set('first_name', '');
+      this.set('last_name', '');
+      this.set('email', '');
+      this.set('password', '');
+      this.set('confirm_password', '');
+      this.set('errors', {});
+      this.set('info', {});
     }
   }
 });

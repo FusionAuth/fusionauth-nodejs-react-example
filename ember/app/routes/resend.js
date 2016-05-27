@@ -19,6 +19,9 @@ import errorHandler from '../lib/errors';
 
 export default Ember.Route.extend({
   actions: {
+    error() {
+      return this.transitionTo('login');
+    },
     resend() {
       var self = this;
       var verifyRequest = {
@@ -26,7 +29,8 @@ export default Ember.Route.extend({
       };
       Ember.$.post('/api/verify', verifyRequest)
         .done(() => {
-          this.controllerFor('login').set('verificationSent', true);
+          this.controllerFor('login').send('clearPassword');
+          this.controllerFor('login').set('info', {verificationSent: true});
           self.transitionTo('login');
         })
         .fail((err) => {

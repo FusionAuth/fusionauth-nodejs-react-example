@@ -45,7 +45,7 @@ You will need the following things properly installed on your computer.
 * `ember build --output="../server/public" --environment production` (production)
 
 ## Deploying to Production
-* Copy `server/config/config-dev.json` to `/usr/local/inversoft/config/config-production.json`
+* Copy `server/config/config-dev.json` to `/usr/local/application/config/config-production.json`
 * Replace values in config-production.json with your production values
 * Have a MySQL database running and create the `user_todos` database as described above
 * Have a Passport Backend running

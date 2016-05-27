@@ -7,8 +7,10 @@
                   <h1>Resend verification email</h1>
                     <form>
 
-                      {{#if errors.general}}
-                        {{#warning-message}}{{errors.general}}{{/warning-message}}
+                      {{#if error.badVerificationId}}
+                        {{#warning-message}}
+                          The verification id you provided was either invalid or expired. Re-send the verification code and try again.
+                        {{/warning-message}}
                       {{/if}}
 
                       {{#if errors.email}}

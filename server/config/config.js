@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific
  * language governing permissions and limitations under the License.
  */
-var fs = require("fs");
+var fs = require('fs');
 
 /**
  * This module loads a configuration files. It defaults to loading the config-dev.json in the current directory.
@@ -24,15 +24,15 @@ var fs = require("fs");
  * into source control. You can also lock down the production file on the file system so that only the application can
  * read it.
  */
-var config = require("./config-dev.json");
+var config = require('./config-dev.json');
 try {
-  var stats = fs.statSync("/usr/local/application/config/config-production.json");
+  var stats = fs.statSync('/usr/local/application/config/config-production.json');
   if (stats.isFile()) {
-    config = require("/usr/local/application/config/config-production.json");
+    config = require('/usr/local/application/config/config-production.json');
   }
 } catch (err) {
   // Already initialized to a good value, ignoring the exception for now
-  console.error(err);
+  console.info('[INFO] Production configuration [' + err.path + '] does not exist. Using development configuration.');
 }
 
 module.exports = config;

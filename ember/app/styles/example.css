@@ -208,11 +208,19 @@ select:focus {
   border-bottom: none;
 }
 
+.box a.resend {
+  display: inline-block;
+  margin-top: 10px;
+  color: #fff;
+  text-decoration: none;
+}
+
 .box h1 {
   display: block;
   margin-bottom: 0;
   color: #fff;
   font-weight: 300;
+  line-height: 1.2em;
   text-transform: uppercase;
 }
 
@@ -228,6 +236,7 @@ select:focus {
   font-weight: 300;
 }
 
+.box .button,
 .box button {
   display: block;
   width: 100%;
@@ -315,10 +324,11 @@ div.warning span {
 div.errors {
   float: left;
   color: #bf1c0d;
-  margin-left: 3px;
-  padding-left: 5px;
-  padding-right: 5px;
+  margin-left: 5px;
+  padding-left: 7px;
+  padding-right: 7px;
   font-weight: 600;
+  font-size: 1.1em;
   border-top-left-radius: 2px;
   border-top-right-radius: 2px;
   background-color: rgba(220, 220, 220, 0.55);
@@ -425,6 +435,11 @@ input.errors {
 
 .todo-task .text span {
   border: 1px solid transparent;
+}
+
+.completed .todo-task .text span {
+  border: 1px solid transparent;
+  text-decoration: line-through;
 }
 
 .todo-task .action {

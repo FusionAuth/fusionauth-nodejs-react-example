@@ -55,14 +55,8 @@ export default Ember.Route.extend({
           errors = errorHandler.handleErrors(JSON.parse(err.responseText));
           self.controller.set('errors', errors);
         }).done(()=> {
-          // Clear the form.
-          this.controller.set('first_name', '');
-          this.controller.set('last_name', '');
-          this.controller.set('email', '');
-          this.controller.set('password', '');
-          this.controller.set('confirm_password', '');
-          
-          this.controllerFor('login').set('registered-successfully', true);
+          self.controller.send('clearForm');
+          self.controllerFor('login').set('info', {'registered-successfully': true});
           return self.transitionTo('login');
         });
       } else {
@@ -70,10 +64,9 @@ export default Ember.Route.extend({
       }
     },
     back() {
-      // Clear out the password fields when we navigate away
-      this.controller.set('password', '');
-      this.controller.set('confirm_password', '');
-      this.transitionTo('login');
+      var self = this;
+      self.controller.send('clearPassword');
+      self.transitionTo('login');
     }
   }
 });

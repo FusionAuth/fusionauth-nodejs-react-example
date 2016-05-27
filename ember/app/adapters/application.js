@@ -14,7 +14,7 @@
  * language governing permissions and limitations under the License.
  */
 
-import JSONAPIAdapter from "ember-data/adapters/json-api";
+import JSONAPIAdapter from 'ember-data/adapters/json-api';
 
 export default JSONAPIAdapter.extend({
   namespace: 'api'

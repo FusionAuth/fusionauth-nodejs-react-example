@@ -14,8 +14,8 @@
  * language governing permissions and limitations under the License.
  */
 
-import Ember from "ember";
-import errorHandler from "../lib/errors";
+import Ember from 'ember';
+import errorHandler from '../lib/errors';
 
 export default Ember.Route.extend({
   actions: {
@@ -25,32 +25,38 @@ export default Ember.Route.extend({
       var self = this;
       // Build the JSON login request body
       var loginRequest = {
-        email: this.controller.get("email"),
-        password: this.controller.get("password")
+        email: this.controller.get('email'),
+        password: this.controller.get('password')
       };
 
-      Ember.$.post("/api/login", loginRequest)
+      Ember.$.post('/api/login', loginRequest)
         .done(() => {
-          return self.transitionTo("index");
+          // Clear the email after a successful login.
+          this.controller.set('email','');
+          return self.transitionTo('index');
         })
         .fail((xhr) => {
           if (xhr.status === 404) {
-            self.controller.set("errors", {"general": "Invalid login credentials."});
+            self.controller.set('errors', {'general': 'Invalid login credentials.'});
           } else if (xhr.status === 412) {
-            self.controller.set("errors", {"general": "Your email has not been verified. Check your Inbox."});
+            self.controller.set('showResendLink', true);
+            self.controller.set('errors', {'general': 'Your email has not been verified. Check your Inbox.'});
           } else {
-            if (xhr.responseText !== "") {
+            if (xhr.responseText !== '') {
               var errors = errorHandler.handleErrors(JSON.parse(xhr.responseText));
-              self.controller.set("errors", errors);
+              self.controller.set('errors', errors);
             }
           }
         });
+      // Always clear the password field.
+      this.controller.set('password', '');
     },
 
     // Handle register action, redirect to register
     register: function() {
       var self = this;
-      return self.transitionTo("register");
+      self.controller.set('errors', {});
+      return self.transitionTo('register');
     }
   }
 });

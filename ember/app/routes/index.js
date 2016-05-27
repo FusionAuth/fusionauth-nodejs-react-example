@@ -14,31 +14,31 @@
  * language governing permissions and limitations under the License.
  */
 
-import Ember from "ember";
+import Ember from 'ember';
 
 export default Ember.Route.extend({
   model() {
-    return this.store.findAll("todo");
+    return this.store.findAll('todo');
   },
   actions: {
     error() {
-      return this.transitionTo("login");
+      return this.transitionTo('login');
     },
     complete(todo){
-      todo.set("completed", !todo.get("completed"));
+      todo.set('completed', !todo.get('completed'));
       todo.save().then(() => {
         return this.store.unloadRecord(todo);
       });
     },
     create(text) {
-      if (typeof(text) === "undefined" || text === "") {
+      if (typeof(text) === 'undefined' || text === '') {
         return;
       }
-      var todo = this.store.createRecord("todo", {
+      var todo = this.store.createRecord('todo', {
         text: text,
         completed: false
       });
-      this.controller.set("text", "");
+      this.controller.set('text', '');
       return todo.save();
     },
     delete(todo) {
@@ -49,7 +49,7 @@ export default Ember.Route.extend({
     },
     update(todo) {
       // You may not clear a ToDo, only delete, or complete.
-      if (todo.get("text") === "") {
+      if (todo.get('text') === '') {
         todo.rollbackAttributes();
       } else {
         return todo.save();

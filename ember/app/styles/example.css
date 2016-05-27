@@ -136,6 +136,7 @@ select:focus {
 
 .content {
   padding: 30px 46px 50px 46px;
+  margin-bottom: 25%;
 }
 
 .form {
@@ -172,7 +173,7 @@ select:focus {
 }
 
 /* Login */
-.login {
+.box {
   margin: 0 auto;
   display: flex;
   -webkit-box-flex: 1;
@@ -196,22 +197,30 @@ select:focus {
 
 }
 
-.login form {
+.box form {
   margin-top: 10px;
   padding-bottom: 25px;
   border-bottom: 1px solid rgb(161, 157, 158);
   width: 400px;
 }
 
-.login .form h1 {
+.box.resend form {
+  border-bottom: none;
+}
+
+.box h1 {
   display: block;
-  margin-bottom: 0px;
+  margin-bottom: 0;
   color: #fff;
-  font-weight: 400;
+  font-weight: 300;
   text-transform: uppercase;
 }
 
-.login .form p {
+.box.resend h1 {
+  margin-bottom: 0.67em;
+}
+
+.box .form p {
   margin-top: 5px;
   margin-bottom: 10px;
   font-family: 'Open Sans', sans-serif;
@@ -219,7 +228,7 @@ select:focus {
   font-weight: 300;
 }
 
-.login button {
+.box button {
   display: block;
   width: 100%;
   margin-top: 20px;
@@ -227,22 +236,22 @@ select:focus {
   margin-left: 0;
 }
 
-.login .login-button {
+.box .login-button {
   background-color: #365a8b;
   color: #fff;
 }
 
-.logout .button:hover,
-.login .login-button:hover {
+.box .button:hover,
+.box .login-button:hover {
   background-color: #2d476b;
   color: #fff;
 }
 
-.login .register-button {
+.box .register-button {
   background-color: #4dbd90;
 }
 
-.login .register-button:hover {
+.box .register-button:hover {
   background-color: #358a68;
   color: #fff;
 }
@@ -358,8 +367,22 @@ input.errors {
   margin-bottom: 5px;
 }
 
-.todo-task div.action.delete i {
+.action i {
+  cursor: pointer;
+  color: #365a8b;
+  font-size: 1.8em;
+}
+
+.todo-task i:hover {
+  color: #2d476b;
+}
+
+.todo-task .action.delete i {
   color: #dc0000;
+}
+
+.todo-task .action.delete i:hover {
+  color: #b60000;
 }
 
 .todo-task .text {
@@ -598,6 +621,11 @@ input.errors {
   }
 }
 
+@media (max-height: 767px) {
+  .content {
+    margin-bottom: 0;
+  }
+}
 @media (max-width: 767px) {
   .content {
     padding-left: 0;
@@ -644,14 +672,14 @@ input.errors {
     width: 65%;
     height: 65%;
   }
-  .login form {
+  .box form {
     width: 100%;
     padding-bottom: 15px;
   }
-  .login .form h1 {
+  .box .form h1 {
     margin-top: 5px;
   }
-  .login .register-button {
+  .box .register-button {
     margin-top: 15px;
   }
   .form {
@@ -661,7 +689,7 @@ input.errors {
     padding-left: 5px;
     padding-right: 5px;
   }
-  .login {
+  .box {
     margin-left: 0;
     margin-right: 0;
   }

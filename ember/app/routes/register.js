@@ -14,56 +14,66 @@
  * language governing permissions and limitations under the License.
  */
 
-import Ember from "ember";
-import errorHandler from "../lib/errors";
+import Ember from 'ember';
+import errorHandler from '../lib/errors';
 
 export default Ember.Route.extend({
   actions: {
     register() {
       var self = this;
       //Get all the field data
-      var email = this.controller.get("email");
-      var password = this.controller.get("password");
-      var confirm_password = this.controller.get("confirm_password");
-      var first_name = this.controller.get("first_name");
-      var last_name = this.controller.get("last_name");
+      var email = this.controller.get('email');
+      var password = this.controller.get('password');
+      var confirm_password = this.controller.get('confirm_password');
+      var first_name = this.controller.get('first_name');
+      var last_name = this.controller.get('last_name');
 
       var errors = {};
 
       //Check to see if first name is filled out
       if (!first_name) {
-        errors["first_name"] = "Required";
+        errors['first_name'] = 'Required';
       }
       //Check to see if last name is filled out
       if (!last_name) {
-        errors["last_name"] = "Required";
+        errors['last_name'] = 'Required';
       }
 
       //Check to see if the passwords match
       if (password !== confirm_password) {
-        errors["password"] = "Passwords do not match";
-        errors["password_confirm"] = "Passwords do not match";
+        errors['password'] = 'Passwords do not match';
+        errors['password_confirm'] = 'Passwords do not match';
       }
 
       if (Object.keys(errors).length === 0) {
-        Ember.$.post("/api/register", {
-          "email": email,
-          "password": password,
-          "firstName": first_name,
-          "lastName": last_name
+        Ember.$.post('/api/register', {
+          'email': email,
+          'password': password,
+          'firstName': first_name,
+          'lastName': last_name
         }).fail((err) => {
           errors = errorHandler.handleErrors(JSON.parse(err.responseText));
-          self.controller.set("errors", errors);
+          self.controller.set('errors', errors);
         }).done(()=> {
-          this.controllerFor("login").set("registered-successfully", true);
-          return self.transitionTo("login");
+          // Clear the form.
+          this.controller.set('first_name', '');
+          this.controller.set('last_name', '');
+          this.controller.set('email', '');
+          this.controller.set('password', '');
+          this.controller.set('confirm_password', '');
+          
+          this.controllerFor('login').set('registered-successfully', true);
+          return self.transitionTo('login');
         });
       } else {
-        self.controller.set("errors", errors);
+        self.controller.set('errors', errors);
       }
     },
     back() {
-      this.transitionTo("login");
+      // Clear out the password fields when we navigate away
+      this.controller.set('password', '');
+      this.controller.set('confirm_password', '');
+      this.transitionTo('login');
     }
   }
 });

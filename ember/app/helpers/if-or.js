@@ -14,7 +14,7 @@
  * language governing permissions and limitations under the License.
  */
 
-import Ember from "ember";
+import Ember from 'ember';
 
 /**
  * Return true if one of the two parameters evaluates true. Expecting two boolean arguments.

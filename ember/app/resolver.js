@@ -14,6 +14,6 @@
  * language governing permissions and limitations under the License.
  */
 
-import Resolver from "ember-resolver";
+import Resolver from 'ember-resolver';
 
 export default Resolver;

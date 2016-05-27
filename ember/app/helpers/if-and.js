@@ -14,7 +14,7 @@
  *
  */
 
-import Ember from "ember";
+import Ember from 'ember';
 
 /**
  * Return true if one both of the parameters evaluates true. Expecting two boolean arguments.

@@ -22,7 +22,7 @@ export default Ember.Route.extend({
   },
   actions: {
     error() {
-      return this.transitionTo("resend");
+      return this.transitionTo('resend');
     }
   }
 });

@@ -1,6 +1,5 @@
 /*
  * Copyright (c) 2016, Inversoft Inc., All Rights Reserved
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -12,23 +11,10 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
  * either express or implied. See the License for the specific
  * language governing permissions and limitations under the License.
+ *
  */
 
 import Ember from 'ember';
 
-// New ToDo entry
-export default Ember.Component.extend({
-  actions: {
-    create(text) {
-      this.sendAction('create', text);
-      this.set('text', ''); // reset the text field.
-    }
-  },
-  keyDown: function(event) {
-    if (event.keyCode === 13)  {
-      // Capture 'Enter' - Send the 'create' action.
-      this.send('create', this.text);
-      return false;
-    }
-  }
-});
+// Used to store state
+export default Ember.Controller.extend({});

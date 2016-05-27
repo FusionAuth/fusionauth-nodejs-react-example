@@ -1,11 +1,11 @@
 <div class="todo-task open flex-child">
     <div class="action ">
-        <i class="fa fa-square-o fa-2x cursor-none"></i>
+        <i class="fa fa-square-o cursor-none"></i>
     </div>
     <div class="text">
         {{input id="text" type="text" placeholder="Add a ToDo..." value=text}}
     </div>
     <div class="action">
-      <i class="link fa fa-plus fa-2x" {{action "create" text}}></i>
+      <i class="fa fa-plus" {{action "create" text}}></i>
     </div>
 </div>

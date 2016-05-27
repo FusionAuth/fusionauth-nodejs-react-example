@@ -1,12 +1,12 @@
 {{#content-main}}
   {{content-header}}
 
-  <div class="login">
+  <div class="box">
     <div class="content">
       <div class="form">
         <h1>Ha<span class="code-tag"><span>&#x221f;</span><span>&#x002f;</span><span>&#x221f;</span></span>ers Welcome!</h1>
         <p>We dare you to try to hack Passport's user database.</p>
-        <form id="email-form" name="email-form" data-name="Email Form">
+        <form>
           {{#if errors.general}}
             {{#warning-message}}{{errors.general}}{{/warning-message}}
           {{/if}}
@@ -14,6 +14,12 @@
           {{#if registered-successfully}}
             {{#information-message}}
               You have been registered successfully. Before you may login you'll need to verify your email. Check your inbox.
+            {{/information-message}}
+          {{/if}}
+
+          {{#if verificationSent}}
+            {{#information-message}}
+              A verification email was successfully sent. Before you may login you'll need to verify your email.
             {{/information-message}}
           {{/if}}
 
@@ -32,6 +38,12 @@
           {{/if}}
 
           <button class="login-button" {{action "login"}}>Login</button>
+          {{#if showResendLink}}
+            <p>
+              {{link-to "Click here to resend the verification email." "resend" }}
+            </p>
+          {{/if}}
+
         </form>
 
         <button class="register-button" {{action "register"}}>Register</button>

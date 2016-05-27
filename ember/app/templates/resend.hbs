@@ -1,30 +1,27 @@
 {{#content-main}}
   {{content-header}}
 
-  <div class="w-section">
-      <div class="main-content-div">
-          <div class="side-block"></div>
-          <div class="main-content-div">
-              <div class="form-div">
-                  <h1 class="h1-pp">resend verification email?</h1>
-                  <div class="w-form clearfix form-wrapper">
-                      <form id="email-form" name="email-form" data-name="Email Form">
-                        {{#if errors.general}}
-                          {{#warning-message}}{{errors.general}}{{/warning-message}}
-                        {{/if}}
-                        {{#if errors.email}}
-                            <div class="errors">{{errors.email}}</div>
-                          {{input class="w-input errors" type="text" placeholder="example@email.com" value=email}}
-                        {{else}}
-                          {{input class="w-input" type="text" placeholder="example@email.com" value=email}}
-                        {{/if}}
-                          <button class="w-button login-register-button" {{action "resend"}}>Resend Email</button>
-                      </form>
-                  </div>
+  <div class="box resend">
+          <div class="content">
+              <div class="form">
+                  <h1>Resend verification email</h1>
+                    <form>
+
+                      {{#if errors.general}}
+                        {{#warning-message}}{{errors.general}}{{/warning-message}}
+                      {{/if}}
+
+                      {{#if errors.email}}
+                          <div class="errors">{{errors.email}}</div>
+                        {{input class="errors" type="text" autofocus="autofocus" placeholder="example@email.com" value=email}}
+                      {{else}}
+                        {{input type="text" autofocus="autofocus" placeholder="example@email.com" value=email}}
+                      {{/if}}
+
+                      <button class="login-button" {{action "resend"}}>Resend Email</button>
+                    </form>
               </div>
           </div>
-          <div class="side-block"></div>
-      </div>
   </div>
 
 {{/content-main}}

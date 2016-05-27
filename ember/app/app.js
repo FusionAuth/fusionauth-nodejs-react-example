@@ -14,10 +14,10 @@
  * language governing permissions and limitations under the License.
  */
 
-import Ember from "ember";
-import Resolver from "./resolver";
-import loadInitializers from "ember-load-initializers";
-import config from "./config/environment";
+import Ember from 'ember';
+import Resolver from './resolver';
+import loadInitializers from 'ember-load-initializers';
+import config from './config/environment';
 import './models/custom-inflector-rules';
 
 let App;

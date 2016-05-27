@@ -14,18 +14,18 @@
  * language governing permissions and limitations under the License.
  */
 
-import Ember from "ember";
+import Ember from 'ember';
 
 export default Ember.Component.extend({
   actions: {
     complete(todo) {
-      this.sendAction("complete", todo);
+      this.sendAction('complete', todo);
     }
   },
   mouseLeave() {
-    this.set("hover", false);
+    this.set('hover', false);
   },
   mouseEnter() {
-    this.set("hover", true);
+    this.set('hover', true);
   }
 });

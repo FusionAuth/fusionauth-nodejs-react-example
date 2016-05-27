@@ -13,7 +13,8 @@
  * either express or implied. See the License for the specific
  * language governing permissions and limitations under the License.
  */
-import Model from "ember-data/model";
+
+import Model from 'ember-data/model';
 
 export default Model.extend({
 });

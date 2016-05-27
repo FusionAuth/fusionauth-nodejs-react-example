@@ -14,19 +14,19 @@
  * language governing permissions and limitations under the License.
  */
 
-import Ember from "ember";
+import Ember from 'ember';
 
 export default Ember.Route.extend({
   model() {
-    return this.store.query("todo", {completed: true});
+    return this.store.query('todo', {completed: true});
   },
   actions: {
     error() {
       // On error return to login page. Only expecting a 401 - Unauthorized.
-      return this.transitionTo("login");
+      return this.transitionTo('login');
     },
     complete(todo){
-      todo.set("completed", !todo.get("completed")); // toggle completed
+      todo.set('completed', !todo.get('completed')); // toggle completed
       todo.save().then(() => {
         return this.store.unloadRecord(todo);
       });

@@ -14,26 +14,27 @@
  * language governing permissions and limitations under the License.
  */
 
-import Ember from "ember";
-import errorHandler from "../lib/errors";
+import Ember from 'ember';
+import errorHandler from '../lib/errors';
 
 export default Ember.Route.extend({
   actions: {
     resend() {
       var self = this;
       var verifyRequest = {
-        email: this.controller.get("email")
+        email: this.controller.get('email')
       };
-      Ember.$.post("/api/verify", verifyRequest)
+      Ember.$.post('/api/verify', verifyRequest)
         .done(() => {
-          self.controller.set("errors", {"general": "Email resent"});
+          this.controllerFor('login').set('verificationSent', true);
+          self.transitionTo('login');
         })
         .fail((err) => {
-          var errors = {"email": "Email not found"};
+          var errors = {'email': 'Email not found'};
           if (err.responseText) {
             errors = errorHandler.handleErrors(JSON.parse(err.responseText));
           }
-          self.controller.set("errors", errors);
+          self.controller.set('errors', errors);
         });
     }
   }

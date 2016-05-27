@@ -14,14 +14,14 @@
  * language governing permissions and limitations under the License.
  */
 
-import Ember from "ember";
+import Ember from 'ember';
 
 export default Ember.Route.extend({
   model(){
     var self = this;
-    Ember.$.get("/api/logout")
+    Ember.$.get('/api/logout')
       .done(() => {
-        return self.transitionTo("login");
+        return self.transitionTo('login');
       });
   }
 });

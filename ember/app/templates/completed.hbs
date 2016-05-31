@@ -1,29 +1,24 @@
-{{#content-main}}
-  {{authenticated-content-header}}
+<div class="tabs">
 
-  <div class="tabs">
+    <div class="tabs-menu">
+      {{link-to "Active" "index" class="tab" }}
+      <a class="tab selected">Completed</a>
+    </div>
 
-      <div class="tabs-menu">
-        {{link-to "Active" "index" class="tab" }}
-        <a class="tab selected">Completed</a>
-      </div>
-
-      <div class="tab-content">
-        <div class="todo-container completed">
-          <div class="shadow">
-            {{#each model as |todo|}}
-              {{to-do todo=todo complete="complete" delete="delete"}}
-            {{else}}
-              <div class="todo-task flex-child-div">
-                <div class="text">
-                  <p>You do not have any completed tasks. Get to work!</p>
-                </div>
+    <div class="tab-content">
+      <div class="todo-container completed">
+        <div class="shadow">
+          {{#each model as |todo|}}
+            {{to-do todo=todo complete="complete" delete="delete"}}
+          {{else}}
+            <div class="todo-task flex-child-div">
+              <div class="text">
+                <p>You do not have any completed tasks. Get to work!</p>
               </div>
-            {{/each}}
-          </div>
+            </div>
+          {{/each}}
         </div>
       </div>
+    </div>
 
-  </div>
-
-{{/content-main}}
+</div>

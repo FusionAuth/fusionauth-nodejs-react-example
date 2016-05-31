@@ -14,7 +14,11 @@
  * language governing permissions and limitations under the License.
  */
 
+import Inflector from 'ember-inflector';
 import Model from 'ember-data/model';
+
+// ensure that ember doesn't use /api/verifies but /api/verify
+Inflector.inflector.uncountable('verify');
 
 export default Model.extend({
 });

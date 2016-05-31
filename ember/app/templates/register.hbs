@@ -1,58 +1,53 @@
-{{#content-main}}
-  {{content-header}}
+<div class="box">
+    <div class="content">
+        <div class="form">
+            <h1>Hello New User!</h1>
+            <p>With just a few details we'll be on our way!</p>
+            <form>
+              {{#if errors.general}}
+                {{#warning-message}}{{errors.general}}{{/warning-message}}
+              {{/if}}
 
-  <div class="box">
-      <div class="content">
-          <div class="form">
-              <h1>Hello New User!</h1>
-              <p>With just a few details we'll be on our way!</p>
-              <form>
-                {{#if errors.general}}
-                  {{#warning-message}}{{errors.general}}{{/warning-message}}
-                {{/if}}
+              {{#if errors.first_name}}
+                  <div class="errors">{{errors.first_name}}</div>
+                {{input class="errors" type="text" placeholder="First Name" autofocus="autofocus" value=first_name}}
+              {{else}}
+                {{input type="text" placeholder="First Name" autofocus="autofocus" value=first_name}}
+              {{/if}}
 
-                {{#if errors.first_name}}
-                    <div class="errors">{{errors.first_name}}</div>
-                  {{input class="errors" type="text" placeholder="First Name" autofocus="autofocus" value=first_name}}
-                {{else}}
-                  {{input type="text" placeholder="First Name" autofocus="autofocus" value=first_name}}
-                {{/if}}
+              {{#if errors.last_name}}
+                  <div class="errors">{{errors.last_name}}</div>
+                {{input class="errors" type="text" placeholder="Last Name" value=last_name}}
+              {{else}}
+                {{input  type="text" placeholder="Last Name" value=last_name}}
+              {{/if}}
 
-                {{#if errors.last_name}}
-                    <div class="errors">{{errors.last_name}}</div>
-                  {{input class="errors" type="text" placeholder="Last Name" value=last_name}}
-                {{else}}
-                  {{input  type="text" placeholder="Last Name" value=last_name}}
-                {{/if}}
+              {{#if errors.email}}
+                  <div class="errors">{{errors.email}}</div>
+                {{input class="errors" type="text" placeholder="Your email" value=email}}
+              {{else}}
+                {{input type="text" placeholder="Your email" value=email}}
+              {{/if}}
 
-                {{#if errors.email}}
-                    <div class="errors">{{errors.email}}</div>
-                  {{input class="errors" type="text" placeholder="Your email" value=email}}
-                {{else}}
-                  {{input type="text" placeholder="Your email" value=email}}
-                {{/if}}
+              {{#if errors.password}}
+                  <div class="errors">{{errors.password}}</div>
+                {{input class="errors" type="password" placeholder="Create your password" value=password}}
+              {{else}}
+                {{input type="password" placeholder="Create your password" value=password}}
+              {{/if}}
 
-                {{#if errors.password}}
-                    <div class="errors">{{errors.password}}</div>
-                  {{input class="errors" type="password" placeholder="Create your password" value=password}}
-                {{else}}
-                  {{input type="password" placeholder="Create your password" value=password}}
-                {{/if}}
+              {{#if errors.password_confirm}}
+                  <div class="errors">{{errors.password_confirm}}</div>
+                {{input class="errors" type="password" placeholder="Confirm your password" value=confirm_password}}
+              {{else}}
+                {{input type="password" placeholder="Confirm your password" value=confirm_password}}
+              {{/if}}
 
-                {{#if errors.password_confirm}}
-                    <div class="errors">{{errors.password_confirm}}</div>
-                  {{input class="errors" type="password" placeholder="Confirm your password" value=confirm_password}}
-                {{else}}
-                  {{input type="password" placeholder="Confirm your password" value=confirm_password}}
-                {{/if}}
+                <button class="login-button" {{action "register"}}>Register</button>
+            </form>
 
-                  <button class="login-button" {{action "register"}}>Register</button>
-              </form>
+            <button class="register-button" {{action "back"}}>Back to Login</button>
+        </div>
 
-              <button class="register-button" {{action "back"}}>Back to Login</button>
-          </div>
-
-      </div>
-  </div>
-
-{{/content-main}}
+    </div>
+</div>

@@ -32,6 +32,7 @@ export default Ember.Route.extend({
         .done(() => {
           // Clear the email and errors after a successful login.
           self.controller.send('clearForm');
+          self.controllerFor('application').send('onLogin', loginRequest.email);
           return self.transitionTo('index');
         })
         .fail((xhr) => {

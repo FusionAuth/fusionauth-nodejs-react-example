@@ -40,6 +40,23 @@ function _handlePassportErrorResponse(res, clientResponse) {
   }
 }
 
+// Convert to JSON API format
+function _convertUser(user) {
+  if (user == null || typeof (user) === "undefined") {
+    return {"data": { type: "user"}};
+  }
+
+  var response = {"data": {}};
+  response.data = {
+    "type": "user",
+    "attributes": {
+      "email": user.email,
+      "username": user.username
+    }
+  };
+  return response;
+}
+
 /**
  * Service the /login request.
  *
@@ -55,7 +72,7 @@ router.route("/login").post(function(req, res) {
 });
 
 router.route("/logout").get(function(req, res) {
-  req.session.destroy(function(err) {
+  req.session.destroy(function() {
     // Ignore for now
   });
   res.sendStatus(204);
@@ -80,6 +97,11 @@ router.route("/register").post(function(req, res) {
       res.sendStatus(200);
     })
     .catch((clientResponse) => _handlePassportErrorResponse(res, clientResponse));
+});
+
+router.route("/user").get(function(req, res) {
+  res.set('Content-Type', 'application/json');
+  res.send(_convertUser(req.session.user));
 });
 
 router.route("/verify/:id").get(function(req, res) {

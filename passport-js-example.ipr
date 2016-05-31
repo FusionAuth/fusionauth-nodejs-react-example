@@ -57,7 +57,6 @@
   <component name="JavaScriptLibraryMappings">
     <file url="PROJECT" libraries="{node_modules passport-js-example}" />
     <includedPredefinedLibrary name="ECMAScript 6" />
-    <includedPredefinedLibrary name="Node.js Core" />
   </component>
   <component name="JavaScriptSettings">
     <option name="languageLevel" value="ES6" />

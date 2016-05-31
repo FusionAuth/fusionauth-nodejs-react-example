@@ -265,7 +265,7 @@ select:focus {
   color: #fff;
 }
 
-.logout {
+.user-details {
   margin-top: 0;
   margin-right: 20px;
   padding-top: 5px;
@@ -274,7 +274,12 @@ select:focus {
   display: inline-block;
 }
 
-.logout .button {
+.user-details .greeting {
+  color: #fff;
+  font-weight: 300;
+}
+
+.user-details .button {
   padding-left: 15px;
   padding-right: 15px;
   padding-bottom: 5px;

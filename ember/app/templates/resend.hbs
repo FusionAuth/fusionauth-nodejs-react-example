@@ -1,24 +1,24 @@
 <div class="box resend">
-        <div class="content">
-            <div class="form">
-                <h1>Resend verification email</h1>
-                  <form>
+  <div class="content">
+    <div class="form">
+      <h1>Resend verification email</h1>
+      <form>
 
-                    {{#if error.badVerificationId}}
-                      {{#warning-message}}
-                        The verification id you provided was either invalid or expired. Re-send the verification code and try again.
-                      {{/warning-message}}
-                    {{/if}}
+        {{#if error.badVerificationId}}
+          {{#warning-message}}
+            The verification id you provided was either invalid or expired. Re-send the verification code and try again.
+          {{/warning-message}}
+        {{/if}}
 
-                    {{#if errors.email}}
-                        <div class="errors">{{errors.email}}</div>
-                      {{input class="errors" type="text" autofocus="autofocus" placeholder="example@email.com" value=email}}
-                    {{else}}
-                      {{input type="text" autofocus="autofocus" placeholder="example@email.com" value=email}}
-                    {{/if}}
+        {{#if errors.email}}
+          <div class="errors">{{errors.email}}</div>
+          {{input class="errors" type="text" autofocus="autofocus" placeholder="example@email.com" value=email}}
+        {{else}}
+          {{input type="text" autofocus="autofocus" placeholder="example@email.com" value=email}}
+        {{/if}}
 
-                    <button class="login-button" {{action "resend"}}>Resend Email</button>
-                  </form>
-            </div>
-        </div>
+        <button class="login-button" {{action "resend"}}>Resend Email</button>
+      </form>
+    </div>
+  </div>
 </div>

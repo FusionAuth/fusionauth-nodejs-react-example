@@ -31,6 +31,7 @@ export default Ember.Route.extend({
       var self = this;
       Ember.$.post('/api/forgot-password', {email: this.controller.get('email')})
         .done(() => {
+          this.controllerFor('login').send('clearPassword');
           this.controllerFor('login').set('info', {resetRequestSent: true});
           self.transitionTo('login');
         })

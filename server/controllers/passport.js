@@ -58,6 +58,32 @@ function _convertUser(user) {
 }
 
 /**
+ * Service the /change-password request.
+ *
+ * Call PassportClient.forgotPassword passing in the JSON request body to the API.
+ */
+router.route("/change-password/:id").post(function(req, res) {
+  client.changePassword(req.params.id, req.body)
+    .then(() => {
+      res.sendStatus(200);
+    })
+    .catch((clientResponse) => _handlePassportErrorResponse(res, clientResponse));
+});
+
+/**
+ * Service the /forgot-password request.
+ *
+ * Call PassportClient.forgotPassword passing in the JSON request body to the API.
+ */
+router.route("/forgot-password").post(function(req, res) {
+  client.forgotPassword(req.body)
+    .then(() => {
+      res.sendStatus(200);
+    })
+    .catch((clientResponse) => _handlePassportErrorResponse(res, clientResponse));
+});
+
+/**
  * Service the /login request.
  *
  * Call PassportClient.login passing in the JSON request body to the API.

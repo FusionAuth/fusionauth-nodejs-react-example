@@ -17,6 +17,10 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+  didRender() {
+    // Focus the input field on render
+    this.$('input').focus();
+  },
   actions: {
     complete(todo) {
       this.sendAction('complete', todo);

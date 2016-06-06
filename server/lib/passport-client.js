@@ -23,6 +23,42 @@ var PassportClient = function(apiKey, host) {
 
 PassportClient.constructor = PassportClient;
 PassportClient.prototype = {
+
+  /**
+   * Changes a user's password using the verification id. This usually occurs after an email has been sent to the user
+   * and they clicked on a link to reset their password.
+   * 
+   * @param {String} verificationId The uuid sent to a user in an email.
+   * @param {*} request The change password request.
+   * @return {Promise} A Promise for the Passport call.
+   */
+  changePassword: function(verificationId, request) {
+    return new Promise((resolve, reject) => {
+      this._start()
+        .uri("/api/user/change-password")
+        .urlSegment(verificationId)
+        .setBody(request)
+        .post()
+        .go(this._responseHandler(resolve, reject));
+    });
+  },
+
+  /**
+   * Begins the forgot password sequence, which kicks off an email to the user so that they can reset their password.
+   * 
+   * @param {*} request The forgot password request.
+   * @return {Promise} A Promise for the Passport call.
+   */
+  forgotPassword: function(request) {
+    return new Promise((resolve, reject) => {
+      this._start()
+        .uri("/api/user/forgot-password")
+        .setBody(request)
+        .post()
+        .go(this._responseHandler(resolve, reject));
+    });
+  },
+
   /**
    * Creates the given application.
    *

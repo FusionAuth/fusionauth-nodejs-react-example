@@ -69,6 +69,7 @@ passportClient.updateSystemConfiguration({
       "reportTimezone": "America/Denver",
       "verifyEmail": true,
       "verifyEmailWhenChanged": true,
+      "forgotEmailTemplateId": config.passport.forgotEmailTemplateId,
       "verificationEmailTemplateId": config.passport.verificationEmailTemplateId
     }
   })

@@ -9,6 +9,7 @@
     "url": "http://127.0.0.1:9011",
     "apiKey": "47ee0a5a-51a7-4cc3-a351-eeade8a02c4a",
     "applicationId": "4ed5eb32-0a97-40eb-a6d7-cca1f9fa3a0c",
+    "forgotEmailTemplateId": "49aba1de-0225-45d7-a2b1-f9fe46b0242c",
     "verificationEmailTemplateId": "8da42c09-461c-45f3-b931-6e9f63b87ab5"
   },
   "httpPort": 8080,

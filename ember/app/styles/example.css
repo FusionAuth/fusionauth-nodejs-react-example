@@ -172,6 +172,12 @@ select:focus {
   box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, .16);
 }
 
+.form a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 300;
+}
+
 /* Login */
 .box {
   margin: 0 auto;

@@ -1,6 +1,5 @@
 /*
  * Copyright (c) 2016, Inversoft Inc., All Rights Reserved
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -12,25 +11,17 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
  * either express or implied. See the License for the specific
  * language governing permissions and limitations under the License.
+ *
  */
 
 import Ember from 'ember';
-import config from './config/environment';
 
-const Router = Ember.Router.extend({
-  location: config.locationType
+export default Ember.Controller.extend({
+  actions: {
+    clearForm() {
+      this.set('email','');
+      this.set('errors', {});
+      this.set('info', {});
+    }
+  }
 });
-
-Router.map(function() {
-  this.route('change-password', {path: '/change-password/:changeVerification_id'});
-  this.route('completed');
-  this.route('forgot-password');
-  this.route('index', {path: '/'});
-  this.route('login');
-  this.route('logout');
-  this.route('register');
-  this.route('resend');
-  this.route('verify', {path: '/verify/:verify_id'});
-});
-
-export default Router;

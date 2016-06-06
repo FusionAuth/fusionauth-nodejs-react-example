@@ -8,12 +8,14 @@
           {{#warning-message}}{{errors.general}}{{/warning-message}}
         {{/if}}
 
-        {{#if errors.first_name}}
-          <div class="errors">{{errors.first_name}}</div>
-          {{input class="errors" type="text" placeholder="First Name" autofocus="autofocus" value=first_name}}
-        {{else}}
-          {{input type="text" placeholder="First Name" autofocus="autofocus" value=first_name}}
-        {{/if}}
+        {{#focus-input}}
+          {{#if errors.first_name}}
+            <div class="errors">{{errors.first_name}}</div>
+            {{input class="errors" type="text" placeholder="First Name" autofocus="autofocus" value=first_name}}
+          {{else}}
+            {{input type="text" placeholder="First Name" autofocus="autofocus" value=first_name}}
+          {{/if}}
+        {{/focus-input}}
 
         {{#if errors.last_name}}
           <div class="errors">{{errors.last_name}}</div>

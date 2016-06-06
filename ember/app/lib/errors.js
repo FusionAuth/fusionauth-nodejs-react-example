@@ -25,13 +25,20 @@ var _private = {
     '[blank]user.email': 'Required',
     '[duplicate]user.email': 'Email already used',
     '[notEmail]user.email': 'Not a valid Email',
+    '[missingEmail]': 'Email address not found.',
     '[blank]password': 'Required',
     '[blank]user.password': 'Required',
+    '[badChangeVerificationId]': 'The verification code is invalid. Click Forgot password to resend the reset request.',
     '[onlyAlpha]user.password': 'Password must contain at least one non-alphabetical character',
+    '[onlyAlpha]password': 'Password must contain at least one non-alphabetical character',
     '[singleCase]user.password': 'Password must contain at least one upper and lower case character',
+    '[singleCase]password': 'Password must contain at least one upper and lower case character',
     '[tooShort]user.password': 'Password must be at least 8 characters long',
+    '[tooShort]password': 'Password must be at least 8 characters long',
     '[tooLong]user.password': 'Password is too long',
-    '[passportDown]': 'Login and registration temporarily unavailable.'
+    '[tooLong]password': 'Password is too long',
+    '[passportDown]': 'Login and registration temporarily unavailable.',
+    '[unexpectedError]': 'Oops. This is awkward. Something went wrong.'
   },
 
   mapFieldErrors: function(messages, errors) {
@@ -65,6 +72,16 @@ export default {
     _private.mapFieldErrors(messages,  errorResponse['fieldErrors']);
     _private.mapGeneralErrors(messages, errorResponse['generalErrors']);
 
+    return messages;
+  },
+  fieldError: function(field, errorCode) {
+    var messages = {};
+    messages[field] = _private.codes[errorCode];
+    return messages;
+  },
+  generalError: function(errorCode) {
+    var messages = {};
+    messages['general'] = _private.codes[errorCode];
     return messages;
   }
 };

@@ -1,5 +1,4 @@
 <div class="box">
-<div class="box">
   <div class="content">
     <div class="form">
       <h1>Ha<span class="code-tag"><span>&#x221f;</span><span>&#x002f;</span><span>&#x221f;</span></span>ers Welcome!</h1>
@@ -21,12 +20,26 @@
           {{/information-message}}
         {{/if}}
 
-        {{#if errors.email}}
-          <div class="errors">{{errors.email}}</div>
-          {{input id="email" class="errors" type="text" placeholder="Email" autofocus="autofocus" value=email}}
-        {{else}}
-          {{input id="email" type="text" placeholder="Email" autofocus="autofocus" value=email}}
+        {{#if info.resetRequestSent}}
+          {{#information-message}}
+            A forgot password request email was successfully sent. Follow the link provided in your inbox to change your password.
+          {{/information-message}}
         {{/if}}
+
+        {{#if info.passwordChanged}}
+          {{#information-message}}
+            Your password has been changed successfully.
+          {{/information-message}}
+        {{/if}}
+
+        {{#focus-input}}
+          {{#if errors.email}}
+            <div class="errors">{{errors.email}}</div>
+            {{input id="email" class="errors" type="text" placeholder="Email" autofocus="autofocus" value=email}}
+          {{else}}
+            {{input id="email" type="text" placeholder="Email" autofocus="autofocus" value=email}}
+          {{/if}}
+        {{/focus-input}}
 
         {{#if errors.password}}
           <div class="errors">{{errors.password}}</div>
@@ -38,6 +51,10 @@
         <button class="login-button" {{action "login"}}>Login</button>
         {{#if info.showResendLink}}
           {{link-to "Click here to resend the verification email." "resend" class="resend" }}
+        {{else}}
+          <p>
+            {{link-to "Forgot password?" "forgot-password"}}
+          </p>
         {{/if}}
 
       </form>

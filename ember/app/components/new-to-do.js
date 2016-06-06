@@ -18,6 +18,9 @@ import Ember from 'ember';
 
 // New ToDo entry
 export default Ember.Component.extend({
+  didInsertElement() {
+    this.$('input').focus();
+  },
   actions: {
     create(text) {
       this.sendAction('create', text);

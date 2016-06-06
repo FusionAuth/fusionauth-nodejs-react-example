@@ -32,7 +32,14 @@ You will need the following things properly installed on your computer.
 * `ember server --output="../server/public"`
 * `cd ../server`
 * `node server.js`
-* Visit your app at [https://localhost:8081](https://localhost:8081).
+* Open your browser to [https://localhost:8081](https://localhost:8081).
+
+## Optional Node Debugging in Chrome
+* `npm install -g node-inspector`
+* `cd ../server`
+* `node --debug server.js`
+* `node-inspector --web-port=8999 &` (or other available port)
+* Open Chrome browser to [http://127.0.0.1:8999/?port=5858](http://127.0.0.1:8999/?port=5858).
 
 ## Running Tests
 * `ember test`

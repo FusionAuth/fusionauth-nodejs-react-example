@@ -89,7 +89,13 @@ router.route("/forgot-password").post(function(req, res) {
  * Call PassportClient.login passing in the JSON request body to the API.
  */
 router.route("/login").post(function(req, res) {
-  client.login(req.body)
+  var loginRequest = {
+    "applicationId": config.passport.applicationId,
+    "email": req.body.email,
+    "password": req.body.password
+  };
+  
+  client.login(loginRequest)
     .then((clientResponse) => {
       req.session.user = clientResponse.successResponse.user;
       res.sendStatus(200);

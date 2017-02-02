@@ -2,7 +2,7 @@
 
 module.exports = function (environment) {
   var ENV = {
-    modulePrefix: 'passport-js-example',
+    modulePrefix: 'passport-bluemix-example',
     environment: environment,
     baseURL: '/',
     locationType: 'auto',

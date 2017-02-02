@@ -1,5 +1,5 @@
 {
-  "name": "passport-js-example",
+  "name": "passport-bluemix-example",
   "version": "0.0.0",
   "description": "An example application using Nodejs, Expressjs, Emberjs and Passport",
   "private": true,

@@ -1,24 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="CompilerConfiguration">
-    <resourceExtensions />
-    <wildcardResourcePatterns>
-      <entry name="!?*.java" />
-      <entry name="!?*.form" />
-      <entry name="!?*.class" />
-      <entry name="!?*.groovy" />
-      <entry name="!?*.scala" />
-      <entry name="!?*.flex" />
-      <entry name="!?*.kt" />
-      <entry name="!?*.clj" />
-      <entry name="!?*.aj" />
-    </wildcardResourcePatterns>
-    <annotationProcessing>
-      <profile default="true" name="Default" enabled="false">
-        <processorPath useClasspath="true" />
-      </profile>
-    </annotationProcessing>
-  </component>
   <component name="CopyrightManager" default="Inversoft Apache v2.0">
     <copyright>
       <option name="myName" value="Inversoft Apache v2.0" />
@@ -37,8 +18,6 @@
       <option name="myLocal" value="true" />
       <inspection_tool class="JSHint" enabled="true" level="ERROR" enabled_by_default="true" />
     </profile>
-    <option name="PROJECT_PROFILE" value="Project Default" />
-    <option name="USE_PROJECT_PROFILE" value="true" />
     <version value="1.0" />
   </component>
   <component name="JSHintConfiguration" version="2.9.1" use-config-file="true">
@@ -115,10 +94,10 @@
   </component>
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/passport-js-example.iml" filepath="$PROJECT_DIR$/passport-js-example.iml" />
+      <module fileurl="file://$PROJECT_DIR$/passport-bluemix-example.iml" filepath="$PROJECT_DIR$/passport-bluemix-example.iml" />
     </modules>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_3" default="false" assert-keyword="false" jdk-15="false">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_3" default="false">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
   <component name="ProjectTasksOptions" suppressed-tasks="Babel" />
@@ -138,7 +117,7 @@
     </contentEntries>
   </component>
   <component name="libraryTable">
-    <library name="node_modules passport-js-example" type="javaScript">
+    <library name="node_modules passport-bluemix-example" type="javaScript">
       <properties>
         <option name="frameworkName" value="node_modules" />
         <sourceFilesUrls>

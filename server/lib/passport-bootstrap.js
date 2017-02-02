@@ -14,11 +14,11 @@
  * language governing permissions and limitations under the License.
  */
 
-var config = require("../config/config.js");
-var PassportClient = require('../lib/passport-client.js');
+let config = require("../config/config.js");
+let PassportClient = require('../lib/passport-client.js');
 
 // Build a Passport REST Client
-var passportClient = new PassportClient(config.passport.apiKey, config.passport.url);
+let passportClient = new PassportClient(config.passport.apiKey, config.passport.url);
 
 // Make sure that the application, roles and configuration is setup in Passport
 passportClient.retrieveApplication(config.passport.applicationId)
@@ -58,19 +58,27 @@ passportClient.retrieveApplication(config.passport.applicationId)
   });
 
 // Turn on email verification and set the password constraints
-passportClient.updateSystemConfiguration({
-    "systemConfiguration": {
-      "passwordValidationRules": {
-        "maxLength": 256,
-        "minLength": 8,
-        "requireMixedCase": true,
-        "requireNonAlpha": true
-      },
-      "reportTimezone": "America/Denver",
-      "verifyEmail": true,
-      "verifyEmailWhenChanged": true,
-      "forgotEmailTemplateId": config.passport.forgotEmailTemplateId,
-      "verificationEmailTemplateId": config.passport.verificationEmailTemplateId
-    }
+passportClient.retrieveSystemConfiguration()
+.then((clientResponse) => {
+  var systemConfiguration = clientResponse.successResponse.systemConfiguration;
+
+  systemConfiguration.passwordValidationRules = {
+    "maxLength": 256,
+    "minLength": 8,
+    "requireMixedCase": true,
+    "requireNonAlpha": true
+  };
+
+  systemConfiguration.reportTimezone = "America/Denver";
+  systemConfiguration.verifyEmail = true;
+  systemConfiguration.verifyEmailWhenChanged = true;
+  systemConfiguration.forgotEmailTemplateId = config.passport.forgotEmailTemplateId;
+  systemConfiguration.verificationEmailTemplateId =config.passport.verificationEmailTemplateId;
+
+  passportClient.updateSystemConfiguration({
+    "systemConfiguration": systemConfiguration
   })
-  .catch((clientResponse) => console.error(`Unable to initialize Passport. Please check that Passport is installed, running and not in maintenance mode. Status code from Passport was [${clientResponse.statusCode}]. Error response from Passport was [${JSON.stringify(clientResponse.errorResponse)}]`));
+  .catch((clientResponse) => console.error(`Unable to initialize Passport. Please check that Passport is installed, running and not in maintenance mode. Status code from Passport was [${clientResponse.statusCode}]. Error response from Passport was [${JSON.stringify(clientResponse.errorResponse, null, '  ')}]`));
+
+})
+.catch((clientResponse) => console.error(`Unable to initialize Passport. Please check that Passport is installed, running and not in maintenance mode. Status code from Passport was [${clientResponse.statusCode}]. Error response from Passport was [${JSON.stringify(clientResponse.errorResponse)}]`));

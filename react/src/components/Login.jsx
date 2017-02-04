@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './assets/Login.css';
+import '../assets/Login.css';
 
 class Login extends Component {
   constructor(props) {
@@ -56,15 +56,16 @@ class Login extends Component {
       }
     );
     
-    fetch(request).then(function(response) {
+    fetch(request).then((function(response) {
       if (response.status === 200) {
-        response.json().then(function(json) {
+        response.json().then((function(json) {
           localStorage.access_token = json.access_token;
-        })
+          this.props.setAuthenticated(true);
+        }).bind(this));
       } else {
         console.info(response);
       }
-    });
+    }).bind(this));
   }
 }
 

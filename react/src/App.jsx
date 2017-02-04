@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import bluemix_logo from './assets/img/bluemix_logo.svg';
 import passport_logo from './assets/img/passport_logo.png';
 import ToDoListContainer from './components/containers/ToDoListContainer';
-import Login from './Login';
+import Login from './components/Login';
+import Logout from './components/Logout';
 
 import './assets/App.css';
 import './assets/Login.css';
@@ -15,6 +16,8 @@ class App extends Component {
       accessToken: localStorage.getItem('access_token'),
       authenticated: false            
     };
+    
+    this.setAuthenticated = this.setAuthenticated.bind(this);
   }
   
   componentWillMount() {
@@ -33,13 +36,25 @@ class App extends Component {
         </div>
         <div className="App-content">
           {this.state.authenticated ? (
-            <ToDoListContainer />
+            <div>
+              <Logout setAuthenticated={ this.setAuthenticated } />
+              <ToDoListContainer />
+            </div>
           ) : (
-            <Login />
+            <Login setAuthenticated={ this.setAuthenticated } />
           )}
         </div>
       </div>
     );
+  }
+  
+  setAuthenticated(authenticated) {
+    if (!authenticated) {
+      localStorage.removeItem('access_token');
+    }
+    this.setState({
+      authenticated: authenticated
+    });
   }
   
   _validateAccessToken() {
@@ -57,11 +72,9 @@ class App extends Component {
   
   _validateHandler(response) {
     if (response.status === 200) {
-      this.setState({
-        authenticated: true
-      });
       response.json().then((function(json) {
         this.setState({
+          authenticated: true,
           accessToken: json.token
         });
         localStorage.access_token = json.token;

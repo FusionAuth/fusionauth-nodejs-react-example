@@ -1,0 +1,73 @@
+.todo {
+  height: 65px;
+  margin-bottom: 5px;
+}
+
+.todo .action {
+  border-left: none;
+  border-right: 2px solid #d7e0dc;
+  border: 1px solid #ddd;
+  display: inline-block;
+  height: 100%;
+  width: 50px;
+
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.todo .action:first-of-type {
+  float: left;
+}
+
+.todo .action:last-of-type {
+  float: right;
+}
+
+.todo .text {
+  font-size: 14px;
+  white-space: pre-wrap;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  /*vertical-align: middle;*/
+  /* padding: 15px; */
+  /*display: block;*/
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: 10px;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  text-align: center;
+  box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, .30);
+}
+
+.todo .text input[type=text],
+.todo .text span {
+  padding: 8px 12px;
+  font-size: 1.1em;
+}
+
+.todo .text input[type=text] {
+  border: none;
+  outline: none;
+  border: 1px solid #ddd;
+}
+
+.todo .text input[type=text]:focus {
+  border: none;
+  outline: none;
+  border: 1px solid #365a8b;
+}

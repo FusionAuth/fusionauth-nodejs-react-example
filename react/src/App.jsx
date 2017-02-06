@@ -14,7 +14,7 @@ class App extends Component {
     super(props);
     this.state = {
       accessToken: localStorage.getItem('access_token'),
-      authenticated: false            
+      authenticated: false
     };
     
     this.setAuthenticated = this.setAuthenticated.bind(this);

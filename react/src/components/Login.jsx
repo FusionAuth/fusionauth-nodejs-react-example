@@ -1,44 +1,65 @@
 import React, { Component } from 'react';
+import Register from './Register';
 import '../assets/Login.css';
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      applicationId: props.applicationId
+      applicationId: props.applicationId,
+      userRegistered: true
     }
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this._handleChange = this._handleChange.bind(this);
+    this._handleLoginClick = this._handleLoginClick.bind(this);
+    this._handleFormSubmit = this._handleFormSubmit.bind(this);
+    this.setRegistered = this.setRegistered.bind(this);
   }
 
-  handleChange(event) {
+  _handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value
     });
   }
+  
+  _handleLoginClick(event) {
+    event.preventDefault();
+    this.setRegistered(false);
+  }
+  
 
-  handleSubmit(event) {
+  _handleFormSubmit(event) {
     event.preventDefault();
     this._authenticate();
   }
   
   render() {
     return (
-      <div>
-        <div className="Login">
-          <form id="login" onSubmit={this.handleSubmit}>
+     <div>
+      {this.state.userRegistered ? (
+         <div className="Login" ref={(login) => {this.loginForm = login; }} >
+          <form id="login" onSubmit={this._handleFormSubmit}>
             <label>
-              <input id="loginId" name="loginId" type="text" autoFocus placeholder="Email or Username" spellCheck="false" autoCorrect="off" autoComplete="off" onChange={this.handleChange}/>
+              <input id="loginId" name="loginId" type="text" autoFocus placeholder="Email or Username" spellCheck="false" autoCorrect="off" autoComplete="off" onChange={this._handleChange}/>
             </label>
             <label>
-              <input id="password" name="password" type="password" placeholder="Password" onChange={this.handleChange}/>
+              <input id="password" name="password" type="password" placeholder="Password" onChange={this._handleChange}/>
             </label>
             <input type="submit" value="Login" className="submit button"/>
+            Not registered yet? <a href="#" className="register-form" onClick={this._handleLoginClick}>Sign up here.</a>
           </form>
         </div>
+       ) : (
+         <Register setRegistered={ this.setRegistered }/>
+       )}
       </div>
     );
+  }
+  
+  setRegistered(registered) {
+    this.setState({
+      userRegistered: registered
+    });
   }
   
   _authenticate() {
@@ -63,7 +84,12 @@ class Login extends Component {
           this.props.setAuthenticated(true);
         }).bind(this));
       } else {
-        console.info(response);
+        console.info(response.status);
+        if (response.status === 400) {
+          response.json().then((json) => {
+            console.info(JSON.stringify(json, null, 2));
+          })
+        }
       }
     }).bind(this));
   }

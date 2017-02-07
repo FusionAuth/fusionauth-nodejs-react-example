@@ -1,5 +1,5 @@
- {
-  "name": "hello-world",
+{
+  "name": "passport-bluemix-example",
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
@@ -10,6 +10,7 @@
     "serve": "^3.1.0"
   },
   "dependencies": {
+    "passport-node-client": "^0.1.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-router": "^3.0.2"

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, Inversoft Inc., All Rights Reserved
+ * Copyright (c) 2016-2017, Inversoft Inc., All Rights Reserved
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,15 +14,19 @@
  * language governing permissions and limitations under the License.
  */
 
+/* jshint mocha:     true  */
+
+'use strict';
+
 // This does all the setup inline
 require("../lib/passport-bootstrap.js");
 
-var chai = require("chai");
-var chaiAsPromised = require("chai-as-promised");
+const chai = require("chai");
+const chaiAsPromised = require("chai-as-promised");
 
-var config = require("../config/config.js");
-var PassportClient = require('../lib/passport-client.js');
-var passportClient = new PassportClient(config.passport.apiKey, config.passport.url);
+const config = require("../config/config.js");
+const PassportClient = require('passport-node-client');
+const client = new PassportClient(config.passport.apiKey, config.passport.url);
 
 // Install chai as promised
 chai.use(chaiAsPromised);
@@ -30,7 +34,7 @@ chai.use(chaiAsPromised);
 describe("PassportBootstrapTest", () => {
   // Login Success
   it("The Application should be setup", () => {
-    return passportClient.retrieveApplication(config.passport.applicationId)
+    return client.retrieveApplication(config.passport.applicationId)
       .then((clientResponse) => {
         chai.assert.strictEqual(clientResponse.statusCode, 200);
         chai.assert.isNotNull(clientResponse.successResponse);
@@ -39,7 +43,7 @@ describe("PassportBootstrapTest", () => {
   });
 
   it("The system configuration should be setup", () => {
-    return passportClient.retrieveSystemConfiguration()
+    return client.retrieveSystemConfiguration()
       .then((clientResponse) => {
         chai.assert.strictEqual(clientResponse.statusCode, 200);
         chai.assert.isNotNull(clientResponse.successResponse);

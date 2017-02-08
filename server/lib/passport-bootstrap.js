@@ -15,7 +15,7 @@
  */
 
 let config = require("../config/config.js");
-let PassportClient = require('../lib/passport-client.js');
+let PassportClient = require('passport-node-client');
 
 // Build a Passport REST Client
 let passportClient = new PassportClient(config.passport.apiKey, config.passport.url);
@@ -60,7 +60,7 @@ passportClient.retrieveApplication(config.passport.applicationId)
 // Turn on email verification and set the password constraints
 passportClient.retrieveSystemConfiguration()
 .then((clientResponse) => {
-  var systemConfiguration = clientResponse.successResponse.systemConfiguration;
+  const systemConfiguration = clientResponse.successResponse.systemConfiguration;
 
   systemConfiguration.passwordValidationRules = {
     "maxLength": 256,

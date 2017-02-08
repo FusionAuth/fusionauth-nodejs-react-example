@@ -8,16 +8,28 @@
     "test": "tests"
   },
   "scripts": {
-    "build": "ember build",
-    "start": "ember server",
-    "test": "ember test"
+    "test": "mocha"
   },
-  "repository": "",
+  "bugs": {
+    "url": "https://github.com/inversoft/passport-bluemix-example/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/inversoft/passport-bluemix-example"
+  },
+  "jshintConfig": {
+    "node": true,
+    "esversion": 6,
+    "strict": false
+  },
   "engines": {
     "node": ">= 0.10.0"
   },
   "author": "Brian Pontare and Daniel DeGroff",
-  "license": "Apache v2.0",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "passport-node-client": "1.8.2"
+  },
   "devDependencies": {
     "body-parser": "1.15.0",
     "chai": "^3.5.0",

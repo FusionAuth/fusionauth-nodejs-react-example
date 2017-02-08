@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, Inversoft Inc., All Rights Reserved
+ * Copyright (c) 2016-2017, Inversoft Inc., All Rights Reserved
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific
  * language governing permissions and limitations under the License.
  */
-var fs = require('fs');
+const fs = require('fs');
 
 /**
  * This module loads a configuration files. It defaults to loading the config-dev.json in the current directory.
@@ -24,9 +24,9 @@ var fs = require('fs');
  * into source control. You can also lock down the production file on the file system so that only the application can
  * read it.
  */
-var config = require('./config-dev.json');
+let config = require('./config-dev.json');
 try {
-  var stats = fs.statSync('/usr/local/application/config/config-production.json');
+  const stats = fs.statSync('/usr/local/application/config/config-production.json');
   if (stats.isFile()) {
     config = require('/usr/local/application/config/config-production.json');
   }

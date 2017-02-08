@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, Inversoft Inc., All Rights Reserved
+ * Copyright (c) 2016-2017, Inversoft Inc., All Rights Reserved
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,14 +13,15 @@
  * either express or implied. See the License for the specific
  * language governing permissions and limitations under the License.
  */
-var express = require("express");
-var config = require("../config/config.js");
-var PassportClient = require('../lib/passport-client.js');
+
+const express = require("express");
+const config = require("../config/config.js");
+const PassportClient = require('passport-node-client');
 
 // Build a Passport REST Client
-var client = new PassportClient(config.passport.apiKey, config.passport.url);
+const client = new PassportClient(config.passport.apiKey, config.passport.url);
 
-var router = express.Router();
+const router = express.Router();
 
 function _handlePassportErrorResponse(res, clientResponse) {
   res.status(clientResponse.statusCode);
@@ -42,11 +43,11 @@ function _handlePassportErrorResponse(res, clientResponse) {
 
 // Convert to JSON API format
 function _convertUser(user) {
-  if (user == null || typeof (user) === "undefined") {
+  if (user === null || typeof (user) === "undefined") {
     return {"data": { type: "user"}};
   }
 
-  var response = {"data": {}};
+  const response = {"data": {}};
   response.data = {
     "type": "user",
     "attributes": {
@@ -89,12 +90,12 @@ router.route("/forgot-password").post(function(req, res) {
  * Call PassportClient.login passing in the JSON request body to the API.
  */
 router.route("/login").post(function(req, res) {
-  var loginRequest = {
+  const loginRequest = {
     "applicationId": config.passport.applicationId,
     "email": req.body.email,
     "password": req.body.password
   };
-  
+
   client.login(loginRequest)
     .then((clientResponse) => {
       req.session.user = clientResponse.successResponse.user;
@@ -111,7 +112,7 @@ router.route("/logout").get(function(req, res) {
 });
 
 router.route("/register").post(function(req, res) {
-  var registrationRequest = {
+  const registrationRequest = {
     "user": {
       "email": req.body.email,
       "firstName": req.body.firstName,
@@ -145,7 +146,7 @@ router.route("/verify/:id").get(function(req, res) {
 });
 
 router.route("/verify").post(function(req, res) {
-  client.resendEmail(req.body.email)
+  client.resendEmailVerification(req.body.email)
     .then(() => {
       res.sendStatus(204);
     })

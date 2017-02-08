@@ -2,6 +2,12 @@
   "name": "passport-bluemix-example",
   "version": "0.1.0",
   "private": true,
+  "license": "Apache-2.0",
+  "jshintConfig": {
+    "node": true,
+    "esversion": 6,
+    "strict": false
+  },
   "devDependencies": {
     "babel-loader": "^6.2.10",
     "babel-preset-es2015": "^6.22.0",
@@ -10,7 +16,7 @@
     "serve": "^3.1.0"
   },
   "dependencies": {
-    "passport-node-client": "^0.1.0",
+    "passport-node-client": "1.8.2",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-router": "^3.0.2"

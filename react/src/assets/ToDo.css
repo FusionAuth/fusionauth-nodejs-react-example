@@ -1,6 +1,24 @@
+.todo-list {
+  margin-top: 50px;
+
+
+}
+
 .todo {
+  width: 500px;
   height: 65px;
   margin-bottom: 5px;
+  display: flex;
+  background-color: #dfdfdf;
+  background-color: #edeff1;
+  box-shadow: 1px 1px 3px 0 rgba(0,0,0,.28);
+}
+
+.todo > div {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .todo .action {
@@ -10,11 +28,6 @@
   display: inline-block;
   height: 100%;
   width: 50px;
-
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
 }
 
 .todo .action:first-of-type {
@@ -38,6 +51,7 @@
   display: -ms-flexbox;
   display: flex;
   margin-left: 10px;
+  margin-right: 10px;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
   -webkit-flex-direction: row;
@@ -51,13 +65,14 @@
   -ms-flex: 1;
   flex: 1;
   text-align: center;
-  box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, .30);
+  /*box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, .30);*/
 }
 
 .todo .text input[type=text],
 .todo .text span {
   padding: 8px 12px;
   font-size: 1.1em;
+  width: 100%;
 }
 
 .todo .text input[type=text] {

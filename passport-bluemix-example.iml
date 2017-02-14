@@ -35,5 +35,7 @@
     </orderEntry>
     <orderEntry type="library" name="js-beautify-DefinitelyTyped" level="application" />
     <orderEntry type="library" name="mocha-DefinitelyTyped" level="application" />
+    <orderEntry type="library" name="lodash.intersection-DefinitelyTyped" level="application" />
+    <orderEntry type="library" name="node_modules passport-bluemix-example" level="project" />
   </component>
 </module>

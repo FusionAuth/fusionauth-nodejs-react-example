@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
+import { browserHistory } from 'react-router';
+import { Link } from 'react-router';
+
+import auth from '../auth';
 import '../assets/Logout.css';
 
 class Logout extends Component {
-  constructor(props) {
-    super(props);
-
-    this.handleClick = this.handleClick.bind(this);
+  handleClick(event) {
+    event.preventDefault();
+    auth.logout();
+    browserHistory.push('/');
   }
 
-  handleClick() {
-    this.props.setAuthenticated(false);
-  }
-  
   render() {
     return (
       <div className="logout">
-        <button onClick={this.handleClick}>Logout</button>
+        {auth.loggedIn() ? (<Link to="/logout" onClick={this.handleClick}>Logout</Link>) : ('')}
       </div>
     );
   }

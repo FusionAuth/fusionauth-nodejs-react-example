@@ -17,13 +17,14 @@ var express = require("express");
 var Todo = require("../models/todo.js");
 var todo = new Todo();
 var config = require("../config/config.js");
-var appId = config.passport.applicationId;
+const appId = config.passport.applicationId;
 var router = express.Router();
 var User = require('../lib/user.js');
 
 // Ensure the user is logged in for every request in this route and if they aren't return 401 with an error
 router.all("/todos", (req, res, next) => {
-  if (req.session === undefined || req.session.user === undefined) {
+  let authenticated = true;
+  if (!authenticated) {
     res.status(401).send({
       "errors": [{
         "code": "[notLoggedIn]"
@@ -35,12 +36,13 @@ router.all("/todos", (req, res, next) => {
 });
 
 router.route("/todos").get((req, res) => {
-  if (!_isAuthorized(req, "RETRIEVE_TODO")) {
+  const jwt = _decodeJWT(req);
+  if (!_isAuthorized(jwt, "RETRIEVE_TODO")) {
     _sendUnauthorized(res);
     return;
   }
 
-  todo.retrieveAll(req.session.user.id, "true" === req.query.completed)
+  todo.retrieveAll(jwt.sub, "true" === req.query.completed)
     .then((todos) => {
       res.send(_convertTodos(todos));
     })
@@ -50,7 +52,8 @@ router.route("/todos").get((req, res) => {
 });
 
 router.route("/todos").post((req, res) => {
-  if (!_isAuthorized(req, "CREATE_TODO")) {
+  const jwt = _decodeJWT(req);
+  if (!_isAuthorized(jwt, "CREATE_TODO")) {
     _sendUnauthorized(res);
     return;
   }
@@ -65,12 +68,13 @@ router.route("/todos").post((req, res) => {
 });
 
 router.route("/todos/:id").patch((req, res) => {
-  if (!_isAuthorized(req, "UPDATE_TODO")) {
+  const jwt = _decodeJWT(req);
+  if (!_isAuthorized(jwt, "UPDATE_TODO")) {
     _sendUnauthorized(res);
     return;
   }
 
-  todo.update(req.params.id, req.session.user.id, req.body.data.attributes.text, req.body.data.attributes.completed)
+  todo.update(req.params.id, jwt.sub, req.body.data.attributes.text, req.body.data.attributes.completed)
     .then((rowsUpdated) => {
       if (rowsUpdated[0] === 1) {
         res.sendStatus(204);
@@ -84,7 +88,8 @@ router.route("/todos/:id").patch((req, res) => {
 });
 
 router.route("/todos/:id").delete((req, res) => {
-  if (!_isAuthorized(req, "DELETE_TODO")) {
+  const jwt = _decodeJWT(req);
+  if (!_isAuthorized(jwt, "DELETE_TODO")) {
     _sendUnauthorized(res);
     return;
   }
@@ -125,9 +130,52 @@ function _handleDatabaseError(res, error) {
   res.status(500).end();
 }
 
-function _isAuthorized(req, role) {
-  var sessionUser = new User(req.session.user);
-  return sessionUser.hasRole(appId, role);
+function _isAuthorized(jwt, role) {
+  if (jwt === null) {
+    return false;
+  }
+
+  console.info('authorize this JWT:');
+  console.info(jwt);
+  // JWT must match this application
+  if (!jwt.applicationId || jwt.applicationId !== appId) {
+    console.info('not authorized, wrong application. [' + jwt.applicationId + ' !== ' + appId + ']');
+    return false;
+  }
+
+  const authenticated = jwt.roles && jwt.roles.indexOf(role) !== -1;
+  if (authenticated) {
+    console.info('authenticated!');
+  } else {
+    console.info('failed authentication: roles [' + jwt.roles + ']. Required role [' + role + ']');
+  }
+
+  // JWT must contain the specified role
+  return authenticated;
+}
+
+function _decodeJWT(req) {
+  try {
+    const authorization = req.header('Authorization');
+    if (authorization === null || typeof authorization === 'undefined') {
+      return false;
+    }
+
+    const encodedJWT = authorization.substr('JWT '.length);
+    if (encodedJWT === null || typeof encodedJWT === 'undefined') {
+      return false;
+    }
+
+    const firstIndex = encodedJWT.indexOf('.');
+    const lastIndex = encodedJWT.lastIndexOf('.');
+    const encodedPayload = encodedJWT.substring(firstIndex + 1, lastIndex);
+    const payload = Buffer.from(encodedPayload, 'base64');
+    console.info(JSON.parse(payload));
+
+    return JSON.parse(payload);;
+  } catch (e) {
+    return null;
+  }
 }
 
 function _sendUnauthorized(res) {

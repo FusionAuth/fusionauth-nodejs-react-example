@@ -28,6 +28,7 @@
   "author": "Brian Pontare and Daniel DeGroff",
   "license": "Apache-2.0",
   "dependencies": {
+    "cors": "^2.8.1",
     "passport-node-client": "1.8.2"
   },
   "devDependencies": {

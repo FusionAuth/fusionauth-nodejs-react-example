@@ -10,9 +10,8 @@ class ToDoList extends Component {
     );
   }
 
-  renderToDo(text) {
-    // TODO Use the ToDo identifier from the db for the key.
-    return <ToDo key={text} text={text} />;
+  renderToDo(todo) {
+    return <ToDo key={todo.id} completed={todo.attributes.completed} text={todo.attributes.text} />;
   }
 }
 

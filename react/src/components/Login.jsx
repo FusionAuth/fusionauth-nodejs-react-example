@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import Register from './Register';
 import '../assets/Login.css';
+import auth from '../auth';
+import { browserHistory } from 'react-router';
+
 
 class Login extends Component {
   constructor(props) {
@@ -26,11 +29,15 @@ class Login extends Component {
     event.preventDefault();
     this.setRegistered(false);
   }
-  
 
   _handleFormSubmit(event) {
     event.preventDefault();
-    this._authenticate();
+    auth.login(this.state.loginId, this.state.password, (authenticated) => {
+      // If authenticated, not registered, go to registration, else go to /
+//      this.props.setAuthenticated(true);
+      this.setRegistered(authenticated);
+      browserHistory.push('/');
+    });
   }
   
   render() {
@@ -60,38 +67,6 @@ class Login extends Component {
     this.setState({
       userRegistered: registered
     });
-  }
-  
-  _authenticate() {
-    var formData = new FormData();
-    formData.append('loginId', this.state.loginId);
-    formData.append('password', this.state.password);
-    formData.append('grant_type', 'password');
-    formData.append('client_id', '4ed5eb32-0a97-40eb-a6d7-cca1f9fa3a0c')
-    
-    var request = new Request('http://frontend.local/oauth2/token',
-      {
-        method: 'POST',
-        mode: 'cors',
-        body: formData
-      }
-    );
-    
-    fetch(request).then((function(response) {
-      if (response.status === 200) {
-        response.json().then((function(json) {
-          localStorage.access_token = json.access_token;
-          this.props.setAuthenticated(true);
-        }).bind(this));
-      } else {
-        console.info(response.status);
-        if (response.status === 400) {
-          response.json().then((json) => {
-            console.info(JSON.stringify(json, null, 2));
-          })
-        }
-      }
-    }).bind(this));
   }
 }
 

@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import bluemix_logo from './assets/img/bluemix_logo.svg';
 import passport_logo from './assets/img/passport_logo.png';
-import ToDoListContainer from './components/containers/ToDoListContainer';
-import Login from './components/Login';
 import Logout from './components/Logout';
+import auth from './auth';
 
 import './assets/App.css';
 import './assets/Login.css';
@@ -13,19 +12,12 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      accessToken: localStorage.getItem('access_token'),
-      authenticated: false
+      authenticated: auth.loggedIn()
     };
-    
+
     this.setAuthenticated = this.setAuthenticated.bind(this);
   }
-  
-  componentWillMount() {
-    if (this.state.accessToken !== null) {
-      this._validateAccessToken();
-    }
-  }
-    
+
   render() {
     return (
       <div className="App">
@@ -35,28 +27,23 @@ class App extends Component {
           <h2>Get started with Passport</h2>
         </div>
         <div className="App-content">
-          {this.state.authenticated ? (
-            <div>
-              <Logout setAuthenticated={ this.setAuthenticated } />
-              <ToDoListContainer />
-            </div>
-          ) : (
-            <Login setAuthenticated={ this.setAuthenticated } />
-          )}
+          <Logout />
+          {this.props.children}
         </div>
       </div>
     );
   }
-  
+
   setAuthenticated(authenticated) {
     if (!authenticated) {
       localStorage.removeItem('access_token');
     }
+    console.info('set authenticated [' + authenticated + ']');
     this.setState({
       authenticated: authenticated
     });
   }
-  
+
   _validateAccessToken() {
     fetch(new Request('http://passport.local/api/jwt/validate',
       {
@@ -69,7 +56,7 @@ class App extends Component {
     ))
     .then(this._validateHandler.bind(this));
   }
-  
+
   _validateHandler(response) {
     if (response.status === 200) {
       response.json().then((function(json) {

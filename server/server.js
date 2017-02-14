@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, Inversoft Inc., All Rights Reserved
+ * Copyright (c) 2016-2017, Inversoft Inc., All Rights Reserved
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 var express = require("express");
 var app = express();
+var cors = require('cors');
 var bodyParser = require("body-parser");
 var uuid = require("uuid");
 var session = require("express-session");
@@ -29,22 +30,15 @@ const fs = require("fs");
 // Ensure Passport is setup by calling the bootstrapper
 require("./lib/passport-bootstrap.js");
 
+// Cross-Origin Resource Sharing
+app.use(cors());
+
 // Define the static resources above everything else so that we don't create sessions or handle the body of the request at all
 app.use(express.static(__dirname + "/public"));
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(bodyParser.json({type: "application/vnd.api+json"}));
-
-// Hook up sessions for all requests after this point. We are using a UUID as the secret, which should be secure.
-app.use(session({
-  secret: uuid.v4(),
-  name: "sessionId",
-  cookie: {
-    secure: true,
-    maxAge: 3600 * 1000
-  }
-}));
 
 // Define the main routes
 app.use("/api/", [passport, todo]);
@@ -80,18 +74,20 @@ const options = {
 };
 
 // Create HTTP server which only does a redirect to the HTTPS server
-http.createServer(function(req, res) {
-  var host = req.headers.host;
-  var hostname = host.split(":")[0];
-  var redirectURL = "https://" + hostname;
-  if (config.httpsRedirectPort !== 443) {
-    redirectURL += ":" + config.httpsPort;
-  }
-  res.writeHead(301, {"Location": redirectURL + req.url});
-  res.end();
-}).listen(config.httpPort);
+// Commented out for dev purposes
+// http.createServer(function(req, res) {
+//   var host = req.headers.host;
+//   var hostname = host.split(":")[0];
+//   var redirectURL = "https://" + hostname;
+//   if (config.httpsRedirectPort !== 443) {
+//     redirectURL += ":" + config.httpsPort;
+//   }
+//   res.writeHead(301, {"Location": redirectURL + req.url});
+//   res.end();
+// }).listen(config.httpPort);
 
 // Create the HTTPS server that will handle all the requests
+http.createServer(app).listen(config.httpPort);
 https.createServer(options, app).listen(config.httpsPort);
 
 console.log("The ToDo application is started and listening at on port " + config.httpsPort);

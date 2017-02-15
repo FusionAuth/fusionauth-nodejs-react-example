@@ -5,6 +5,7 @@ import { browserHistory, IndexRoute, Router, Route } from 'react-router';
 import App from './App';
 import auth from './auth';
 import Login from './components/Login';
+import Register from './components/Register';
 import Logout from './components/Logout';
 import ToDoListContainer from './components/containers/ToDoListContainer';
 
@@ -26,6 +27,7 @@ ReactDOM.render(
       <IndexRoute component={ToDoListContainer} onEnter={requireAuth} />
       <Route path="login" component={Login} />
       <Route path="logout" component={Logout} />
+      <Route path="register" component={Register} />
     </Route>
   </Router>,
   document.getElementById('root')

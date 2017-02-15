@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 
 class Register extends Component {
   constructor(props) {
@@ -8,7 +9,6 @@ class Register extends Component {
     
     this._handleChange = this._handleChange.bind(this);
     this._handleFormSubmit = this._handleFormSubmit.bind(this);
-    this._handleRegisterClick = this._handleRegisterClick.bind(this);
   }
   
   render() {
@@ -31,7 +31,7 @@ class Register extends Component {
             <input id="confirmPassword" name="confirmPassword" type="password" placeholder="Confirm Password" onChange={this._handleChange}/>
           </label>
           <input type="submit" value="Register" className="submit button"/>
-          Already registered? <a href="#" className="login-form" onClick={this._handleRegisterClick}>Sign in here.</a>
+          Already registered? <Link to="/login">Sign in here.</Link>
         </form>
       </div>
     )
@@ -46,11 +46,6 @@ class Register extends Component {
   _handleFormSubmit(event) {
     event.preventDefault();
     this._register();
-  }
-  
-  _handleRegisterClick(event) {
-    event.preventDefault();
-    this.props.setRegistered(true);
   }
   
   _register() {

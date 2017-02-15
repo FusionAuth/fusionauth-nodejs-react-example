@@ -32,7 +32,7 @@ module.exports = {
           localStorage.access_token = json.access_token;
           localStorage.userId = json.userId;
           if (callback) {
-            callback(true);
+            callback(true, json);
           }
         });
       } else {
@@ -40,12 +40,16 @@ module.exports = {
         if (response.status === 400) {
           response.json().then((json) => {
             console.info(JSON.stringify(json, null, 2));
+            if (callback) {
+              callback(false, json);
+            }
           });
+        } else {
+          if (callback) {
+            callback(false);
+          }          
         }
 
-        if (callback) {
-          callback(false);
-        }
       }
     });
   },

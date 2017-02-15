@@ -1,0 +1,20 @@
+.errors {
+  border: 1px solid #c72f38;
+  padding: 15px;
+  min-height: 30px;
+  border-radius: 2px;
+  margin-bottom: 25px;
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,.69);
+}
+
+.errors .error {
+  float: left;
+  margin-top: 5px;
+}
+
+.errors .exclamation {
+  margin-top: 5px;
+  color: #c72f38;
+  font-size: 1.3em;
+  float: right;
+}

@@ -1,19 +1,23 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import Errors from './Errors';
 
 class Register extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
-    
+    this.state = {
+      errors: []
+    };
     
     this._handleChange = this._handleChange.bind(this);
     this._handleFormSubmit = this._handleFormSubmit.bind(this);
   }
   
   render() {
+    console.info(this.state.errors);
     return (
-      <div className="Register">
+      <div className="register">
+        <Errors errors={this.state.errors} />
         <form id="register" onSubmit={this._handleFormSubmit}>
           <label>
             <input id="firstName" name="firstName" type="text" autoFocus placeholder="First Name" spellCheck="false" autoCorrect="off" autoComplete="off" onChange={this._handleChange}/>
@@ -82,6 +86,15 @@ class Register extends Component {
         if (response.status === 400) {
           response.json().then((json) => {
             console.info(JSON.stringify(json, null, 2));
+            if (json.generalErrors && json.generalErrors.length > 0) {
+             this.setState({
+              'errors': [json.generalErrors[0].message]
+             });              
+            } else {
+              this.setState({
+              'errors': [json.fieldErrors['user.email'][0].code]
+              });  
+             }
           });
         }
       }

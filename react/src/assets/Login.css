@@ -14,8 +14,8 @@
   display: inline-block;
 }
 
-.Login,
-.Register {
+.login,
+.register {
   width: 400px;
   display: inline-block;
   vertical-align: top;
@@ -26,20 +26,20 @@
   padding: 10px 30px;
 }
 
-.Login label,
-.Register label,
+.login label,
+.register label,
 {
   text-align: left;
 }
 
-.Login input[type="submit"],
-.Register input[type="submit"] {
+.login input[type="submit"],
+.register input[type="submit"] {
   background-color: #365a8b;
   color: #fff;
 }
 
-.Login .button,
-.Register .button {
+.login .button,
+.register .button {
   color: #fff;
   border: 0;
   line-height: inherit;
@@ -58,8 +58,8 @@
   box-shadow: 0 1px 3px 0 rgba(0,0,0,.69);
 }
 
-.Login input,
-.Register input {
+.login input,
+.register input {
   font-weight: 300;
 
   /*display: block;*/
@@ -79,9 +79,17 @@
   /*border-radius: 2px;*/
 }
 
-.Login input:focus,
-.Register input:focus {
+.login input:focus,
+.register input:focus {
   border: none;
   outline: none;
   border-bottom: 1px solid #365a8b;
 }
+
+.login label,
+.register label {
+  width: 100%;
+  display: inline-block;
+  overflow: hidden;  
+}
+

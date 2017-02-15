@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { browserHistory, Link } from 'react-router';
 
+import Errors from './Errors';
 import auth from '../auth';
 import '../assets/Login.css';
 
@@ -9,7 +10,7 @@ class Login extends Component {
     super(props);
     this.state = {
       applicationId: props.applicationId,
-      userRegistered: true
+      errors: []
     }
 
     this._handleChange = this._handleChange.bind(this);
@@ -24,15 +25,22 @@ class Login extends Component {
   
   _handleFormSubmit(event) {
     event.preventDefault();
-    auth.login(this.state.loginId, this.state.password, (authenticated) => {
+    auth.login(this.state.loginId, this.state.password, (authenticated, response) => {
       // TODO If Authenticated, not Registered, navigate to a partial registration?
-      browserHistory.push('/');
+      if (authenticated) {
+        browserHistory.push('/');
+      } else {
+        this.setState({
+          'errors': [response.generalErrors[0].code]
+        })
+      }
     });
   }
   
   render() {
     return (
-       <div className="Login" ref={(login) => {this.loginForm = login; }} >
+       <div className="login" ref={(login) => {this.loginForm = login; }} >
+        <Errors errors={this.state.errors} />
         <form id="login" onSubmit={this._handleFormSubmit}>
           <label>
             <input id="loginId" name="loginId" type="text" autoFocus placeholder="Email or Username" spellCheck="false" autoCorrect="off" autoComplete="off" onChange={this._handleChange}/>

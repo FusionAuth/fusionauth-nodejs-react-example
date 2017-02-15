@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import FontAwesome from 'react-fontawesome';
+
 import '../assets/ToDo.css';
 
 class ToDo extends Component {
@@ -18,11 +20,15 @@ class ToDo extends Component {
   render() {
     return (
       <div className="todo flex-child">
-        <div className="action"></div>
+        <div className="action">
+          <FontAwesome name="square-o" />
+        </div>
         <div className="text">
           <input type="text" value={this.state.value} onChange={this.handleChange}/>
         </div>
-        <div className="action"></div>
+        <div className="action">
+          <span aria-hidden="true" className="fa"></span>
+        </div>
       </div>
     );
   }

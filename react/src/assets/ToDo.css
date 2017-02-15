@@ -27,7 +27,31 @@
   border: 1px solid #ddd;
   display: inline-block;
   height: 100%;
-  width: 50px;
+  width: 65px;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  
+  display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+/*    width: 7%;*/
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-align-self: stretch;
+    -ms-flex-item-align: stretch;
+    align-self: stretch;
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 auto;
+    -ms-flex: 0 auto;
+    flex: 0 auto;
 }
 
 .todo .action:first-of-type {
@@ -36,6 +60,22 @@
 
 .todo .action:last-of-type {
   float: right;
+}
+
+.todo .action .fa {
+  font-size: 1.3em;
+}
+
+.todo .action:first-of-type .fa:hover:before {
+  content: "\f046";
+}
+
+.todo .action:last-of-type:hover .fa {
+  color: #365a8b;
+}
+
+.todo .action:last-of-type:hover .fa:before {
+  content: "\f040";
 }
 
 .todo .text {

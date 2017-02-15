@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 import bluemix_logo from './assets/img/bluemix_logo.svg';
 import passport_logo from './assets/img/passport_logo.png';
-import Logout from './components/Logout';
 import auth from './auth';
 
 import './assets/App.css';
@@ -27,7 +27,9 @@ class App extends Component {
           <h2>Get started with Passport</h2>
         </div>
         <div className="App-content">
-          <Logout />
+          <div className="logout">
+            {auth.loggedIn() ? (<Link to="/logout">Logout</Link>) : ('')}
+          </div>
           {this.props.children}
         </div>
       </div>

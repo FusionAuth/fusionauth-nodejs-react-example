@@ -1,21 +1,20 @@
 import React, { Component } from 'react';
-import { browserHistory } from 'react-router';
-import { Link } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 
 import auth from '../auth';
 import '../assets/Logout.css';
 
 class Logout extends Component {
-  handleClick(event) {
-    event.preventDefault();
+  componentDidMount() {
     auth.logout();
     browserHistory.push('/');
   }
-
+  
   render() {
     return (
-      <div className="logout">
-        {auth.loggedIn() ? (<Link to="/logout" onClick={this.handleClick}>Logout</Link>) : ('')}
+      <div className="message">
+        You've been successfully logged out. Thank you for using Passport!
+        Click here to return to <Link to="/login">Login</Link>
       </div>
     );
   }

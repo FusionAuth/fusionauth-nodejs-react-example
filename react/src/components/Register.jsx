@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 import Errors from './Errors';
+import auth from '../auth';
 
 class Register extends Component {
   constructor(props) {
@@ -14,7 +15,6 @@ class Register extends Component {
   }
 
   render() {
-    console.info(this.state.errors);
     return (
       <div className="register">
         <Errors errors={this.state.errors} />
@@ -53,7 +53,7 @@ class Register extends Component {
   }
 
   _register() {
-    var registrationRequest = {
+    const requestBody = {
       user: {
         email: this.state.email,
         password: this.state.password
@@ -64,11 +64,11 @@ class Register extends Component {
       skipVerification: true
     };
 
-    var request = new Request('http://passport.local/api/user/registration',
+    const request = new Request('http://passport.local/api/user/registration',
       {
         method: 'POST',
         mode: 'cors',
-        body: JSON.stringify(registrationRequest),
+        body: JSON.stringify(requestBody),
         headers: {
           'Authorization': '1cfd3949-a5db-4f3c-a936-b18519ecd0c2',
           'Content-Type': 'application/json'
@@ -79,7 +79,12 @@ class Register extends Component {
     fetch(request).then((function(response) {
       if (response.status === 200) {
         response.json().then((function(json) {
-          this.props.setRegistered(true);
+          // Registered, log them in? or redirect to login?
+          auth.login(this.state.email, this.state.password, function(authenticated) {
+            if (authenticated) {
+              browserHistory.push('/');
+            }
+          });
         }).bind(this));
       } else {
         console.info(response.status);

@@ -5,13 +5,17 @@
 }
 
 .todo {
-  width: 500px;
-  height: 65px;
+  width: 700px;
+  height: 80px;
   margin-bottom: 5px;
   display: flex;
   background-color: #dfdfdf;
   background-color: #edeff1;
   box-shadow: 1px 1px 3px 0 rgba(0,0,0,.28);
+}
+
+.todo[data-template="true"] {
+  margin-bottom: 10px;
 }
 
 .todo > div {
@@ -22,16 +26,15 @@
 }
 
 .todo .action {
-  border-left: none;
-  border-right: 2px solid #d7e0dc;
-  border: 1px solid #ddd;
+  border: 1px solid transparent;
   display: inline-block;
   height: 100%;
-  width: 65px;
+  width: 75px;
   -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
-  
+  cursor: pointer;
+
   display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -54,6 +57,10 @@
     flex: 0 auto;
 }
 
+.todo .action {
+  transition: border 0.4s ease-in-out;
+}
+
 .todo .action:first-of-type {
   float: left;
 }
@@ -62,24 +69,66 @@
   float: right;
 }
 
+.todo .action.add {
+  color:  #365a8b;
+}
+
+.todo .action.add:hover {
+  border: 1px solid #365a8b;
+
+}
+
 .todo .action .fa {
   font-size: 1.3em;
 }
 
-.todo .action:first-of-type .fa:hover:before {
+.todo .action.check .fa:hover:before {
   content: "\f046";
 }
 
-.todo .action:last-of-type:hover .fa {
+.todo .action.save .fa:before {
+  content: "\f0c7";
+}
+
+.todo .action.save:hover .fa {
+  color: #0B610B;
+}
+
+.todo .action.save:hover {
+  border: 1px solid #088A08;
+}
+
+.todo .action.delete {
+  color: #dc0000;
+}
+
+.todo .action.delete:hover {
+  border: 1px solid #dc0000;
+}
+
+.todo .action.delete .fa:before {
+  content: "\f1f8";
+}
+
+.todo .action.edit:hover .fa {
   color: #365a8b;
 }
 
-.todo .action:last-of-type:hover .fa:before {
+.todo .action.edit:hover .fa:before {
   content: "\f040";
 }
 
+.todo .text:hover {
+  /*border: 1px solid #ddd;*/
+}
+
 .todo .text {
-  font-size: 14px;
+  border: 1px solid transparent;
+
+  font-weight: 300;
+  font-size: 1.4em;
+  line-height: 1.4em;
+
   white-space: pre-wrap;
   padding-top: 15px;
   padding-bottom: 15px;
@@ -90,8 +139,6 @@
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  margin-left: 10px;
-  margin-right: 10px;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
   -webkit-flex-direction: row;
@@ -113,6 +160,10 @@
   padding: 8px 12px;
   font-size: 1.1em;
   width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  text-align: left;
+  font-weight: 300;
 }
 
 .todo .text input[type=text] {

@@ -5,11 +5,15 @@ class ToDoListContainer extends Component {
   constructor() {
     super();
     this.state = { todos: [] };
+
+    this.load = this.load.bind(this);
   }
 
   componentDidMount() {
-    // Make an API call to retrieve the list of ToDo items
+    this.load();
+  }
 
+  load() {
     const xhr = new XMLHttpRequest();
     xhr.onreadystatechange = (function () {
       if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -20,19 +24,17 @@ class ToDoListContainer extends Component {
           });
         } else if (xhr.status === 400) {
           console.info(JSON.stringify(xhr.responseText, null, 2));
-        } else {
-
         }
       }
     }).bind(this);
+
     xhr.open('GET', 'http://localhost:8080/api/todos?userId=' + localStorage.userId, true);
     xhr.setRequestHeader('Authorization', 'JWT ' + localStorage.access_token);
     xhr.send();
-
   }
 
   render() {
-    return <ToDoList todos={this.state.todos} />;
+    return <ToDoList todos={this.state.todos} refresh={this.load}/>;
   }
 }
 

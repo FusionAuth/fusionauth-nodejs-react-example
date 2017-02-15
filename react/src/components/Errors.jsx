@@ -43,6 +43,8 @@ Errors.defaultProps = {
     '[InvalidLogin]': 'Invalid Login Credentials',
     '[blank]user.email': 'Email is required.',
     '[blank]user.password': 'Password is required.',
+    '[singleCase]user.password': 'Maybe throw in an upper case letter?',
+    '[tooShort]user.password': 'The password is too short me thinks.'
   }
 };
 

@@ -11,6 +11,8 @@
 .errors .error {
   margin-top: 5px;
   display: flex;
+  font-size: 0.9em;
+  text-align: left;
 }
 
 .errors .exclamation {

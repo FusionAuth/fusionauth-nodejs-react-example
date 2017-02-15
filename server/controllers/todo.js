@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, Inversoft Inc., All Rights Reserved
+ * Copyright (c) 2016-2017, Inversoft Inc., All Rights Reserved
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -58,7 +58,7 @@ router.route("/todos").post((req, res) => {
     return;
   }
 
-  todo.create(req.body.data.attributes.text, req.session.user.id)
+  todo.create(req.body.data.attributes.text, jwt.sub)
     .then((todo) => {
       res.send(_convertTodo(todo));
     })
@@ -67,7 +67,7 @@ router.route("/todos").post((req, res) => {
     });
 });
 
-router.route("/todos/:id").patch((req, res) => {
+router.route("/todos/:id").put((req, res) => {
   const jwt = _decodeJWT(req);
   if (!_isAuthorized(jwt, "UPDATE_TODO")) {
     _sendUnauthorized(res);
@@ -94,7 +94,7 @@ router.route("/todos/:id").delete((req, res) => {
     return;
   }
 
-  todo.delete(req.params.id, req.session.user.id)
+  todo.delete(req.params.id, jwt.sub)
     .then(() => {
       res.sendStatus(204);
     })

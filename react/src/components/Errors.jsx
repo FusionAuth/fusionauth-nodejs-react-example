@@ -6,12 +6,12 @@ import '../assets/Errors.css';
 
 class Errors extends Component {
   constructor(props) {
-    super(props)
-    
+    super(props);
+
     this.lookupMessage = this.lookupMessage.bind(this);
     this.renderError = this.renderError.bind(this);
   }
-  
+
   render() {
     return (
       <div>
@@ -24,15 +24,15 @@ class Errors extends Component {
       </div>
     );
   }
-  
+
   lookupMessage(code) {
     if (this.props.messages[code]) {
       return this.props.messages[code];
     }
-    
+
     return code;
   }
-  
+
   renderError(code) {
     return <Error text={this.lookupMessage(code)} key={code} />
   }
@@ -41,9 +41,8 @@ class Errors extends Component {
 Errors.defaultProps = {
   messages: {
     '[InvalidLogin]': 'Invalid Login Credentials',
-    '[blank]user.email': 'Required',
-    '[blank]user.password': 'Required',
-    '[blank]user.usernam': 'Required'
+    '[blank]user.email': 'Email is required.',
+    '[blank]user.password': 'Password is required.',
   }
 };
 

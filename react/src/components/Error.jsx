@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { browserHistory, Link } from 'react-router';
+import FontAwesome from 'react-fontawesome';
 
 class Error extends Component {
   render() {
     return (
        <div className="error">
-        {this.props.text}
+         <FontAwesome className="error" name="circle-o" />
+         {this.props.text}
        </div>
     );
   }

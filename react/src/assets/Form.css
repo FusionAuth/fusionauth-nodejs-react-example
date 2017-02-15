@@ -1,7 +1,7 @@
 .form-view-port {
 /*  width: 480px;*/
   width: 480px;
-  position: realtive;
+  position: relative;
   overflow-x: hidden;
   display: inline;
   height: 600px;
@@ -9,7 +9,7 @@
 
 .form-container {
   overflow-x: hidden;
-  transition: margin-left 0.5s; 
+  transition: margin-left 0.5s;
   width: 1380px;
   display: inline-block;
 }
@@ -27,7 +27,7 @@
 }
 
 .login label,
-.register label,
+.register label
 {
   text-align: left;
 }
@@ -90,6 +90,5 @@
 .register label {
   width: 100%;
   display: inline-block;
-  overflow: hidden;  
+  overflow: hidden;
 }
-

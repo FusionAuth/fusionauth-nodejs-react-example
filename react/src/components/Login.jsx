@@ -3,7 +3,6 @@ import { browserHistory, Link } from 'react-router';
 
 import Errors from './Errors';
 import auth from '../auth';
-import '../assets/Login.css';
 
 class Login extends Component {
   constructor(props) {
@@ -22,7 +21,7 @@ class Login extends Component {
       [event.target.name]: event.target.value
     });
   }
-  
+
   _handleFormSubmit(event) {
     event.preventDefault();
     auth.login(this.state.loginId, this.state.password, (authenticated, response) => {
@@ -36,7 +35,7 @@ class Login extends Component {
       }
     });
   }
-  
+
   render() {
     return (
        <div className="login" ref={(login) => {this.loginForm = login; }} >

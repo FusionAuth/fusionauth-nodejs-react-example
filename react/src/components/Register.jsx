@@ -8,11 +8,11 @@ class Register extends Component {
     this.state = {
       errors: []
     };
-    
+
     this._handleChange = this._handleChange.bind(this);
     this._handleFormSubmit = this._handleFormSubmit.bind(this);
   }
-  
+
   render() {
     console.info(this.state.errors);
     return (
@@ -40,18 +40,18 @@ class Register extends Component {
       </div>
     )
   }
-  
+
   _handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value
     });
   }
-  
+
   _handleFormSubmit(event) {
     event.preventDefault();
     this._register();
   }
-  
+
   _register() {
     var registrationRequest = {
       user: {
@@ -63,7 +63,7 @@ class Register extends Component {
       },
       skipVerification: true
     };
-    
+
     var request = new Request('http://passport.local/api/user/registration',
       {
         method: 'POST',
@@ -75,7 +75,7 @@ class Register extends Component {
         }
       }
     );
-    
+
     fetch(request).then((function(response) {
       if (response.status === 200) {
         response.json().then((function(json) {
@@ -89,18 +89,30 @@ class Register extends Component {
             if (json.generalErrors && json.generalErrors.length > 0) {
              this.setState({
               'errors': [json.generalErrors[0].message]
-             });              
+             });
             } else {
-              this.setState({
-              'errors': [json.fieldErrors['user.email'][0].code]
-              });  
+              const errors = [];
+              // Using email for registration, ignore username errors
+              for(let property in json.fieldErrors) {
+                if (property === 'user.username') {
+                  continue;
+                }
+
+                if (json.fieldErrors.hasOwnProperty(property)) {
+                  for (let i=0; i < json.fieldErrors[property].length; i++) {
+
+                    errors.push(json.fieldErrors[property][i].code);
+                  }
+                }
+              }
+              this.setState({'errors': errors});
              }
           });
         }
       }
     }).bind(this));
   }
-  
+
 }
 
 export default Register;

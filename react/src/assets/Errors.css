@@ -5,11 +5,12 @@
   border-radius: 2px;
   margin-bottom: 25px;
   box-shadow: 0 1px 3px 0 rgba(0,0,0,.69);
+  list-style-type: disc;
 }
 
 .errors .error {
-  float: left;
   margin-top: 5px;
+  display: flex;
 }
 
 .errors .exclamation {
@@ -17,4 +18,11 @@
   color: #c72f38;
   font-size: 1.3em;
   float: right;
+}
+
+.errors span.error {
+  font-size: .5em;
+  color: #c72f38;
+  margin-top: 6px;
+  margin-right: 7px;
 }

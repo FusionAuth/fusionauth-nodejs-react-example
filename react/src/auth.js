@@ -108,6 +108,8 @@ module.exports = {
   logout(callBack) {
     delete localStorage.access_token;
     delete localStorage.userId;
+    delete localStorage.email;
+    delete localStorage.name;
     if (callBack) {
       callBack();
     }
@@ -165,8 +167,10 @@ module.exports = {
             console.info('fail [' + xhr.status + ']');
           }
         } else {
-          this.login(email, password, (authenticated) => {
-            if (authenticated) {
+          this.login(email, password, (status, response) => {
+            if (status === 200) {
+              localStorage.access_token = response.access_token;
+              localStorage.userId = response.userId;
               if (callBack) {
                 callBack(xhr.status);
               }

@@ -1,5 +1,5 @@
 .greeting {
-  position: fixed;
+  position: absolute;
   top: 0;
   right: 90px;
   color: #fff;

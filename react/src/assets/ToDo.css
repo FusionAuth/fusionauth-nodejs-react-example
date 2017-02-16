@@ -177,3 +177,10 @@
   outline: none;
   border: 1px solid #365a8b;
 }
+
+
+@media (max-width: 750px) {
+  .todo {
+    width: 100%;
+  }
+}

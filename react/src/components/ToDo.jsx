@@ -46,7 +46,6 @@ class ToDo extends Component {
   _handleDeleteClick(event) {
     event.preventDefault();
     this.delete(() => {
-      console.info('call refresh after delete');
       this.props.refresh();
     });
   }

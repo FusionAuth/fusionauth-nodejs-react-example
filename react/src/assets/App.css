@@ -1,3 +1,11 @@
+body {
+  font-size: 1.1em;
+  line-height: 1.1em;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased !important;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.004);
+}
+
 .App {
   text-align: center;
 }

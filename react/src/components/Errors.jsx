@@ -40,9 +40,11 @@ class Errors extends Component {
 
 Errors.defaultProps = {
   messages: {
-    '[InvalidLogin]': 'Invalid Login Credentials',
-    '[blank]user.email': 'Email is required.',
-    '[blank]user.password': 'Password is required.',
+    '[AuthenticatedNotRegistered]': 'You are not authorized to this application.',
+    '[InvalidLogin]': 'Invalid Credentials. Try again.',
+    '[PasswordMismatch]': 'Passwords do not match.',
+    '[blank]user.email': 'Email is Required.',
+    '[blank]user.password': 'Password is Required.',
     '[singleCase]user.password': 'Maybe throw in an upper case letter?',
     '[tooShort]user.password': 'The password is too short me thinks.'
   }

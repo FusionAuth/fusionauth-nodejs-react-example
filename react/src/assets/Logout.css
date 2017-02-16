@@ -1,8 +1,18 @@
-.logout {
+.greeting {
   position: fixed;
-  top: 0px;
-  right: 20px;
-  height: 35px;
+  top: 0;
+  right: 90px;
+  color: #fff;
+}
+
+.greeting span {
+  margin-top: 10px;
+  float: left;
+}
+
+.logout {
+  float: left;
+  margin-left: 15px;
 }
 
 .logout a {
@@ -13,11 +23,12 @@
   border: none;
   outline: none;
   text-decoration: none;
-  font-size: 0.8em;
-  padding-left: 10px;
-  padding-right: 10px;
-  border-bottom-left-radius: 2px;
-  border-bottom-right-radius: 2px;
+  padding-top: 9px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  height: 30px;
 }
 
 .logout a:hover {

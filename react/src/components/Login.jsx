@@ -10,7 +10,7 @@ class Login extends Component {
     this.state = {
       applicationId: props.applicationId,
       errors: []
-    }
+    };
 
     this._handleChange = this._handleChange.bind(this);
     this._handleFormSubmit = this._handleFormSubmit.bind(this);
@@ -24,13 +24,19 @@ class Login extends Component {
 
   _handleFormSubmit(event) {
     event.preventDefault();
-    auth.login(this.state.loginId, this.state.password, (authenticated, response) => {
+    auth.login(this.state.loginId, this.state.password, (status, response) => {
       // TODO If Authenticated, not Registered, navigate to a partial registration?
-      if (authenticated) {
+      if (status === 200) {
+        localStorage.access_token = response.access_token;
+        localStorage.userId = response.userId;
         browserHistory.push('/');
+      } else if (status === 202) {
+        this.setState({
+          'errors': ['[AuthenticatedNotRegistered]']
+        })
       } else {
         this.setState({
-          'errors': [response.generalErrors[0].code]
+          'errors': response
         })
       }
     });
@@ -38,7 +44,7 @@ class Login extends Component {
 
   render() {
     return (
-       <div className="login" ref={(login) => {this.loginForm = login; }} >
+       <div className="login" >
         <Errors errors={this.state.errors} />
         <form id="login" onSubmit={this._handleFormSubmit}>
           <label>

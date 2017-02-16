@@ -2,73 +2,186 @@
 //const client = new PassportClient('1cfd3949-a5db-4f3c-a936-b18519ecd0c2', 'http://frontend.local');
 
 module.exports = {
-  login(email, password, callback) {
-    callback = arguments[arguments.length - 1];
+  login(email, password, callBack) {
+    callBack = arguments[arguments.length - 1];
     if (localStorage.access_token) {
-      if (callback) {
-        callback(true);
+      if (callBack) {
+        callBack(200);
       }
       this.onChange(true);
       return;
     }
 
-    var formData = new FormData();
-    formData.append('loginId', email);
-    formData.append('password', password);
-    formData.append('grant_type', 'password');
-    formData.append('client_id', '4ed5eb32-0a97-40eb-a6d7-cca1f9fa3a0c')
+    const data = new FormData();
+    data.append('loginId', email);
+    data.append('password', password);
+    data.append('grant_type', 'password');
+    data.append('client_id', '4ed5eb32-0a97-40eb-a6d7-cca1f9fa3a0c');
 
-    var request = new Request('http://frontend.local/oauth2/token',
-      {
-        method: 'POST',
-        mode: 'cors',
-        body: formData
-      }
-    );
-
-    fetch(request).then(function(response) {
-      if (response.status === 200) {
-        response.json().then(function(json) {
-          localStorage.access_token = json.access_token;
-          localStorage.userId = json.userId;
-          if (callback) {
-            callback(true, json);
-          }
-        });
-      } else {
-        console.info(response.status);
-        if (response.status === 400) {
-          response.json().then((json) => {
-            console.info(JSON.stringify(json, null, 2));
-            if (callback) {
-              callback(false, json);
+    const xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = (function () {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        if (xhr.status < 200 || xhr.status > 299) {
+          if (xhr.status === 400) {
+            const errors = [];
+            const errorResponse = JSON.parse(xhr.responseText);
+            console.info(JSON.stringify(errorResponse, null, 2));
+            if (errorResponse.generalErrors && errorResponse.generalErrors.length > 0) {
+              errors.push(errorResponse.generalErrors[0].message);
+            } else {
+              for(let property in errorResponse.fieldErrors) {
+                if (errorResponse.fieldErrors.hasOwnProperty(property)) {
+                  for (let i=0; i < errorResponse.fieldErrors[property].length; i++) {
+                    errors.push(errorResponse.fieldErrors[property][i].code);
+                  }
+                }
+              }
             }
-          });
+            if (callBack) {
+              callBack(xhr.status, errors);
+            }
+          } else {
+            if (callBack) {
+              callBack(xhr.status);
+            }
+          }
         } else {
-          if (callback) {
-            callback(false);
-          }          
+          // Success
+          if (xhr.status === 200) {
+            const response = JSON.parse(xhr.responseText);
+            this.retrieveUser(response.access_token, () => {
+              if (callBack) {
+                callBack(xhr.status, response);
+              }
+            });
+          } else {
+            if (callBack) {
+              callBack(xhr.status);
+            }
+          }
         }
-
       }
-    });
+    }).bind(this);
+
+    xhr.open('POST', 'http://frontend.local/oauth2/token', true);
+    xhr.send(data);
+  },
+
+  retrieveUser(encodedJWT, callBack) {
+    const xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        if (xhr.status < 200 || xhr.status > 299) {
+          if (xhr.status === 400) {
+            console.info('fail [' + xhr.status + ']');
+          } else {
+            console.info('fail [' + xhr.status + ']');
+          }
+        } else {
+          // try to get a name out of the user response.
+          const user = JSON.parse(xhr.responseText).user;
+          localStorage.email = user.email;
+          if (user.firstName && user.lastName) {
+            localStorage.name = user.firstName + ' ' + user.lastName;
+          } else if (user.username) {
+            localStorage.name = user.username;
+          } else {
+            localStorage.name = user.email;
+          }
+          if (callBack) {
+            callBack();
+          }
+        }
+      }
+    };
+
+    xhr.open('GET', 'http://passport.local/api/user', true);
+    xhr.setRequestHeader('Authorization', 'JWT ' + encodedJWT);
+    xhr.send();
   },
 
   getToken() {
     return localStorage.access_token
   },
 
-  logout(callback) {
+  logout(callBack) {
     delete localStorage.access_token;
     delete localStorage.userId;
-    if (callback) {
-      callback();
+    if (callBack) {
+      callBack();
     }
     this.onChange(false);
   },
 
   loggedIn() {
     return !!localStorage.access_token;
+  },
+
+  register(email, password, callBack) {
+    const requestBody = {
+      user: {
+        email: email,
+        password: password
+      },
+      registration: {
+        applicationId: '4ed5eb32-0a97-40eb-a6d7-cca1f9fa3a0c',
+        roles: [
+          'RETRIEVE_TODO', 'CREATE_TODO', 'UPDATE_TODO', 'DELETE_TODO'
+        ]
+      },
+      skipVerification: true
+    };
+
+    const xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = (function () {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        if (xhr.status < 200 || xhr.status > 299) {
+          if (xhr.status === 400) {
+            const errors = [];
+            const errorResponse = JSON.parse(xhr.responseText);
+            console.info(JSON.stringify(errorResponse, null, 2));
+            if (errorResponse.generalErrors && errorResponse.generalErrors.length > 0) {
+              errors.push(errorResponse.generalErrors[0].message);
+            } else {
+              // Using email for registration, ignore username errors
+              for(let property in errorResponse.fieldErrors) {
+                if (property === 'user.username') {
+                  continue;
+                }
+
+                if (errorResponse.fieldErrors.hasOwnProperty(property)) {
+                  for (let i=0; i < errorResponse.fieldErrors[property].length; i++) {
+
+                    errors.push(errorResponse.fieldErrors[property][i].code);
+                  }
+                }
+              }
+            }
+            if (callBack) {
+              callBack(xhr.status, errors);
+            }
+          } else {
+            console.info('fail [' + xhr.status + ']');
+          }
+        } else {
+          this.login(email, password, (authenticated) => {
+            if (authenticated) {
+              if (callBack) {
+                callBack(xhr.status);
+              }
+            }
+          });
+        }
+      }
+    }).bind(this);
+
+    xhr.open('POST', 'http://passport.local/api/user/registration', true);
+    xhr.setRequestHeader('Authorization', '1cfd3949-a5db-4f3c-a936-b18519ecd0c2');
+    xhr.setRequestHeader("Content-type","application/json");
+
+    const jsonRequest = JSON.stringify(requestBody);
+    xhr.send(jsonRequest);
   },
 
   onChange() {}

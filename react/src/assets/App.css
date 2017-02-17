@@ -11,24 +11,32 @@ body {
 }
 
 .App-logo {
+  float: left;
   animation: App-logo-spin infinite 20s linear;
   height: 80px;
 }
 
 .App-logo:last-of-type {
   margin-left: 10px;
+  margin-right: 10px;
   height: 82px;
 }
 
 .App-header {
   background-color: #222;
-  height: 150px;
+  height: 25px;
   padding: 20px;
   color: white;
+  box-shadow: 2px 1px 3px 0 rgba(0,0,0,.5);
+}
+
+.App-header h2 {
+  text-align: left;
+  margin-top: 5px;
 }
 
 .App-content {
-  margin: 0 auto;
+  margin-top: 40px;
   -webkit-box-flex: 1;
   -webkit-flex: 1;
   -ms-flex: 1;

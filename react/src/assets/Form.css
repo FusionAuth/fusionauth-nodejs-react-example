@@ -20,9 +20,7 @@
   display: inline-block;
   vertical-align: top;
   position: relative;
-  margin-top: 20px;
-  margin: 20px auto;
-  margin-top: 50px;
+  margin: 40px auto 20px;
   padding: 10px 30px;
 }
 
@@ -46,12 +44,10 @@
   cursor: pointer;
   text-align: center;
   font-size: 18px;
-  font-weight: 300;
+  font-weight: 400;
   height: 48px;
   margin-top: 20px;
   width: 100%;
-  /*margin-right: 10px;*/
-  /*margin-left: 10px;*/
   padding: 13px 0;
   border-radius: 2px;
   background-color: #365a8b;
@@ -91,4 +87,12 @@
   width: 100%;
   display: inline-block;
   overflow: hidden;
+}
+
+
+@media (max-width: 750px) {
+  .login,
+  .register {
+    margin-top: 20px;
+  }
 }

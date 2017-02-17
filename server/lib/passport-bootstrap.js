@@ -75,3 +75,5 @@ passportClient.retrieveSystemConfiguration()
 
 })
 .catch((clientResponse) => console.error(`Unable to initialize Passport. Please check that Passport is installed, running and not in maintenance mode. Status code from Passport was [${clientResponse.statusCode}]. Error response from Passport was [${JSON.stringify(clientResponse.errorResponse)}]`));
+
+// TODO Retrieve public key for this application for JWT validation

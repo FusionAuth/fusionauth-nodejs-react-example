@@ -172,7 +172,9 @@ function _decodeJWT(req) {
     const payload = Buffer.from(encodedPayload, 'base64');
     console.info(JSON.parse(payload));
 
-    return JSON.parse(payload);;
+    // TODO Verify Signature
+
+    return JSON.parse(payload);
   } catch (e) {
     return null;
   }

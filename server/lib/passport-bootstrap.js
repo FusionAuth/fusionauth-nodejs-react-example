@@ -24,6 +24,8 @@ const config = require("../config/config.js");
 // Build a Passport REST Client
 let passportClient = new PassportClient(config.passport.apiKey, config.passport.backendUrl);
 
+console.info('Passport Bootstrap in mode [' + config.mode + ']');
+
 // Make sure that the application, roles and configuration is setup in Passport
 passportClient.retrieveApplication(config.passport.applicationId)
   .catch((clientResponse) => {

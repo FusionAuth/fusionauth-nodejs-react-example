@@ -73,7 +73,10 @@ app.use(function(req, res) {
 
 
 const appEnv = cfenv.getAppEnv();
-const port = appEnv.VCAP_APP_PORT || appEnv.port || config.httpPort;
+console.info('VCAP_APP_PORT : ' + appEnv.VCAP_APP_PORT);
+console.info('config.httpPort : ' + config.httpPort);
+
+const port = appEnv.VCAP_APP_PORT || config.httpPort;
 
 
 // Create the HTTPS server that will handle all the requests

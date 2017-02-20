@@ -1,7 +1,7 @@
 {
   "development": {
     "mode": "development",
-    "httpPort": 3000,
+    "httpPort": 8080,
     "passport": {
       "apiKey": "bf69486b-4733-4470-a592-f1bfce7af580",
       "applicationId": "4ed5eb32-0a97-40eb-a6d7-cca1f9fa3a0c",

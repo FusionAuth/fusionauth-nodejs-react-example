@@ -141,6 +141,7 @@ function _handleDatabaseError(res, error) {
 
 function _isAuthorized(jwt, role) {
   if (jwt === null) {
+    console.info('jwt is null, probably a bad signature');
     return false;
   }
 
@@ -195,6 +196,9 @@ function _decodeJWT(req) {
 
     const schema = header['algorithm'];
     let verified = false;
+
+    console.info('schema : ' + schema);
+    console.info('public key : ' + publicKey);
     if (schema === 'rs256') {
       verified = rs256.verify(encodedJWT, signature, publicKey);
     } else if (schema === 'rs384') {
@@ -203,6 +207,7 @@ function _decodeJWT(req) {
       verified = rs512.verify(encodedJWT, signature, publicKey);
     }
 
+    console.info('verified : ' + verified);
     if (verified) {
       return JSON.parse(payload);
     }

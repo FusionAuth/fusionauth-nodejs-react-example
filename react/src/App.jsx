@@ -7,6 +7,7 @@ import Greeting from './components/Greeting';
 import './assets/App.css';
 import './assets/Form.css';
 import './assets/index.css';
+const config = require("../config/config.js");
 
 class App extends Component {
   constructor(props) {
@@ -44,8 +45,9 @@ class App extends Component {
     });
   }
 
+  // TODO move this to auth
   _validateAccessToken() {
-    fetch(new Request('http://passport.local/api/jwt/validate',
+    fetch(new Request(config.passport.backendUrl + '/api/jwt/validate',
       {
         method: 'GET',
         mode: 'cors',

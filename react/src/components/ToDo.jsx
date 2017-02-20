@@ -3,6 +3,8 @@ import FontAwesome from 'react-fontawesome';
 
 import '../assets/ToDo.css';
 
+const config = require("../../config/config.js");
+
 class ToDo extends Component {
   constructor(props) {
     super(props);
@@ -179,7 +181,7 @@ class ToDo extends Component {
       }
     };
 
-    xhr.open('POST', 'http://localhost:8080/api/todos', true);
+    xhr.open('POST', config.todo.url + '/api/todos', true);
     xhr.setRequestHeader('Authorization', 'JWT ' + localStorage.access_token);
     xhr.setRequestHeader("Content-type","application/json");
 
@@ -206,7 +208,7 @@ class ToDo extends Component {
       }
     };
 
-    xhr.open('DELETE', 'http://localhost:8080/api/todos/' + this.state.todo.id, true);
+    xhr.open('DELETE', config.todo.url + '/api/todos/' + this.state.todo.id, true);
     xhr.setRequestHeader('Authorization', 'JWT ' + localStorage.access_token);
     xhr.send();
   }
@@ -229,7 +231,7 @@ class ToDo extends Component {
       }
     };
 
-    xhr.open('PUT', 'http://localhost:8080/api/todos/' + this.state.todo.id, true);
+    xhr.open('PUT', config.todo.url + '/api/todos/' + this.state.todo.id, true);
     xhr.setRequestHeader('Authorization', 'JWT ' + localStorage.access_token);
     xhr.setRequestHeader("Content-type","application/json");
 

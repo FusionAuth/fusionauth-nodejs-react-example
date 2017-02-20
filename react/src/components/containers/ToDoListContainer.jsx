@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import ToDoList from '../ToDoList';
 
+const config = require("../../../config/config.js");
+
 class ToDoListContainer extends Component {
   constructor() {
     super();
@@ -28,7 +30,7 @@ class ToDoListContainer extends Component {
       }
     }).bind(this);
 
-    xhr.open('GET', 'http://localhost:8080/api/todos?userId=' + localStorage.userId, true);
+    xhr.open('GET', config.todo.url + '/api/todos?userId=' + localStorage.userId, true);
     xhr.setRequestHeader('Authorization', 'JWT ' + localStorage.access_token);
     xhr.send();
   }

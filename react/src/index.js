@@ -11,7 +11,6 @@ import ToDoListContainer from './components/containers/ToDoListContainer';
 
 import './assets/index.css';
 
-
 function requireAuth(nextState, replace) {
   if (!auth.loggedIn()) {
     replace({

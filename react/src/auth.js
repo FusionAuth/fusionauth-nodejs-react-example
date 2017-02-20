@@ -1,6 +1,12 @@
 //import PassportClient from 'passport-node-client';
 //const client = new PassportClient('1cfd3949-a5db-4f3c-a936-b18519ecd0c2', 'http://frontend.local');
 
+// TODO Cleanup and use PassportClient where possible
+
+const config = require("../config/config.js");
+
+console.info('auth');
+console.info(config);
 module.exports = {
   login(email, password, callBack) {
     callBack = arguments[arguments.length - 1];
@@ -16,7 +22,7 @@ module.exports = {
     data.append('loginId', email);
     data.append('password', password);
     data.append('grant_type', 'password');
-    data.append('client_id', '4ed5eb32-0a97-40eb-a6d7-cca1f9fa3a0c');
+    data.append('client_id', config.passport.applicationId);
 
     const xhr = new XMLHttpRequest();
     xhr.onreadystatechange = (function () {
@@ -63,7 +69,7 @@ module.exports = {
       }
     }).bind(this);
 
-    xhr.open('POST', 'http://frontend.local/oauth2/token', true);
+    xhr.open('POST', config.passport.frontendUrl + '/oauth2/token', true);
     xhr.send(data);
   },
 
@@ -96,7 +102,7 @@ module.exports = {
       }
     };
 
-    xhr.open('GET', 'http://passport.local/api/user', true);
+    xhr.open('GET', config.passport.backendUrl + '/api/user', true);
     xhr.setRequestHeader('Authorization', 'JWT ' + encodedJWT);
     xhr.send();
   },
@@ -127,7 +133,7 @@ module.exports = {
         password: password
       },
       registration: {
-        applicationId: '4ed5eb32-0a97-40eb-a6d7-cca1f9fa3a0c',
+        applicationId: config.passport.applicationId,
         roles: [
           'RETRIEVE_TODO', 'CREATE_TODO', 'UPDATE_TODO', 'DELETE_TODO'
         ]
@@ -180,8 +186,8 @@ module.exports = {
       }
     }).bind(this);
 
-    xhr.open('POST', 'http://passport.local/api/user/registration', true);
-    xhr.setRequestHeader('Authorization', '1cfd3949-a5db-4f3c-a936-b18519ecd0c2');
+    xhr.open('POST', config.passport.backendUrl + '/api/user/registration', true);
+    xhr.setRequestHeader('Authorization', config.passport.apiKey);
     xhr.setRequestHeader("Content-type","application/json");
 
     const jsonRequest = JSON.stringify(requestBody);

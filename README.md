@@ -7,32 +7,26 @@ You will need the following things properly installed on your computer.
 
 * [Git](http://git-scm.com/)
 * [Node.js](http://nodejs.org/) (with NPM)
-* [Bower](http://bower.io/)
-* [Ember CLI](http://ember-cli.com/)
-  * `npm install -g ember-cli`
-* [PhantomJS](http://phantomjs.org/)
-* [Mocha](http://mochajs.org/)
 
 ## Installation
 * `git clone https://github.com/inversoft/passport-bluemix-example` this repository
-* Change into the new directory
+* `cd passport-bluemix-example`
 * `cd server`
 * `npm install`
-* `cd ../ember`
+* `cd ../react`
 * `npm install`
-* `bower install`
 
 ## Running / Development
 * Start up Passport Backend
-* Log into Passport Backend and create a new API key using the value from the `server/config/config-dev.json` configuration file
+* Log into Passport Backend and create a new API key using the value from the `server/config/config.json` configuration file
 * Create a MySQL database called `user_todos` by executing this in the MySQL shell
   * `create database user_todos character set = 'utf8mb4' collate = 'utf8mb4_bin';`
 * Grant privileges to the dev user to this database by executing this in the MySQL shell 
   * `grant all on user_todos.* to 'dev'@'localhost' identified by 'dev';`
-* `cd ember`
-* `ember server --output="../server/public"`
-* `cd ../server`
-* `node server.js`
+* `cd server`
+* `npm start`  
+* `cd ../react`
+* `npm start`
 * Open your browser to [https://localhost:8081](https://localhost:8081).
 
 ## Optional Node Debugging in Chrome

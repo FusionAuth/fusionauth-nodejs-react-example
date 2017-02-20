@@ -14,6 +14,8 @@
  * language governing permissions and limitations under the License.
  */
 
+'use strict';
+
 /**
  * Model a user object.
  *

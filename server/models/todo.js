@@ -13,12 +13,31 @@
  * either express or implied. See the License for the specific
  * language governing permissions and limitations under the License.
  */
-var Sequelize = require("sequelize");
-var uuid = require("uuid");
-var config = require("../config/config.js");
+'use strict';
 
-Todo = function() {
-  var sequelize = new Sequelize(config.database.name, config.database.user, config.database.password, {
+const Sequelize = require("sequelize");
+const uuid = require("uuid");
+const config = require("../config/config.js");
+
+let sql;
+if (config.mode === 'production') {
+  const assert = require('assert');
+  const util = require('util');
+  // Within the application environment (appenv) there's a services object
+  const cfenv = require('cfenv');
+  const appenv = cfenv.getAppEnv();
+  const services = appenv.services;
+
+  // The services object is a map named by service so we extract the one for PostgreSQL
+  const mysql_services = services["compose-for-mysql"];
+
+  assert(!util.isUndefined(mysql_services), "Must be bound to compose-for-mysql services");
+
+  const credentials = mysql_services[0].credentials;
+  sql = new Sequelize(credentials.uri);
+} else {
+  // development
+  sql = new Sequelize(config.database.name, config.database.user, config.database.password, {
     host: config.database.host,
     dialect: "mysql",
     logging: false,
@@ -29,8 +48,11 @@ Todo = function() {
       idle: 10000
     }
   });
+}
 
-  this.todo = sequelize.define("todo", {
+const Todo = function() {
+
+  this.todo = sql.define("todo", {
       id: {type: Sequelize.UUID, primaryKey: true, allowNull: false, unique: true},
       text: {type: Sequelize.STRING(2048)},
       completed: {type: Sequelize.BOOLEAN, allowNull: true, defaultValue: false},
@@ -40,7 +62,7 @@ Todo = function() {
     }
   );
 
-  sequelize.sync().catch((error) => {
+  sql.sync().catch((error) => {
     console.error(error);
   });
 };

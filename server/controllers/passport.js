@@ -14,12 +14,15 @@
  * language governing permissions and limitations under the License.
  */
 
+'use strict';
+
 const express = require("express");
-const config = require("../config/config.js");
 const PassportClient = require('passport-node-client');
 
+const config = require("../config/config.js");
+
 // Build a Passport REST Client
-const client = new PassportClient(config.passport.apiKey, config.passport.url);
+const client = new PassportClient(config.passport.apiKey, config.passport.backendUrl);
 
 const router = express.Router();
 

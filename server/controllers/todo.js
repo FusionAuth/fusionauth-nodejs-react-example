@@ -13,6 +13,8 @@
  * either express or implied. See the License for the specific
  * language governing permissions and limitations under the License.
  */
+'use strict';
+
 var express = require("express");
 var Todo = require("../models/todo.js");
 var todo = new Todo();
@@ -20,6 +22,13 @@ var config = require("../config/config.js");
 const appId = config.passport.applicationId;
 var router = express.Router();
 var User = require('../lib/user.js');
+const jwa = require('jwa');
+const rs256 = jwa('RS256');
+const rs384 = jwa('RS384');
+const rs512 = jwa('RS512');
+const LocalStorage = require('node-localstorage').LocalStorage;
+const localStorage = new LocalStorage('./passport');
+const publicKey = localStorage.publicKey;
 
 // Ensure the user is logged in for every request in this route and if they aren't return 401 with an error
 router.all("/todos", (req, res, next) => {
@@ -158,23 +167,47 @@ function _decodeJWT(req) {
   try {
     const authorization = req.header('Authorization');
     if (authorization === null || typeof authorization === 'undefined') {
-      return false;
+      return null;
     }
 
     const encodedJWT = authorization.substr('JWT '.length);
     if (encodedJWT === null || typeof encodedJWT === 'undefined') {
-      return false;
+      return null;
     }
 
     const firstIndex = encodedJWT.indexOf('.');
     const lastIndex = encodedJWT.lastIndexOf('.');
+
+    const encodedHeader = encodedJWT.substring(0, firstIndex);
+    const header = JSON.parse(Buffer.from(encodedHeader, 'base64'));
     const encodedPayload = encodedJWT.substring(firstIndex + 1, lastIndex);
     const payload = Buffer.from(encodedPayload, 'base64');
     console.info(JSON.parse(payload));
+    const encodedSignature = encodedJWT.substring(lastIndex);
+    const signature = Buffer.from(encodedSignature, 'base64');
 
-    // TODO Verify Signature
+    // Verify header kid matches application
+    if (header.kid !== config.passport.applicationId) {
+      return null;
+    }
 
-    return JSON.parse(payload);
+    // get schema from header
+
+    const schema = header['algorithm'];
+    let verified = false;
+    if (schema === 'rs256') {
+      verified = rs256.verify(encodedJWT, signature, publicKey);
+    } else if (schema === 'rs384') {
+      verified = rs384.verify(encodedJWT, signature, publicKey);
+    } else if (schema === 'rs512') {
+      verified = rs512.verify(encodedJWT, signature, publicKey);
+    }
+
+    if (verified) {
+      return JSON.parse(payload);
+    }
+
+    return null;
   } catch (e) {
     return null;
   }

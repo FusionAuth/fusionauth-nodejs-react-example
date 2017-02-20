@@ -1,28 +1,13 @@
-/*
- * Copyright (c) 2016-2017, Inversoft Inc., All Rights Reserved
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
- * either express or implied. See the License for the specific
- * language governing permissions and limitations under the License.
- */
-
-var express = require("express");
-var app = express();
-var cors = require('cors');
-var bodyParser = require("body-parser");
-var uuid = require("uuid");
-var session = require("express-session");
-var passport = require("./controllers/passport.js");
-var todo = require("./controllers/todo.js");
-var config = require("./config/config.js");
+const express = require("express");
+const app = express();
+const cfenv = require('cfenv');
+const cors = require('cors');
+const bodyParser = require("body-parser");
+const uuid = require("uuid");
+const session = require("express-session");
+const passport = require("./controllers/passport.js");
+const todo = require("./controllers/todo.js");
+const config = require("./config/config.js");
 const http = require("http");
 const https = require("https");
 const fs = require("fs");
@@ -68,10 +53,10 @@ app.use(function(req, res) {
 });
 
 // SSL options for the HTTPS server below
-const options = {
-  key: fs.readFileSync(config.key.replace("%DIRNAME%", __dirname)),
-  cert: fs.readFileSync(config.cert.replace("%DIRNAME%", __dirname))
-};
+// const options = {
+//   key: fs.readFileSync(config.key.replace("%DIRNAME%", __dirname)),
+//   cert: fs.readFileSync(config.cert.replace("%DIRNAME%", __dirname))
+// };
 
 // Create HTTP server which only does a redirect to the HTTPS server
 // Commented out for dev purposes
@@ -86,8 +71,13 @@ const options = {
 //   res.end();
 // }).listen(config.httpPort);
 
-// Create the HTTPS server that will handle all the requests
-http.createServer(app).listen(config.httpPort);
-https.createServer(options, app).listen(config.httpsPort);
 
-console.log("The ToDo application is started and listening at on port " + config.httpsPort);
+const appEnv = cfenv.getAppEnv();
+const port = appEnv.VCAP_APP_PORT || appEnv.port || config.httpPort;
+
+
+// Create the HTTPS server that will handle all the requests
+http.createServer(app).listen(port);
+// https.createServer(options, app).listen(config.httpsPort);
+
+console.log("The ToDo application is started and listening at on port " + port);

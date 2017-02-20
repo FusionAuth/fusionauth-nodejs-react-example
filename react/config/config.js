@@ -1,7 +1,7 @@
-
 const configFile = require ('./config.json');
 
-let env = null;
+// npm run build fails with 'let', using 'var'
+var env = null;
 
 if (process.env.VCAP_SERVICES) {
   env = JSON.parse(process.env.VCAP_SERVICES);

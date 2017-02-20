@@ -1,3 +1,5 @@
+'use strict';
+
 const express = require("express");
 const app = express();
 const cfenv = require('cfenv');
@@ -75,11 +77,11 @@ app.use(function(req, res) {
 
 const appEnv = cfenv.getAppEnv();
 console.info(appEnv);
-console.info('VCAP_APP_PORT : ' + appEnv.VCAP_APP_PORT);
-console.info('config.httpPort : ' + config.httpPort);
 
-const port = appEnv.VCAP_APP_PORT || config.httpPort;
-
+let port = config.httpPort;
+if (config.mode === 'production') {
+  port = appEnv.port;
+}
 
 // Create the HTTPS server that will handle all the requests
 http.createServer(app).listen(port);

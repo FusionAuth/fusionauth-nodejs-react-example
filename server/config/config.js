@@ -2,17 +2,8 @@
 
 const configFile = require ('./config.json');
 
-let env = null;
-
-if (process.env.VCAP_SERVICES) {
-  env = JSON.parse(process.env.VCAP_SERVICES);
-}
-
-let config = null;
-if (env) {
-  config = configFile.production;
+if (process.env.VCAP_APPLICATION == null) {
+  module.exports = configFile.development;
 } else {
-  config = configFile.development;
+  module.exports = configFile.production;
 }
-
-module.exports = config;

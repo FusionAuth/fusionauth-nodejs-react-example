@@ -17,6 +17,7 @@ require("./lib/passport-bootstrap.js");
 
 // Cross-Origin Resource Sharing
 app.use(cors());
+app.options('*', cors()); // Enable pre-flight for all routes
 
 // Define the static resources above everything else so that we don't create sessions or handle the body of the request at all
 app.use(express.static(__dirname + "/public"));
@@ -73,6 +74,7 @@ app.use(function(req, res) {
 
 
 const appEnv = cfenv.getAppEnv();
+console.info(appEnv);
 console.info('VCAP_APP_PORT : ' + appEnv.VCAP_APP_PORT);
 console.info('config.httpPort : ' + config.httpPort);
 

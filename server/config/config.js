@@ -2,18 +2,17 @@
 
 const configFile = require ('./config.json');
 
-const cfenv = require('cfenv');
-const util = require('util');
+let env = null;
 
-const services = cfenv.getAppEnv().services;
+if (process.env.VCAP_SERVICES) {
+  env = JSON.parse(process.env.VCAP_SERVICES);
+}
 
 let config = null;
-
-// TODO probably a better way to decide if we're in dev or prod
-if (util.isUndefined(services["compose-for-mysql"])) {
-  config = configFile.development;
-} else {
+if (env) {
   config = configFile.production;
+} else {
+  config = configFile.development;
 }
 
 module.exports = config;

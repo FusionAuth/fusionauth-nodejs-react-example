@@ -23,12 +23,8 @@ const appId = config.passport.applicationId;
 var router = express.Router();
 var User = require('../lib/user.js');
 const jwa = require('jwa');
-const rs256 = jwa('RS256');
-const rs384 = jwa('RS384');
-const rs512 = jwa('RS512');
 const LocalStorage = require('node-localstorage').LocalStorage;
 const localStorage = new LocalStorage('./passport');
-const publicKey = localStorage.publicKey;
 
 // Ensure the user is logged in for every request in this route and if they aren't return 401 with an error
 router.all("/todos", (req, res, next) => {
@@ -145,8 +141,6 @@ function _isAuthorized(jwt, role) {
     return false;
   }
 
-  console.info('authorize this JWT:');
-  console.info(jwt);
   // JWT must match this application
   if (!jwt.applicationId || jwt.applicationId !== appId) {
     console.info('not authorized, wrong application. [' + jwt.applicationId + ' !== ' + appId + ']');
@@ -154,9 +148,7 @@ function _isAuthorized(jwt, role) {
   }
 
   const authenticated = jwt.roles && jwt.roles.indexOf(role) !== -1;
-  if (authenticated) {
-    console.info('authenticated!');
-  } else {
+  if (!authenticated) {
     console.info('failed authentication: roles [' + jwt.roles + ']. Required role [' + role + ']');
   }
 
@@ -183,31 +175,30 @@ function _decodeJWT(req) {
     const header = JSON.parse(Buffer.from(encodedHeader, 'base64'));
     const encodedPayload = encodedJWT.substring(firstIndex + 1, lastIndex);
     const payload = Buffer.from(encodedPayload, 'base64');
-    console.info(JSON.parse(payload));
-    const encodedSignature = encodedJWT.substring(lastIndex);
-    const signature = Buffer.from(encodedSignature, 'base64');
+    const encodedSignature = encodedJWT.substring(lastIndex + 1);
 
     // Verify header kid matches application
     if (header.kid !== config.passport.applicationId) {
       return null;
     }
 
-    // get schema from header
-
-    const schema = header['algorithm'];
     let verified = false;
+    const schema = header['alg'];
 
-    console.info('schema : ' + schema);
-    console.info('public key : ' + publicKey);
-    if (schema === 'rs256') {
-      verified = rs256.verify(encodedJWT, signature, publicKey);
-    } else if (schema === 'rs384') {
-      verified = rs384.verify(encodedJWT, signature, publicKey);
-    } else if (schema === 'rs512') {
-      verified = rs512.verify(encodedJWT, signature, publicKey);
+    switch (schema) {
+      case 'RS256':
+        verified = jwa(schema).verify(encodedHeader + '.' + encodedPayload, encodedSignature, localStorage.publicKey);
+        break;
+      case 'RS384':
+        verified = jwa(schema).verify(encodedHeader + '.' + encodedPayload, encodedSignature, localStorage.publicKey);
+        break;
+      case 'RS512':
+        verified = jwa(schema).verify(encodedHeader + '.' + encodedPayload, encodedSignature, localStorage.publicKey);
+        break;
+      default:
+        verified = false;
     }
 
-    console.info('verified : ' + verified);
     if (verified) {
       return JSON.parse(payload);
     }

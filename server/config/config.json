@@ -19,6 +19,7 @@
   },
   "production": {
     "mode": "production",
+    "httpPort": 80,
     "passport": {
       "apiKey": "0e116a6e-ca00-47cd-804e-b04f9adda296",
       "applicationId": "4ed5eb32-0a97-40eb-a6d7-cca1f9fa3a0c",

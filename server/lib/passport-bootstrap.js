@@ -95,5 +95,5 @@ passportClient.retrieveJwtPublicKey(config.passport.applicationId)
   })
   .catch((clientResponse) => {
     localStorage.publicKey = "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsUQq0RjqvuxyOwTHxyl9r\nsGY5OJz+GIsax2pkqyt7h2VmpUkStFfDq6siBXDVLU5EBuEn3eicx+oCr5Ff2xfcz\n4em47053DQHcMevDhVOW2mk8wMRU96nNC2kEbLeAnEut0/hfiUoOqP04wwMIvqUZk\n/zyM5IOBgUSF3n1oqXT3jUhSce+a4DIayV3ylPW6u1462qDc9WTRxMXLFGeOIqRhi\npuXhBgjkov6LqY5SRfwHouTdOG0HX2/n9RrLqtfl324pg4jcD5jiblDzrod9KXAJO\nbQB0PWMSjFRNwHxdHk9fHx7zfPDqEiAhi7qAUSR1aBsmOiQPpgb78KIZ8yn0QIDAQ\nAB\n-----END PUBLIC KEY-----\n";
-    console.error(`Unable to retrieve JWT Public Key. Status code from Passport was [${clientResponse.statusCode}]. Error response from Passport was [${JSON.stringify(clientResponse.errorResponse)}]`);
+    console.info(`Unable to retrieve JWT Public Key. Status code from Passport was [${clientResponse.statusCode}]. Error response from Passport was [${JSON.stringify(clientResponse.errorResponse)}]`);
   });

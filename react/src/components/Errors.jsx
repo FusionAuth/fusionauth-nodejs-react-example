@@ -43,8 +43,10 @@ Errors.defaultProps = {
     '[AuthenticatedNotRegistered]': 'You are not authorized to this application.',
     '[InvalidLogin]': 'Invalid Credentials. Try again.',
     '[PasswordMismatch]': 'Passwords do not match.',
+    '[blank]loginId': 'Email is Required.',
     '[blank]user.email': 'Email is Required.',
     '[blank]user.password': 'Password is Required.',
+    '[blank]password': 'Password is Required.',
     '[singleCase]user.password': 'Maybe throw in an upper case letter?',
     '[tooShort]user.password': 'The password is too short me thinks.'
   }

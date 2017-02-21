@@ -1,196 +1,211 @@
-//import PassportClient from 'passport-node-client';
-//const client = new PassportClient('1cfd3949-a5db-4f3c-a936-b18519ecd0c2', 'http://frontend.local');
-
-// TODO Cleanup and use PassportClient where possible
-
+import PassportClient from 'passport-node-client';
 const config = require("../config/config.js");
+const client = new PassportClient(config.passport.apiKey, config.passport.backendUrl);
 
-module.exports = {
-  login(email, password, callBack) {
-    callBack = arguments[arguments.length - 1];
-    if (localStorage.access_token) {
-      if (callBack) {
-        callBack(200);
+const auth = {
+    login(email, password, callBack) {
+      callBack = arguments[arguments.length - 1];
+      if (localStorage.access_token) {
+        if (callBack) {
+          callBack(200);
+        }
+        return;
       }
-      this.onChange(true);
-      return;
-    }
+      this._callLogin(email, password, callBack);
+    },
 
-    const data = new FormData();
-    data.append('loginId', email);
-    data.append('password', password);
-    data.append('grant_type', 'password');
-    data.append('client_id', config.passport.applicationId);
+    retrieveUser(encodedJWT, callBack) {
+      const xhr = new XMLHttpRequest();
 
-    const xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = (function () {
-      if (xhr.readyState === XMLHttpRequest.DONE) {
-        if (xhr.status < 200 || xhr.status > 299) {
-          if (xhr.status === 400) {
-            const errors = [];
-            const errorResponse = JSON.parse(xhr.responseText);
-            console.info(JSON.stringify(errorResponse, null, 2));
-            if (errorResponse.generalErrors && errorResponse.generalErrors.length > 0) {
-              errors.push(errorResponse.generalErrors[0].message);
+      xhr.onreadystatechange = (function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          if (xhr.status < 200 || xhr.status > 299) {
+            if (xhr.status === 400) {
+              console.info('fail [' + xhr.status + ']');
             } else {
-              for(let property in errorResponse.fieldErrors) {
-                if (errorResponse.fieldErrors.hasOwnProperty(property)) {
-                  for (let i=0; i < errorResponse.fieldErrors[property].length; i++) {
-                    errors.push(errorResponse.fieldErrors[property][i].code);
-                  }
-                }
-              }
-            }
-            if (callBack) {
-              callBack(xhr.status, errors);
+              console.info('fail [' + xhr.status + ']');
             }
           } else {
+            // try to get a name out of the user response.
+            const user = JSON.parse(xhr.responseText).user;
+            this._writeLocalStorage(user);
             if (callBack) {
-              callBack(xhr.status);
+              callBack();
             }
           }
-        } else {
-          // Success
-          if (xhr.status === 200) {
-            const response = JSON.parse(xhr.responseText);
-            this.retrieveUser(response.access_token, () => {
-              if (callBack) {
-                callBack(xhr.status, response);
+        }
+      }).bind(this);
+
+      xhr.open('GET', config.passport.backendUrl + '/api/user', true);
+      xhr.setRequestHeader('Authorization', 'JWT ' + encodedJWT);
+      xhr.send();
+    },
+
+    logout(callBack) {
+      delete localStorage.access_token;
+      delete localStorage.userId;
+      delete localStorage.email;
+      delete localStorage.name;
+      if (callBack) {
+        callBack();
+      }
+    },
+
+    loggedIn() {
+      return !!localStorage.access_token;
+    },
+
+    register(email, password, callBack) {
+      const requestBody = {
+        user: {
+          email: email,
+          password: password
+        },
+        registration: {
+          applicationId: config.passport.applicationId,
+          roles: [
+            'RETRIEVE_TODO', 'CREATE_TODO', 'UPDATE_TODO', 'DELETE_TODO'
+          ]
+        },
+        skipVerification: true
+      };
+
+      const xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = (function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          if (xhr.status < 200 || xhr.status > 299) {
+            this._handleErrors(xhr, callBack, ['user.username']);
+          } else {
+            // After a successful registration, log the user in
+            this.login(email, password, (status, response) => {
+              if (status === 200) {
+                localStorage.access_token = response.access_token;
+                localStorage.userId = response.userId;
+                if (callBack) {
+                  callBack(xhr.status);
+                }
               }
             });
-          } else {
-            if (callBack) {
-              callBack(xhr.status);
-            }
           }
         }
-      }
-    }).bind(this);
+      }).bind(this);
 
-    xhr.open('POST', config.passport.frontendUrl + '/oauth2/token', true);
-    xhr.send(data);
-  },
+      xhr.open('POST', config.passport.backendUrl + '/api/user/registration', true);
+      xhr.setRequestHeader('Authorization', config.passport.apiKey);
+      xhr.setRequestHeader("Content-type", "application/json");
 
-  retrieveUser(encodedJWT, callBack) {
-    const xhr = new XMLHttpRequest();
+      const jsonRequest = JSON.stringify(requestBody);
+      xhr.send(jsonRequest);
+    },
 
-    xhr.onreadystatechange = function () {
-      if (xhr.readyState === XMLHttpRequest.DONE) {
-        if (xhr.status < 200 || xhr.status > 299) {
-          if (xhr.status === 400) {
-            console.info('fail [' + xhr.status + ']');
+    _callToken(email, password, callBack) {
+      const data = new FormData();
+      data.append('loginId', email);
+      data.append('password', password);
+      data.append('grant_type', 'password');
+      data.append('client_id', config.passport.applicationId);
+
+      const xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = (function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          if (xhr.status < 200 || xhr.status > 299) {
+            this._handleErrors(xhr, callBack, []);
           } else {
-            console.info('fail [' + xhr.status + ']');
-          }
-        } else {
-          // try to get a name out of the user response.
-          const user = JSON.parse(xhr.responseText).user;
-          localStorage.email = user.email;
-          if (user.firstName && user.lastName) {
-            localStorage.name = user.firstName + ' ' + user.lastName;
-          } else if (user.username) {
-            localStorage.name = user.username;
-          } else {
-            localStorage.name = user.email;
-          }
-          if (callBack) {
-            callBack();
-          }
-        }
-      }
-    };
-
-    xhr.open('GET', config.passport.backendUrl + '/api/user', true);
-    xhr.setRequestHeader('Authorization', 'JWT ' + encodedJWT);
-    xhr.send();
-  },
-
-  getToken() {
-    return localStorage.access_token
-  },
-
-  logout(callBack) {
-    delete localStorage.access_token;
-    delete localStorage.userId;
-    delete localStorage.email;
-    delete localStorage.name;
-    if (callBack) {
-      callBack();
-    }
-    this.onChange(false);
-  },
-
-  loggedIn() {
-    return !!localStorage.access_token;
-  },
-
-  register(email, password, callBack) {
-    const requestBody = {
-      user: {
-        email: email,
-        password: password
-      },
-      registration: {
-        applicationId: config.passport.applicationId,
-        roles: [
-          'RETRIEVE_TODO', 'CREATE_TODO', 'UPDATE_TODO', 'DELETE_TODO'
-        ]
-      },
-      skipVerification: true
-    };
-
-    const xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = (function () {
-      if (xhr.readyState === XMLHttpRequest.DONE) {
-        if (xhr.status < 200 || xhr.status > 299) {
-          if (xhr.status === 400) {
-            const errors = [];
-            const errorResponse = JSON.parse(xhr.responseText);
-            console.info(JSON.stringify(errorResponse, null, 2));
-            if (errorResponse.generalErrors && errorResponse.generalErrors.length > 0) {
-              errors.push(errorResponse.generalErrors[0].message);
+            // Success, parse the response and grab the token and then retrieve the user to get their name.
+            if (xhr.status === 200) {
+              const response = JSON.parse(xhr.responseText);
+              this.retrieveUser(response.access_token, () => {
+                if (callBack) {
+                  callBack(xhr.status, response);
+                }
+              });
             } else {
-              // Using email for registration, ignore username errors
-              for(let property in errorResponse.fieldErrors) {
-                if (property === 'user.username') {
-                  continue;
-                }
-
-                if (errorResponse.fieldErrors.hasOwnProperty(property)) {
-                  for (let i=0; i < errorResponse.fieldErrors[property].length; i++) {
-
-                    errors.push(errorResponse.fieldErrors[property][i].code);
-                  }
-                }
-              }
-            }
-            if (callBack) {
-              callBack(xhr.status, errors);
-            }
-          } else {
-            console.info('fail [' + xhr.status + ']');
-          }
-        } else {
-          this.login(email, password, (status, response) => {
-            if (status === 200) {
-              localStorage.access_token = response.access_token;
-              localStorage.userId = response.userId;
               if (callBack) {
                 callBack(xhr.status);
               }
             }
-          });
+          }
+        }
+      }).bind(this);
+
+      xhr.open('POST', config.passport.frontendUrl + '/oauth2/token', true);
+      xhr.send(data);
+    },
+
+    _callLogin(email, password, callBack) {
+      const loginRequest = {
+        loginId: email,
+        password: password,
+        applicationId: config.passport.applicationId
+      };
+
+      client.login(loginRequest)
+        .then((clientResponse) => {
+          if (callBack) {
+            this._writeLocalStorage(clientResponse.successResponse.user);
+            callBack(clientResponse.statusCode, clientResponse.successResponse);
+          }
+        })
+        .catch((clientResponse) => {
+          const errors = [];
+          if (clientResponse.statusCode === 400) {
+            this._parseErrors(clientResponse.errorResponse, errors, []);
+          }
+          if (callBack) {
+            callBack(clientResponse.statusCode, errors);
+          }
+        });
+    },
+
+    _handleErrors(xhr, callBack, ignoredFields) {
+      if (xhr.status === 400) {
+        const errors = [];
+        const errorResponse = JSON.parse(xhr.responseText);
+        // console.info(JSON.stringify(errorResponse, null, 2));
+        this._parseErrors(errorResponse, errors, ignoredFields || []);
+
+        if (callBack) {
+          callBack(xhr.status, errors);
+        }
+      } else {
+        console.info('fail [' + xhr.status + ']');
+        if (callBack) {
+          callBack(xhr.status);
         }
       }
-    }).bind(this);
+    },
 
-    xhr.open('POST', config.passport.backendUrl + '/api/user/registration', true);
-    xhr.setRequestHeader('Authorization', config.passport.apiKey);
-    xhr.setRequestHeader("Content-type","application/json");
+    _parseErrors(errorResponse, errors, ignoredFields) {
+      if (errorResponse.generalErrors && errorResponse.generalErrors.length > 0) {
+        errors.push(errorResponse.generalErrors[0].message);
+      } else {
+        // Using email for registration, ignore username errors
+        for (let property in errorResponse.fieldErrors) {
+          // Ignore errors if requested
+          if (ignoredFields.indexOf(property) !== -1) {
+            continue;
+          }
 
-    const jsonRequest = JSON.stringify(requestBody);
-    xhr.send(jsonRequest);
-  },
+          if (errorResponse.fieldErrors.hasOwnProperty(property)) {
+            for (let i = 0; i < errorResponse.fieldErrors[property].length; i++) {
 
-  onChange() {}
-}
+              errors.push(errorResponse.fieldErrors[property][i].code);
+            }
+          }
+        }
+      }
+    },
+
+    _writeLocalStorage(user) {
+      localStorage.email = user.email;
+      if (user.firstName && user.lastName) {
+        localStorage.name = user.firstName + ' ' + user.lastName;
+      } else if (user.username) {
+        localStorage.name = user.username;
+      } else {
+        localStorage.name = user.email;
+      }
+    }
+};
+
+export default auth;

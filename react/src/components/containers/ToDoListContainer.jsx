@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import ToDoList from '../ToDoList';
+import { browserHistory } from 'react-router';
 
 const config = require("../../../config/config.js");
 
@@ -26,6 +27,9 @@ class ToDoListContainer extends Component {
           });
         } else if (xhr.status === 400) {
           console.info(JSON.stringify(xhr.responseText, null, 2));
+        } else if (xhr.status === 401 || xhr.status === 403) {
+          // JWT is likely expired, force the user to log in again.
+          browserHistory.push('/logout');
         }
       }
     }).bind(this);

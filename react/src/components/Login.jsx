@@ -27,8 +27,16 @@ class Login extends Component {
     auth.login(this.state.loginId, this.state.password, (status, response) => {
       // TODO If Authenticated, not Registered, navigate to a partial registration?
       if (status === 200) {
-        localStorage.access_token = response.access_token;
-        localStorage.userId = response.userId;
+        // This will change if you call the /oauth2/token endpoint instead of the /api/login
+        //   /oauth2/token
+        //      --> response.access_token
+        //      --> respponse.userId
+        //
+        //  /api/login
+        //      --> response.token
+        //      --> response.user.id
+        localStorage.access_token = response.token;
+        localStorage.userId = response.user.id;
         browserHistory.push('/');
       } else if (status === 202) {
         this.setState({

@@ -9,7 +9,7 @@ You will need the following things properly installed on your computer.
 * [Node.js](http://nodejs.org/) (with NPM)
 
 ## Installation
-* `git clone https://github.com/inversoft/passport-bluemix-example` this repository
+* `git clone https://github.com/inversoft/passport-bluemix-example`
 * `cd passport-bluemix-example`
 * `./server> npm install`
 * `./react> npm install`

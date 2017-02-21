@@ -11,7 +11,6 @@ const passport = require("./controllers/passport.js");
 const todo = require("./controllers/todo.js");
 const config = require("./config/config.js");
 const http = require("http");
-const https = require("https");
 const fs = require("fs");
 
 // Ensure Passport is setup by calling the bootstrapper
@@ -55,36 +54,13 @@ app.use(function(req, res) {
   }
 });
 
-// SSL options for the HTTPS server below
-// const options = {
-//   key: fs.readFileSync(config.key.replace("%DIRNAME%", __dirname)),
-//   cert: fs.readFileSync(config.cert.replace("%DIRNAME%", __dirname))
-// };
-
-// Create HTTP server which only does a redirect to the HTTPS server
-// Commented out for dev purposes
-// http.createServer(function(req, res) {
-//   var host = req.headers.host;
-//   var hostname = host.split(":")[0];
-//   var redirectURL = "https://" + hostname;
-//   if (config.httpsRedirectPort !== 443) {
-//     redirectURL += ":" + config.httpsPort;
-//   }
-//   res.writeHead(301, {"Location": redirectURL + req.url});
-//   res.end();
-// }).listen(config.httpPort);
-
-
 const appEnv = cfenv.getAppEnv();
 console.info(appEnv);
 
 let port = config.httpPort;
 if (config.mode === 'production') {
-  port = appEnv.port;
+  port = process.env.VCAP_APP_PORT || process.env.PORT;
 }
 
-// Create the HTTPS server that will handle all the requests
 http.createServer(app).listen(port);
-// https.createServer(options, app).listen(config.httpsPort);
-
 console.log("The ToDo application is started and listening at on port " + port);

@@ -11,7 +11,11 @@ app.get('/*', function (req, res) {
   res.sendFile(path.join(__dirname, './build', 'index.html'));
 });
 
-let port = config.mode === 'production' ? process.env.PORT : config.httpPort;
+console.info(process.env);
+let port = config.httpPort;
+if (config.mode === 'production') {
+  port = process.env.VCAP_APP_PORT || process.env.PORT;
+}
 app.listen(port);
 
 console.info("Serving static content from ./build on port " + port);

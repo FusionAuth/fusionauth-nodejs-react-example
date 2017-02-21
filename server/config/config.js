@@ -2,8 +2,8 @@
 
 const configFile = require ('./config.json');
 
-if (process.env.VCAP_APPLICATION == null) {
-  module.exports = configFile.development;
-} else {
+if (process.env['NODE_ENV'] === 'production') {
   module.exports = configFile.production;
+} else {
+  module.exports = configFile.development;
 }

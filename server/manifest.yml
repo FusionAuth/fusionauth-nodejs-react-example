@@ -1,0 +1,5 @@
+---
+applications:
+- name: todo-backend-passport-node-example
+  buildpack: https://github.com/cloudfoundry/nodejs-buildpack
+- host: todo-backend-passport-node-example

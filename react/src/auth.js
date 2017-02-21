@@ -5,8 +5,6 @@
 
 const config = require("../config/config.js");
 
-console.info('auth');
-console.info(config);
 module.exports = {
   login(email, password, callBack) {
     callBack = arguments[arguments.length - 1];

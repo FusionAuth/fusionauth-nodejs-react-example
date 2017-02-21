@@ -55,7 +55,7 @@ class Register extends Component {
       });
       return;
     }
-    auth.register(this.state.email, this.state.password, (status, errors) => {
+    auth.register(this.state.email, this.state.password, this.state.firstName, this.state.lastName, (status, errors) => {
       if (status >= 200 && status <= 299) {
         browserHistory.push('/');
       } else if (status === 400) {

@@ -53,11 +53,13 @@ const auth = {
       return !!localStorage.access_token;
     },
 
-    register(email, password, callBack) {
+    register(email, password, firstName, lastName, callBack) {
       const requestBody = {
         user: {
           email: email,
-          password: password
+          password: password,
+          firstName: firstName,
+          lastName: lastName
         },
         registration: {
           applicationId: config.passport.applicationId,
@@ -77,8 +79,8 @@ const auth = {
             // After a successful registration, log the user in
             this.login(email, password, (status, response) => {
               if (status === 200) {
-                localStorage.access_token = response.access_token;
-                localStorage.userId = response.userId;
+                localStorage.access_token = response.token;
+                localStorage.userId = response.user.id;
                 if (callBack) {
                   callBack(xhr.status);
                 }
@@ -207,6 +209,8 @@ const auth = {
       localStorage.email = user.email;
       if (user.firstName && user.lastName) {
         localStorage.name = user.firstName + ' ' + user.lastName;
+      } else if (user.firstName) {
+        localStorage.name = user.firstName;
       } else if (user.username) {
         localStorage.name = user.username;
       } else {

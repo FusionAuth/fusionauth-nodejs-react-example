@@ -185,8 +185,7 @@ class ToDo extends Component {
     xhr.setRequestHeader('Authorization', 'JWT ' + localStorage.access_token);
     xhr.setRequestHeader("Content-type","application/json");
 
-    const data = { 'text': this.state.value };
-    const jsonRequest = JSON.stringify({'data': data});
+    const jsonRequest = JSON.stringify({ 'text': this.state.value });
     xhr.send(jsonRequest);
   }
 

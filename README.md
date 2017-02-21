@@ -11,10 +11,8 @@ You will need the following things properly installed on your computer.
 ## Installation
 * `git clone https://github.com/inversoft/passport-bluemix-example` this repository
 * `cd passport-bluemix-example`
-* `cd server`
-* `npm install`
-* `cd ../react`
-* `npm install`
+* `./server> npm install`
+* `./react> npm install`
 
 ## Running / Development
 * Start up Passport Backend
@@ -23,13 +21,16 @@ You will need the following things properly installed on your computer.
   * `create database user_todos character set = 'utf8mb4' collate = 'utf8mb4_bin';`
 * Grant privileges to the dev user to this database by executing this in the MySQL shell 
   * `grant all on user_todos.* to 'dev'@'localhost' identified by 'dev';`
-* `cd server`
-* `npm start`  
-* `cd ../react`
-* `npm start`
-* Open your browser to [https://localhost:3000](https://localhost:3000).
+* `./server> npm start`
+  * To start server in debug mode for Chrome Debugging run this instead:
+  * `./server> node --inspect server.js`
+* `./react> npm start`
+  * This should open a browser to [https://localhost:3000](https://localhost:3000). 
 
-## Optional Node Debugging in Chrome
+## Deploying React frontend to Bluemix
+* `./react> npm run build`
+* `./react> cf push todo-passport-node-example`
 
-## Deploying to Bluemix
+## Deploying Node ToDo backend to Bluemix
+* `./server> cf push todo-backend-passport-node-example`
 

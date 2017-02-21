@@ -23,7 +23,7 @@ class ToDoListContainer extends Component {
         if (xhr.status === 200) {
           const response = JSON.parse(xhr.responseText);
           this.setState({
-            todos: response.data
+            todos: response.todos
           });
         } else if (xhr.status === 400) {
           console.info(JSON.stringify(xhr.responseText, null, 2));

@@ -7,7 +7,6 @@ const cors = require('cors');
 const bodyParser = require("body-parser");
 const uuid = require("uuid");
 const session = require("express-session");
-const passport = require("./controllers/passport.js");
 const todo = require("./controllers/todo.js");
 const config = require("./config/config.js");
 const http = require("http");
@@ -28,7 +27,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.json({type: "application/vnd.api+json"}));
 
 // Define the main routes
-app.use("/api/", [passport, todo]);
+app.use("/api/", [todo]);
 
 // This is the default handler that will always return the Ember index.html file for all unhandled URLs
 app.use(function(req, res) {

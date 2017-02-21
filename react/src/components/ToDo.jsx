@@ -11,8 +11,8 @@ class ToDo extends Component {
 
     this.state = {
       todo: this.props.todo || {},
-      completed: this.props.todo ? this.props.todo.attributes.completed : false,
-      value: this.props.todo ? this.props.todo.attributes.text : '',
+      completed: this.props.todo ? this.props.todo.completed : false,
+      value: this.props.todo ? this.props.todo.text : '',
       edit: !this.props.todo,
       template: this.props.template || false
     };
@@ -86,7 +86,7 @@ class ToDo extends Component {
       event.preventDefault();
 
       this.setState({
-        value: this.props.todo.attributes.text,
+        value: this.props.todo.text,
         edit: false
       });
 
@@ -98,7 +98,7 @@ class ToDo extends Component {
     this.update();
 
     const todo = this.state.todo;
-    todo.attributes.text = this.state.value;
+    todo.text = this.state.value;
     this.setState({
       edit: false,
       todo: todo
@@ -185,7 +185,7 @@ class ToDo extends Component {
     xhr.setRequestHeader('Authorization', 'JWT ' + localStorage.access_token);
     xhr.setRequestHeader("Content-type","application/json");
 
-    const data = {'attributes': { 'text': this.state.value}};
+    const data = { 'text': this.state.value };
     const jsonRequest = JSON.stringify({'data': data});
     xhr.send(jsonRequest);
   }
@@ -236,8 +236,8 @@ class ToDo extends Component {
     xhr.setRequestHeader("Content-type","application/json");
 
     const data = this.state.todo;
-    data.attributes.text = this.state.value;
-    const jsonRequest = JSON.stringify({'data': data});
+    data.text = this.state.value;
+    const jsonRequest = JSON.stringify(data);
     xhr.send(jsonRequest);
   }
 }

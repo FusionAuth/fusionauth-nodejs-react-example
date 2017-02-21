@@ -1,85 +1,52 @@
-/*
- * Copyright (c) 2016-2017, Inversoft Inc., All Rights Reserved
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
- * either express or implied. See the License for the specific
- * language governing permissions and limitations under the License.
- */
 'use strict';
 
-var express = require("express");
-var Todo = require("../models/todo.js");
-var todo = new Todo();
-var config = require("../config/config.js");
-const appId = config.passport.applicationId;
-var router = express.Router();
-var User = require('../lib/user.js');
-const jwa = require('jwa');
-const LocalStorage = require('node-localstorage').LocalStorage;
-const localStorage = new LocalStorage('./passport');
+const config = require('../config/config.js');
+const express = require('express');
+const jwt = require('../lib/jwt');
+const router = express.Router();
+const Todo = require('../models/todo.js');
+const todo = new Todo();
 
-// Ensure the user is logged in for every request in this route and if they aren't return 401 with an error
-router.all("/todos", (req, res, next) => {
-  let authenticated = true;
-  if (!authenticated) {
-    res.status(401).send({
-      "errors": [{
-        "code": "[notLoggedIn]"
-      }]
-    });
-  } else {
-    next();
-  }
-});
-
-router.route("/todos").get((req, res) => {
-  const jwt = _decodeJWT(req);
-  if (!_isAuthorized(jwt, "RETRIEVE_TODO")) {
+router.route('/todos').get((req, res) => {
+  const decodedJWT = _decodeJWT(req);
+  if (!_authorized(decodedJWT, 'RETRIEVE_TODO')) {
     _sendUnauthorized(res);
     return;
   }
 
-  todo.retrieveAll(jwt.sub, "true" === req.query.completed)
+  todo.retrieveAll(decodedJWT.sub, 'true' === req.query.completed)
     .then((todos) => {
-      res.send(_convertTodos(todos));
+      res.send(_convertToDos(todos));
     })
     .catch((err) => {
       _handleDatabaseError(res, err);
     });
 });
 
-router.route("/todos").post((req, res) => {
-  const jwt = _decodeJWT(req);
-  if (!_isAuthorized(jwt, "CREATE_TODO")) {
+router.route('/todos').post((req, res) => {
+  const decodedJWT = _decodeJWT(req);
+  if (!_authorized(decodedJWT, 'CREATE_TODO')) {
     _sendUnauthorized(res);
     return;
   }
 
-  todo.create(req.body.data.attributes.text, jwt.sub)
+  todo.create(req.body.text, decodedJWT.sub)
     .then((todo) => {
-      res.send(_convertTodo(todo));
+      res.send(_convertToDo(todo));
     })
     .catch((err) => {
       _handleDatabaseError(res, err);
     });
 });
 
-router.route("/todos/:id").put((req, res) => {
-  const jwt = _decodeJWT(req);
-  if (!_isAuthorized(jwt, "UPDATE_TODO")) {
+router.route('/todos/:id').put((req, res) => {
+  const decodedJWT = _decodeJWT(req);
+  if (!_authorized(decodedJWT, 'UPDATE_TODO')) {
     _sendUnauthorized(res);
     return;
   }
 
-  todo.update(req.params.id, jwt.sub, req.body.data.attributes.text, req.body.data.attributes.completed)
+  todo.update(req.params.id, decodedJWT.sub, req.body.text, req.body.completed)
     .then((rowsUpdated) => {
       if (rowsUpdated[0] === 1) {
         res.sendStatus(204);
@@ -92,14 +59,14 @@ router.route("/todos/:id").put((req, res) => {
     });
 });
 
-router.route("/todos/:id").delete((req, res) => {
-  const jwt = _decodeJWT(req);
-  if (!_isAuthorized(jwt, "DELETE_TODO")) {
+router.route('/todos/:id').delete((req, res) => {
+  const decodedJWT = _decodeJWT(req);
+  if (!_authorized(decodedJWT, 'DELETE_TODO')) {
     _sendUnauthorized(res);
     return;
   }
 
-  todo.delete(req.params.id, jwt.sub)
+  todo.delete(req.params.id, decodedJWT.sub)
     .then(() => {
       res.sendStatus(204);
     })
@@ -108,24 +75,19 @@ router.route("/todos/:id").delete((req, res) => {
     });
 });
 
-// Convert to JSON API format
-function _convertTodo(todo) {
-  var response = {"data": {}};
-  response.data = {
-    "type": "todo",
-    "id": todo.id,
-    "attributes": {
-      "text": todo.text,
-      "completed": todo.completed
-    }
+function _convertToDo(todo) {
+  return {
+    'type': 'todo',
+    'id': todo.id,
+    'text': todo.text,
+    'completed': todo.completed
   };
-  return response;
 }
 
-function _convertTodos(todos) {
-  var response = {"data": []};
-  for (var i = 0; i < todos.length; i++) {
-    response.data.push(_convertTodo(todos[i]).data);
+function _convertToDos(todos) {
+  const response = {'todos': []};
+  for (let i = 0; i < todos.length; i++) {
+    response.todos.push(_convertToDo(todos[i]));
   }
   return response;
 }
@@ -135,84 +97,58 @@ function _handleDatabaseError(res, error) {
   res.status(500).end();
 }
 
-function _isAuthorized(jwt, role) {
-  if (jwt === null) {
-    console.info('jwt is null, probably a bad signature');
+/**
+ * Return true if the request is authorized. Verify the user has the correct role, and the JWT is for the requested
+ * application.
+ *
+ * @param {Object} decodedJWT The decoded JWT
+ * @param {string} role The required role to be authorized to complete the request
+ * @returns {boolean}
+ * @private
+ */
+function _authorized(decodedJWT, role) {
+  if (!jwt.assertIdentity(decodedJWT, 'roles', role)) {
     return false;
   }
 
-  // JWT must match this application
-  if (!jwt.applicationId || jwt.applicationId !== appId) {
-    console.info('not authorized, wrong application. [' + jwt.applicationId + ' !== ' + appId + ']');
+  if (!jwt.assertIdentity(decodedJWT, 'applicationId', config.passport.applicationId)) {
     return false;
   }
 
-  const authenticated = jwt.roles && jwt.roles.indexOf(role) !== -1;
-  if (!authenticated) {
-    console.info('failed authentication: roles [' + jwt.roles + ']. Required role [' + role + ']');
-  }
-
-  // JWT must contain the specified role
-  return authenticated;
+  return true;
 }
 
+/**
+ * Decode the JWT by extracting the JWT from the HTTP request header.
+ *
+ * @param {Object} req The HTTP request
+ * @returns {Object} the decoded JWT or null if the JWT was not found on the request or it is invalid.
+ * @private
+ */
 function _decodeJWT(req) {
-  try {
-    const authorization = req.header('Authorization');
-    if (authorization === null || typeof authorization === 'undefined') {
-      return null;
-    }
-
-    const encodedJWT = authorization.substr('JWT '.length);
-    if (encodedJWT === null || typeof encodedJWT === 'undefined') {
-      return null;
-    }
-
-    const firstIndex = encodedJWT.indexOf('.');
-    const lastIndex = encodedJWT.lastIndexOf('.');
-
-    const encodedHeader = encodedJWT.substring(0, firstIndex);
-    const header = JSON.parse(Buffer.from(encodedHeader, 'base64'));
-    const encodedPayload = encodedJWT.substring(firstIndex + 1, lastIndex);
-    const payload = Buffer.from(encodedPayload, 'base64');
-    const encodedSignature = encodedJWT.substring(lastIndex + 1);
-
-    // Verify header kid matches application
-    if (header.kid !== config.passport.applicationId) {
-      return null;
-    }
-
-    let verified = false;
-    const schema = header['alg'];
-
-    switch (schema) {
-      case 'RS256':
-        verified = jwa(schema).verify(encodedHeader + '.' + encodedPayload, encodedSignature, localStorage.publicKey);
-        break;
-      case 'RS384':
-        verified = jwa(schema).verify(encodedHeader + '.' + encodedPayload, encodedSignature, localStorage.publicKey);
-        break;
-      case 'RS512':
-        verified = jwa(schema).verify(encodedHeader + '.' + encodedPayload, encodedSignature, localStorage.publicKey);
-        break;
-      default:
-        verified = false;
-    }
-
-    if (verified) {
-      return JSON.parse(payload);
-    }
-
-    return null;
-  } catch (e) {
+  const authorization = req.header('Authorization');
+  if (authorization === null || typeof authorization === 'undefined') {
     return null;
   }
+
+  const encodedJWT = authorization.substr('JWT '.length);
+  if (encodedJWT === null || typeof encodedJWT === 'undefined') {
+    return null;
+  }
+
+  return jwt.decode(encodedJWT);
 }
 
+/**
+ * Set the HTTP Response with a status code of 403 and a response body indicating the user is not authorized to
+ * complete the action.
+ * @param {Object} res The HTTP Response
+ * @private
+ */
 function _sendUnauthorized(res) {
   res.status(403).send({
-    "errors": [{
-      "code": "[notAuthorized]"
+    'errors': [{
+      'code': '[notAuthorized]'
     }]
   });
 }

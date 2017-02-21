@@ -2,15 +2,12 @@
 
 const express = require("express");
 const app = express();
-const cfenv = require('cfenv');
 const cors = require('cors');
 const bodyParser = require("body-parser");
 const uuid = require("uuid");
-const session = require("express-session");
 const todo = require("./controllers/todo.js");
 const config = require("./config/config.js");
 const http = require("http");
-const fs = require("fs");
 
 // Ensure Passport is setup by calling the bootstrapper
 require("./lib/passport-bootstrap.js");
@@ -19,7 +16,6 @@ require("./lib/passport-bootstrap.js");
 app.use(cors());
 app.options('*', cors()); // Enable pre-flight for all routes
 
-// Define the static resources above everything else so that we don't create sessions or handle the body of the request at all
 app.use(express.static(__dirname + "/public"));
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -52,9 +48,6 @@ app.use(function(req, res) {
     res.status(404).send("Not Found");
   }
 });
-
-const appEnv = cfenv.getAppEnv();
-console.info(appEnv);
 
 let port = config.httpPort;
 if (config.mode === 'production') {

@@ -34,7 +34,6 @@
     "cors": "^2.8.1",
     "json-env": "1.0.1",
     "express": "4.13.4",
-    "express-session": "1.13.0",
     "jwa": "1.1.5",
     "node-localstorage ": "1.3.0",
     "mysql": "^2.10.2",

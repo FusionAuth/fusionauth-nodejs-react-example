@@ -1,6 +1,4 @@
-import PassportClient from 'passport-node-client';
 const config = require("../config/config.js");
-const client = new PassportClient(config.passport.apiKey, config.passport.backendUrl);
 
 const auth = {
     login(email, password, callBack) {
@@ -139,22 +137,31 @@ const auth = {
         applicationId: config.passport.applicationId
       };
 
-      client.login(loginRequest)
-        .then((clientResponse) => {
-          if (callBack) {
-            this._writeLocalStorage(clientResponse.successResponse.user);
-            callBack(clientResponse.statusCode, clientResponse.successResponse);
+      const xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = (function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          if (xhr.status < 200 || xhr.status > 299) {
+            this._handleErrors(xhr, callBack, []);
+          } else {
+            // Success, parse the response and grab the token and then retrieve the user to get their name.
+            if (xhr.status === 200) {
+              const successResponse = JSON.parse(xhr.responseText);
+              if (callBack) {
+                this._writeLocalStorage(successResponse.user);
+                callBack(xhr.status, successResponse);
+              }
+            } else {
+              if (callBack) {
+                callBack(xhr.status);
+              }
+            }
           }
-        })
-        .catch((clientResponse) => {
-          const errors = [];
-          if (clientResponse.statusCode === 400) {
-            this._parseErrors(clientResponse.errorResponse, errors, []);
-          }
-          if (callBack) {
-            callBack(clientResponse.statusCode, errors);
-          }
-        });
+        }
+      }).bind(this);
+
+      xhr.open('POST', config.passport.backendUrl + '/api/login', true);
+      xhr.setRequestHeader("Content-type", "application/json");
+      xhr.send(JSON.stringify(loginRequest));
     },
 
     _handleErrors(xhr, callBack, ignoredFields) {

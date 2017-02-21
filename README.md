@@ -1,6 +1,6 @@
-# Passport JS Example
+# Passport Bluemix Example
 
-This project contains an example project that illustrates using Passport with Node and Ember.
+This project contains an example project that illustrates using Passport with Node and React.
 
 ## Prerequisites
 You will need the following things properly installed on your computer.
@@ -27,38 +27,9 @@ You will need the following things properly installed on your computer.
 * `npm start`  
 * `cd ../react`
 * `npm start`
-* Open your browser to [https://localhost:8081](https://localhost:8081).
+* Open your browser to [https://localhost:3000](https://localhost:3000).
 
 ## Optional Node Debugging in Chrome
-* `npm install -g node-inspector`
-* `cd ../server`
-* `node --debug server.js`
-* `node-inspector --web-port=8999 &` (or other available port)
-* Open Chrome browser to [http://127.0.0.1:8999/?port=5858](http://127.0.0.1:8999/?port=5858).
 
-## Running Tests
-* `ember test`
-* `ember test --server`
-* `mocha`
-
-## Building
-
-* `ember build --output="../server/public"` (development)
-* `ember build --output="../server/public" --environment production` (production)
-
-## Deploying to Production
-* Copy `server/config/config-dev.json` to `/usr/local/application/config/config-production.json`
-* Replace values in config-production.json with your production values
-* Have a MySQL database running and create the `user_todos` database as described above
-* Have a Passport Backend running
-* Generate an API key in Passport Backend and copy it to the production configuration file
-* Edit the **Email Verification** template in Passport Backend so that the URL points to your web server and will hit the Ember route correctly. 
-  * The URL should be something like `https://your-hostname.com/verify/${user.verificationId}`
-* `cd ember`
-* `npm install`
-* `bower install`
-* `ember build --environment production --output "../server/public"`
-* `cd ../server`
-* `npm install`
-* `node server.js`
+## Deploying to Bluemix
 

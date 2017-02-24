@@ -30,7 +30,6 @@
   "license": "Apache-2.0",
   "dependencies": {
     "body-parser": "^1.15.0",
-    "cfenv": "1.0.4",
     "cors": "^2.8.1",
     "json-env": "1.0.1",
     "express": "4.13.4",

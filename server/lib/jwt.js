@@ -45,12 +45,24 @@ module.exports = {
           verified = false;
       }
 
-      // TODO, I think we still need to verify the expiration, I don't think JWA is doing that for us.
-      if (verified) {
-        return JSON.parse(payload);
+      if (!verified) {
+        return null;
       }
 
-      return null;
+      const decodedJWT = JSON.parse(payload);
+      const now = Math.round(new Date().getTime() / 1000);
+
+      // Make sure the JWT is not expired
+      if (decodedJWT.exp && decodedJWT.exp < now) {
+        return null;
+      }
+
+      // If a Not Before Claim was provided, validate it.
+      if (decodedJWT.nbf && decodedJWT.nbf > now) {
+        return null;
+      }
+
+      return decodedJWT;
     } catch (e) {
       return null;
     }

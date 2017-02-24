@@ -16,7 +16,7 @@ passportClient.retrieveApplication(config.passport.applicationId)
     if (clientResponse.statusCode === 404) {
       passportClient.createApplication(config.passport.applicationId, {
           "application": {
-            "name": "Node.js Example",
+            "name": "Bluemix ToDo Node.js Example",
             "roles": [
               {
                 "name": "RETRIEVE_TODO",
@@ -67,9 +67,15 @@ passportClient.retrieveSystemConfiguration()
 .catch((clientResponse) => console.error(`Unable to initialize Passport (Retrieve System Config). Please check that Passport is installed, running and not in maintenance mode. Status code from Passport was [${clientResponse.statusCode}]. Error response from Passport was [${JSON.stringify(clientResponse.errorResponse, null, 2)}]`));
 
 // Retrieve the public key during start up to decode and verify the JWT
-passportClient.retrieveJwtPublicKey(config.passport.applicationId)
+passportClient.retrieveJwtPublicKeys()
 .then((clientResponse) => {
-   localStorage.publicKey = clientResponse.successResponse.publicKeys[config.passport.applicationId];
+  if (clientResponse.successResponse.publicKeys.hasOwnProperty(config.passport.applicationId)) {
+    localStorage.publicKey = clientResponse.successResponse.publicKeys[config.passport.applicationId];
+  } else if (clientResponse.successResponse.publicKeys.hasOwnProperty('default')) {
+    localStorage.publicKey = clientResponse.successResponse.publicKeys['default'];
+  } else {
+    console.info('Unable to retrieve JWT Public Key. Neither the application or global JWT configuration is set up for RSA public / private key');
+  }
 })
 .catch((clientResponse) => {
   console.info(`Unable to retrieve JWT Public Key. Status code from Passport was [${clientResponse.statusCode}]. Error response from Passport was [${JSON.stringify(clientResponse.errorResponse)}]`);

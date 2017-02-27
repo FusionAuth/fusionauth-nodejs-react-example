@@ -22,8 +22,8 @@ if (process.env['NODE_ENV'] === 'production') {
   configFile.production.passport.apiKey = passportService.credentials.api_key;
   configFile.production.passport.backendUrl = passportService.credentials.passport_backend_url;
   configFile.production.passport.frontendUrl = passportService.credentials.passport_frontend_url;
-  configFile.production.passport.applicationId = passportService.credentials.application_id;
-
+  // User defined Environment Variable for the Application Id
+  configFile.production.passport.applicationId = process.env.passport_application_id;
   module.exports = configFile.production;
 } else {
   module.exports = configFile.development;

@@ -9,8 +9,7 @@ if (config.mode === 'production') {
   const assert = require('assert');
   const util = require('util');
   // Within the application environment (appenv) there's a services object
-  const appenv = JSON.parse(process.env.VCAP_APPLICATION);
-  const services = appenv.services;
+  const services = JSON.parse(process.env.VCAP_SERVICES);
 
   const mysql_services = services["compose-for-mysql"];
 

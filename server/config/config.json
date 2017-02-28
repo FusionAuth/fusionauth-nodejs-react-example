@@ -21,10 +21,6 @@
     "mode": "production",
     "httpPort": 80,
     "passport": {
-      "apiKey": "0e116a6e-ca00-47cd-804e-b04f9adda296",
-      "applicationId": "4ed5eb32-0a97-40eb-a6d7-cca1f9fa3a0c",
-      "backendUrl": "https://demo-passport.inversoft.io",
-      "frontendUrl": "https://demo-login.inversoft.io",
       "forgotEmailTemplateId": "49aba1de-0225-45d7-a2b1-f9fe46b0242c",
       "verificationEmailTemplateId": "8da42c09-461c-45f3-b931-6e9f63b87ab5"
     }

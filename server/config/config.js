@@ -3,10 +3,7 @@
 const configFile = require ('./config.json');
 
 if (process.env['NODE_ENV'] === 'production') {
-  const appenv = JSON.parse(process.env.VCAP_APPLICATION);
-  const services = appenv.services;
-
-  console.info(services);
+  const services = JSON.parse(process.env.VCAP_SERVICES);
 
   // Look up the service definition.
   let passportService = null;
@@ -17,10 +14,13 @@ if (process.env['NODE_ENV'] === 'production') {
     }
   }
 
+  console.info(passportService);
+  var credentials = passportService.credentials;
+
   // Override default configuration from the service definition
-  configFile.production.passport.apiKey = passportService.credentials.api_key;
-  configFile.production.passport.backendUrl = passportService.credentials.passport_backend_url;
-  configFile.production.passport.frontendUrl = passportService.credentials.passport_frontend_url;
+  configFile.production.passport.apiKey = credentials.api_key;
+  configFile.production.passport.backendUrl = credentials.passport_backend_url;
+  configFile.production.passport.frontendUrl = credentials.passport_frontend_url;
   // User defined Environment Variable for the Application Id
   configFile.production.passport.applicationId = process.env.passport_application_id;
 

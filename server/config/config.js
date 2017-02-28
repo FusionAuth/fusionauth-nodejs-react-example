@@ -8,8 +8,9 @@ if (process.env['NODE_ENV'] === 'production') {
   // Look up the service definition.
   let passportService = null;
   const user_provided = services["user-provided"];
+  const serviceName = process.env.passport_service_name;
   for (let i=0; i < user_provided.length; i++) {
-    if (user_provided[i].name === 'Passport-vz') {
+    if (user_provided[i].name === serviceName) {
       passportService = user_provided[i];
     }
   }

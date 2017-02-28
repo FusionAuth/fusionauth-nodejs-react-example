@@ -1,7 +1,5 @@
 .todo-list {
   margin-top: 50px;
-
-
 }
 
 .todo {
@@ -9,7 +7,6 @@
   height: 80px;
   margin-bottom: 5px;
   display: flex;
-  background-color: #dfdfdf;
   background-color: #edeff1;
   box-shadow: 1px 1px 3px 0 rgba(0,0,0,.28);
 }
@@ -39,7 +36,6 @@
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
-/*    width: 7%;*/
     -webkit-box-pack: center;
     -webkit-justify-content: center;
     -ms-flex-pack: center;
@@ -118,10 +114,6 @@
   content: "\f040";
 }
 
-.todo .text:hover {
-  /*border: 1px solid #ddd;*/
-}
-
 .todo .text {
   border: 1px solid transparent;
 
@@ -132,9 +124,6 @@
   white-space: pre-wrap;
   padding-top: 15px;
   padding-bottom: 15px;
-  /*vertical-align: middle;*/
-  /* padding: 15px; */
-  /*display: block;*/
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -152,7 +141,6 @@
   -ms-flex: 1;
   flex: 1;
   text-align: center;
-  /*box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, .30);*/
 }
 
 .todo .text input[type=text],
@@ -182,5 +170,9 @@
 @media (max-width: 750px) {
   .todo {
     width: 100%;
+  }
+
+  .todo-list {
+    margin-top: 20px;
   }
 }

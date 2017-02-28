@@ -54,3 +54,9 @@ body {
   -ms-flex-align: center;
   align-items: center;
 }
+
+@media (max-width: 750px) {
+  .App-header h2 {
+    font-size: 1.3em;
+  }
+}

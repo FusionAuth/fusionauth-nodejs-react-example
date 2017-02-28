@@ -138,7 +138,11 @@ const auth = {
       const xhr = new XMLHttpRequest();
       xhr.onreadystatechange = (function() {
         if (xhr.readyState === XMLHttpRequest.DONE) {
-          if (xhr.status < 200 || xhr.status > 299) {
+          if (xhr.status === 404) {
+            const errors = [];
+            errors.push('[InvalidLogin]');
+            callBack(xhr.status, errors);
+          } else if (xhr.status < 200 || xhr.status > 299) {
             this._handleErrors(xhr, callBack, []);
           } else {
             // Success, parse the response and grab the token and then retrieve the user to get their name.
@@ -174,7 +178,6 @@ const auth = {
       if (xhr.status === 400) {
         const errors = [];
         const errorResponse = JSON.parse(xhr.responseText);
-        // console.info(JSON.stringify(errorResponse, null, 2));
         this._parseErrors(errorResponse, errors, ignoredFields || []);
 
         if (callBack) {

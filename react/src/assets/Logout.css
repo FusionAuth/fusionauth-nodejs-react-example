@@ -34,3 +34,23 @@
 .logout a:hover {
   background-color: rgb(0, 154, 109);
 }
+
+@media (max-width: 750px) {
+  .greeting {
+    top: inherit;
+    bottom: 0;
+    width: 100%;
+    right: inherit;
+    left: inherit;
+    position: fixed;
+  }
+
+  .greeting .logout {
+    float: none;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .greeting > span {
+    display: none;
+  }
+}

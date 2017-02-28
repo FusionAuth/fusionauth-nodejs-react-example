@@ -3,7 +3,7 @@ import FontAwesome from 'react-fontawesome';
 
 import '../assets/ToDo.css';
 
-const config = require("../../config/config.js");
+const configuration = require("../../config/config.js");
 
 class ToDo extends Component {
   constructor(props) {
@@ -181,12 +181,15 @@ class ToDo extends Component {
       }
     };
 
-    xhr.open('POST', config.todo.url + '/api/todos', true);
-    xhr.setRequestHeader('Authorization', 'JWT ' + localStorage.access_token);
-    xhr.setRequestHeader("Content-type","application/json");
+    configuration(function(config) {
+      xhr.open('POST', config.todo.url + '/api/todos', true);
+      xhr.setRequestHeader('Authorization', 'JWT ' + localStorage.access_token);
+      xhr.setRequestHeader("Content-type","application/json");
 
-    const jsonRequest = JSON.stringify({ 'text': this.state.value });
-    xhr.send(jsonRequest);
+      const jsonRequest = JSON.stringify({ 'text': this.state.value });
+      xhr.send(jsonRequest);
+    });
+
   }
 
   delete(callBack) {
@@ -207,9 +210,12 @@ class ToDo extends Component {
       }
     };
 
-    xhr.open('DELETE', config.todo.url + '/api/todos/' + this.state.todo.id, true);
-    xhr.setRequestHeader('Authorization', 'JWT ' + localStorage.access_token);
-    xhr.send();
+    configuration(function(config) {
+      xhr.open('DELETE', config.todo.url + '/api/todos/' + this.state.todo.id, true);
+      xhr.setRequestHeader('Authorization', 'JWT ' + localStorage.access_token);
+      xhr.send();
+    });
+
   }
 
   update(callBack) {
@@ -230,14 +236,17 @@ class ToDo extends Component {
       }
     };
 
-    xhr.open('PUT', config.todo.url + '/api/todos/' + this.state.todo.id, true);
-    xhr.setRequestHeader('Authorization', 'JWT ' + localStorage.access_token);
-    xhr.setRequestHeader("Content-type","application/json");
+    configuration(function(config) {
+      xhr.open('PUT', config.todo.url + '/api/todos/' + this.state.todo.id, true);
+      xhr.setRequestHeader('Authorization', 'JWT ' + localStorage.access_token);
+      xhr.setRequestHeader("Content-type","application/json");
 
-    const data = this.state.todo;
-    data.text = this.state.value;
-    const jsonRequest = JSON.stringify(data);
-    xhr.send(jsonRequest);
+      const data = this.state.todo;
+      data.text = this.state.value;
+      const jsonRequest = JSON.stringify(data);
+      xhr.send(jsonRequest);
+    });
+
   }
 }
 

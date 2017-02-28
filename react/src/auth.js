@@ -1,4 +1,4 @@
-const config = require("../config/config.js");
+const configuration = require("../config/config.js");
 
 const auth = {
     login(email, password, callBack) {
@@ -34,9 +34,12 @@ const auth = {
         }
       }).bind(this);
 
-      xhr.open('GET', config.passport.backendUrl + '/api/user', true);
-      xhr.setRequestHeader('Authorization', 'JWT ' + encodedJWT);
-      xhr.send();
+      configuration(function(config) {
+        xhr.open('GET', config.passport.backendUrl + '/api/user', true);
+        xhr.setRequestHeader('Authorization', 'JWT ' + encodedJWT);
+        xhr.send();
+      });
+
     },
 
     logout(callBack) {
@@ -60,14 +63,7 @@ const auth = {
           password: password,
           firstName: firstName,
           lastName: lastName
-        },
-        registration: {
-          applicationId: config.passport.applicationId,
-          roles: [
-            'RETRIEVE_TODO', 'CREATE_TODO', 'UPDATE_TODO', 'DELETE_TODO'
-          ]
-        },
-        skipVerification: true
+        }
       };
 
       const xhr = new XMLHttpRequest();
@@ -90,21 +86,17 @@ const auth = {
         }
       }).bind(this);
 
-      xhr.open('POST', config.passport.backendUrl + '/api/user/registration', true);
-      xhr.setRequestHeader('Authorization', config.passport.apiKey);
-      xhr.setRequestHeader("Content-type", "application/json");
+      configuration(function(config) {
+        xhr.open('POST', config.todo.url + '/api/passport/register', true);
+        xhr.setRequestHeader("Content-type", "application/json");
 
-      const jsonRequest = JSON.stringify(requestBody);
-      xhr.send(jsonRequest);
+        const jsonRequest = JSON.stringify(requestBody);
+        xhr.send(jsonRequest);
+      });
+
     },
 
     _callToken(email, password, callBack) {
-      const data = new FormData();
-      data.append('loginId', email);
-      data.append('password', password);
-      data.append('grant_type', 'password');
-      data.append('client_id', config.passport.applicationId);
-
       const xhr = new XMLHttpRequest();
       xhr.onreadystatechange = (function() {
         if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -128,16 +120,20 @@ const auth = {
         }
       }).bind(this);
 
-      xhr.open('POST', config.passport.frontendUrl + '/oauth2/token', true);
-      xhr.send(data);
+      configuration(function(config) {
+        const data = new FormData();
+        data.append('loginId', email);
+        data.append('password', password);
+        data.append('grant_type', 'password');
+        data.append('client_id', config.passport.applicationId);
+
+        xhr.open('POST', config.passport.frontendUrl + '/oauth2/token', true);
+        xhr.send(data);
+      });
+
     },
 
     _callLogin(email, password, callBack) {
-      const loginRequest = {
-        loginId: email,
-        password: password,
-        applicationId: config.passport.applicationId
-      };
 
       const xhr = new XMLHttpRequest();
       xhr.onreadystatechange = (function() {
@@ -161,9 +157,17 @@ const auth = {
         }
       }).bind(this);
 
-      xhr.open('POST', config.passport.backendUrl + '/api/login', true);
-      xhr.setRequestHeader("Content-type", "application/json");
-      xhr.send(JSON.stringify(loginRequest));
+      configuration(function(config) {
+        const loginRequest = {
+          loginId: email,
+          password: password,
+          applicationId: config.passport.applicationId
+        };
+        xhr.open('POST', config.passport.backendUrl + '/api/login', true);
+        xhr.setRequestHeader("Content-type", "application/json");
+        xhr.send(JSON.stringify(loginRequest));
+      });
+
     },
 
     _handleErrors(xhr, callBack, ignoredFields) {

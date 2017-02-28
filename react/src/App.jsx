@@ -45,33 +45,6 @@ class App extends Component {
     });
   }
 
-  // TODO move this to auth
-  _validateAccessToken() {
-    fetch(new Request(config.passport.backendUrl + '/api/jwt/validate',
-      {
-        method: 'GET',
-        mode: 'cors',
-        headers: {
-          'Authorization': 'JWT ' + this.state.accessToken
-        }
-      }
-    ))
-    .then(this._validateHandler.bind(this));
-  }
-
-  _validateHandler(response) {
-    if (response.status === 200) {
-      response.json().then((function(json) {
-        this.setState({
-          authenticated: true,
-          accessToken: json.token
-        });
-        localStorage.access_token = json.token;
-      }).bind(this));
-    } else {
-      console.info(response);
-    }
-  }
 }
 
 export default App;

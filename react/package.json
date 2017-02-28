@@ -2,6 +2,7 @@
   "name": "todo-passport-node-example",
   "version": "0.1.0",
   "private": true,
+  "author": "Brian Pontarelli and Daniel DeGroff",
   "license": "Apache-2.0",
   "jshintConfig": {
     "node": true,
@@ -21,7 +22,8 @@
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-fontawesome": "^1.5.0",
-    "react-router": "^3.0.2"
+    "react-router": "^3.0.2",
+    "request": "2.79.0"
   },
   "repository": {
     "type": "git",

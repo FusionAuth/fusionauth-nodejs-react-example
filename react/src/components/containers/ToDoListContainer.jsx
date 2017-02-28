@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import ToDoList from '../ToDoList';
 import { browserHistory } from 'react-router';
 
-const config = require("../../../config/config.js");
+const configuration = require("../../../config/config.js");
 
 class ToDoListContainer extends Component {
   constructor() {
@@ -34,9 +34,12 @@ class ToDoListContainer extends Component {
       }
     }).bind(this);
 
-    xhr.open('GET', config.todo.url + '/api/todos?userId=' + localStorage.userId, true);
-    xhr.setRequestHeader('Authorization', 'JWT ' + localStorage.access_token);
-    xhr.send();
+    configuration(function(config) {
+      xhr.open('GET', config.todo.url + '/api/todos?userId=' + localStorage.userId, true);
+      xhr.setRequestHeader('Authorization', 'JWT ' + localStorage.access_token);
+      xhr.send();
+    });
+
   }
 
   render() {

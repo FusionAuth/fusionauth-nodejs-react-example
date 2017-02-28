@@ -4,28 +4,12 @@
     "httpPort": 3000,
     "todo": {
       "url": "http://localhost:8080"
-    },
-    "passport": {
-      "apiKey": "bf69486b-4733-4470-a592-f1bfce7af580",
-      "applicationId": "4ed5eb32-0a97-40eb-a6d7-cca1f9fa3a0c",
-      "backendUrl": "http://passport.local",
-      "frontendUrl": "http://frontend.local",
-      "forgotEmailTemplateId": "49aba1de-0225-45d7-a2b1-f9fe46b0242c",
-      "verificationEmailTemplateId": "8da42c09-461c-45f3-b931-6e9f63b87ab5"
     }
   },
   "production": {
     "mode": "production",
     "todo": {
       "url": "https://todo-backend-passport-node-example.mybluemix.net"
-    },
-    "passport": {
-      "apiKey": "0e116a6e-ca00-47cd-804e-b04f9adda296",
-      "applicationId": "4ed5eb32-0a97-40eb-a6d7-cca1f9fa3a0c",
-      "backendUrl": "https://demo-passport.inversoft.io",
-      "frontendUrl": "https://demo-login.inversoft.io",
-      "forgotEmailTemplateId": "49aba1de-0225-45d7-a2b1-f9fe46b0242c",
-      "verificationEmailTemplateId": "8da42c09-461c-45f3-b931-6e9f63b87ab5"
     }
   }
 }

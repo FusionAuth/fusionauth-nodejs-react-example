@@ -13,26 +13,26 @@ router.route('/passport/config').get((req, res) => {
 });
 
 // Register a new user
-router.route('/passport/register').get((req, res) => {
-  let request = JSON.parse(req.body);
+router.route('/passport/register').post((req, res) => {
+
   // fill out the registration part of the request.
-  request.registration = {
-    applicationId: config.passport.applicationId,
+  let request = {
+    user: req.body.user,
+    registration: {
+      applicationId: config.passport.applicationId,
       roles: [
-      'RETRIEVE_TODO', 'CREATE_TODO', 'UPDATE_TODO', 'DELETE_TODO'
-    ]
+        'RETRIEVE_TODO', 'CREATE_TODO', 'UPDATE_TODO', 'DELETE_TODO'
+      ]
+    },
+    skipVerification: true
   };
-  request.skipVerification = true;
 
   passportClient.register(null, request)
     .then((response) => {
       res.send(response.successResponse);
     })
     .catch((response) => {
-      // return the same status and error
-      // this._handleErrors(xhr, callBack, ['user.username']);
-      console.info('error?');
-      console.info(response);
+      res.status(response.statusCode).send(response.errorResponse);
     });
 });
 

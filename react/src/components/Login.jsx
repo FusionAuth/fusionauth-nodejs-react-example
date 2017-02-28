@@ -25,7 +25,6 @@ class Login extends Component {
   _handleFormSubmit(event) {
     event.preventDefault();
     auth.login(this.state.loginId, this.state.password, (status, response) => {
-      // TODO If Authenticated, not Registered, navigate to a partial registration?
       if (status === 200) {
         // This will change if you call the /oauth2/token endpoint instead of the /api/login
         //   /oauth2/token

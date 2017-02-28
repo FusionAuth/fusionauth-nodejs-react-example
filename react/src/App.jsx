@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import bluemix_logo from './assets/img/bluemix_logo.svg';
-import passport_logo from './assets/img/passport_logo.png';
+import passport_logo from './assets/img/passport_logo.svg';
 import auth from './auth';
 import Greeting from './components/Greeting';
 

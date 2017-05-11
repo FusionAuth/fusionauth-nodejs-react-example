@@ -10,11 +10,9 @@ app.get('/*', function (req, res) {
   res.sendFile(path.join(__dirname, './build', 'index.html'));
 });
 
-
-var production = process.env['NODE_ENV'] === 'production';
-let port = configFile.development.httpPort;
-if (production) {
-  port = process.env.VCAP_APP_PORT || process.env.PORT;
+let port = process.env.VCAP_APP_PORT || process.env.PORT;
+if (typeof port === 'undefined') {
+  port = configFile.development.httpPort;
 }
 app.listen(port);
 

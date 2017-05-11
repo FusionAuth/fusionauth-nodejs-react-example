@@ -2,7 +2,8 @@
 
 const configFile = require ('./config.json');
 
-if (process.env['NODE_ENV'] === 'production') {
+// if (process.env['NODE_ENV'] === 'production') {
+if (process.env['VCAP_SERVICES']) {
   const services = JSON.parse(process.env.VCAP_SERVICES);
 
   // Look up the service definition.
@@ -22,6 +23,7 @@ if (process.env['NODE_ENV'] === 'production') {
   configFile.production.passport.apiKey = credentials.api_key;
   configFile.production.passport.backendUrl = credentials.passport_backend_url;
   configFile.production.passport.frontendUrl = credentials.passport_frontend_url;
+
   // User defined Environment Variable for the Application Id
   configFile.production.passport.applicationId = process.env.passport_application_id;
 

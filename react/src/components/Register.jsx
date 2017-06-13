@@ -23,10 +23,10 @@ class Register extends Component {
             <input id="firstName" name="firstName" type="text" autoFocus placeholder="First Name" spellCheck="false" autoCorrect="off" autoComplete="off" onChange={this._handleChange}/>
           </label>
           <label>
-            <input id="lastName" name="lastName" type="text" autoFocus placeholder="Last Name" spellCheck="false" autoCorrect="off" autoComplete="off" onChange={this._handleChange}/>
+            <input id="lastName" name="lastName" type="text" placeholder="Last Name" spellCheck="false" autoCorrect="off" autoComplete="off" onChange={this._handleChange}/>
           </label>
           <label>
-            <input id="email" name="email" type="text" autoFocus placeholder="Email" spellCheck="false" autoCorrect="off" autoComplete="off" onChange={this._handleChange}/>
+            <input id="email" name="email" type="text" placeholder="Email" spellCheck="false" autoCorrect="off" autoComplete="off" onChange={this._handleChange}/>
           </label>
           <label>
             <input id="password" name="password" type="password" placeholder="Password" onChange={this._handleChange}/>

@@ -36,7 +36,7 @@
     "jwa": "1.1.5",
     "node-localstorage ": "1.3.0",
     "mysql": "^2.10.2",
-    "passport-node-client": "1.8.2",
+    "passport-node-client": "file:../../passport-node-client",
     "sequelize": "3.22.0",
     "uuid": "^2.0.2"
   },

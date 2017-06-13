@@ -172,6 +172,7 @@ class ToDo extends Component {
             console.info(JSON.stringify(xhr.responseText, null, 2));
           } else {
             console.info('fail [' + xhr.status + ']');
+            this.props.refresh();
           }
         } else {
           if (callBack) {

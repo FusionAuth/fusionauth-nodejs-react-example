@@ -41,6 +41,10 @@ class Login extends Component {
         this.setState({
           'errors': ['[AuthenticatedNotRegistered]']
         })
+      } else if (status === 409) {
+        this.setState({
+          'errors': ['[AccountLocked]']
+        })
       } else {
         this.setState({
           'errors': response

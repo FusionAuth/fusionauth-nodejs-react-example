@@ -6,6 +6,8 @@ const jwt = require('../lib/jwt');
 const router = express.Router();
 const Todo = require('../models/todo.js');
 const todo = new Todo();
+const Inversoft = require('passport-node-client');
+
 
 router.route('/todos').get((req, res) => {
   const decodedJWT = _decodeJWT(req);
@@ -107,6 +109,14 @@ function _handleDatabaseError(res, error) {
  * @private
  */
 function _authorized(decodedJWT, role) {
+  if (decodedJWT === null) {
+    return false;
+  }
+
+  if (!Inversoft.JWTManager.isValid(decodedJWT)) {
+    return false;
+  }
+
   if (!jwt.assertIdentity(decodedJWT, 'roles', role)) {
     return false;
   }

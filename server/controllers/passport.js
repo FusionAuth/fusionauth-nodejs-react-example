@@ -2,9 +2,11 @@
 
 const config = require('../config/config.js');
 const express = require('express');
-const PassportClient = require('passport-node-client');
+const Inversoft = require('passport-node-client');
 const router = express.Router();
-let passportClient = new PassportClient(config.passport.apiKey, config.passport.backendUrl);
+const Todo = require('../models/todo.js');
+const todo = new Todo();
+let passportClient = new Inversoft.PassportClient(config.passport.apiKey, config.passport.backendUrl);
 
 // Return the Passport Configuration
 router.route('/passport/config').get((req, res) => {
@@ -34,6 +36,36 @@ router.route('/passport/register').post((req, res) => {
     .catch((response) => {
       res.status(response.statusCode).send(response.errorResponse);
     });
+});
+
+router.route('/passport/webhook').post((req, res) => {
+  const authorization = req.header('Authorization');
+  if (authorization !== 'API-KEY') {
+    res.status(403).send({
+      'errors': [{
+        'code': '[notAuthorized]'
+      }]
+    });
+    return;
+  }
+
+  if (req.body.event.type === 'jwt.refresh-token.revoke') {
+    const duration = req.body.event.applicationTimeToLiveInSeconds[config.passport.applicationId];
+    console.log('Revoking JWT for user [' + req.body.event.userId + '] for [' + duration + 's]');
+    Inversoft.JWTManager.revoke(req.body.event.userId, duration);
+    res.sendStatus(200);
+  } else if (req.body.event.type === 'user.delete') {
+    const request = req.body;
+    console.log('Deleting Todos for user [' + request.event.user.id + ']');
+    todo.deleteAll(request.event.user.id)
+      .then(() => {
+        res.sendStatus(200);
+      })
+      .catch(function(error) {
+        console.error(error);
+        res.status(500).end();
+      });
+  }
 });
 
 module.exports = router;

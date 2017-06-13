@@ -1,12 +1,12 @@
 'use strict';
 
-const PassportClient = require('passport-node-client');
+const Inversoft = require('passport-node-client');
 const LocalStorage = require('node-localstorage').LocalStorage;
 const localStorage = new LocalStorage('./passport');
 const config = require("../config/config.js");
 
 // Build a Passport REST Client
-let passportClient = new PassportClient(config.passport.apiKey, config.passport.backendUrl);
+let passportClient = new Inversoft.PassportClient(config.passport.apiKey, config.passport.backendUrl);
 
 console.info('Passport Bootstrap in mode [' + config.mode + ']');
 
@@ -74,7 +74,7 @@ if (config.mode === 'development') {
 // This could be done on startup, or when the System Configuration or Application Configuration is updated in Passport.
 // A webhook event would utilized to indicate these state changes, and then we can attempt to retrieve the updated public key.
 //  -- Retrieve the public key during start up to decode and verify the JWT
-passportClient.retrieveJwtPublicKeys()
+passportClient.retrieveJWTPublicKeys()
 .then((clientResponse) => {
   if (clientResponse.successResponse.publicKeys.hasOwnProperty(config.passport.applicationId)) {
     localStorage.publicKey = clientResponse.successResponse.publicKeys[config.passport.applicationId];

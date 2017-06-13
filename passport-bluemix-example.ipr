@@ -105,9 +105,8 @@
     <option yui="false" />
   </component>
   <component name="JavaScriptLibraryMappings">
-    <file url="PROJECT" libraries="{js-beautify-DefinitelyTyped, lodash.intersection-DefinitelyTyped, mocha-DefinitelyTyped, node_modules passport-bluemix-example}" />
+    <file url="PROJECT" libraries="{node_modules passport-bluemix-example}" />
     <includedPredefinedLibrary name="ECMAScript 6" />
-    <includedPredefinedLibrary name="Node.js Core" />
   </component>
   <component name="JavaScriptSettings">
     <option name="languageLevel" value="JSX" />
@@ -193,10 +192,7 @@
       <properties>
         <option name="frameworkName" value="node_modules" />
       </properties>
-      <CLASSES>
-        <root url="file://$PROJECT_DIR$/node_modules" />
-        <root url="file://$PROJECT_DIR$/node_modules" />
-      </CLASSES>
+      <CLASSES />
       <JAVADOC />
       <SOURCES />
     </library>

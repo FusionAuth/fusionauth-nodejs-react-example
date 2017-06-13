@@ -14,7 +14,6 @@ module.exports = {
    */
   decode(encodedJWT) {
     try {
-
       const parts = encodedJWT.split('.');
       if (parts.length !== 3) {
         return null;

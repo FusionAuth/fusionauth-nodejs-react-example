@@ -134,7 +134,6 @@ const auth = {
     },
 
     _callLogin(email, password, callBack) {
-
       const xhr = new XMLHttpRequest();
       xhr.onreadystatechange = (function() {
         if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -165,7 +164,15 @@ const auth = {
         const loginRequest = {
           loginId: email,
           password: password,
-          applicationId: config.passport.applicationId
+          applicationId: config.passport.applicationId,
+          device: 'Web Browser',
+          metaData: {
+            device: {
+              description: 'BlueMix Web Example',
+              type: 'BROWSER',
+              name: 'Brian\'s Laptop'
+            }
+          }
         };
         xhr.open('POST', config.passport.backendUrl + '/api/login', true);
         xhr.setRequestHeader("Content-type", "application/json");

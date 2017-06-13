@@ -40,6 +40,7 @@ class Errors extends Component {
 
 Errors.defaultProps = {
   messages: {
+    '[AccountLocked]': 'You\'re account is locked.',
     '[AuthenticatedNotRegistered]': 'You are not authorized to this application.',
     '[InvalidLogin]': 'Invalid Credentials. Try again.',
     '[PasswordMismatch]': 'Passwords do not match.',

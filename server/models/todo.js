@@ -33,7 +33,6 @@ if (config.mode === 'production') {
 }
 
 const Todo = function() {
-
   this.todo = sql.define("todo", {
       id: {type: Sequelize.UUID, primaryKey: true, allowNull: false, unique: true},
       text: {type: Sequelize.STRING(2048)},
@@ -61,6 +60,10 @@ Todo.prototype = {
 
   delete: function(id, userId) {
     return this.todo.destroy({where: {id: id, user_id: userId}});
+  },
+
+  deleteAll: function(userId) {
+    return this.todo.destroy({where: {user_id: userId}});
   },
 
   retrieveAll: function(userId, completed) {

@@ -65,6 +65,8 @@ router.route('/passport/webhook').post((req, res) => {
         console.error(error);
         res.status(500).end();
       });
+  } else {
+    res.sendStatus(200);
   }
 });
 

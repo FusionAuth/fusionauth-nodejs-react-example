@@ -68,8 +68,6 @@ router.route('/passport/webhook').post((req, res) => {
   } else {
     res.sendStatus(200);
   }
-
-  res.sendStatus(200);
 });
 
 module.exports = router;

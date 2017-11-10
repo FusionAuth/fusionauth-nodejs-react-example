@@ -71,7 +71,6 @@
 
 .todo .action.add:hover {
   border: 1px solid #365a8b;
-
 }
 
 .todo .action .fa {
@@ -155,13 +154,11 @@
 }
 
 .todo .text input[type=text] {
-  border: none;
   outline: none;
   border: 1px solid #ddd;
 }
 
 .todo .text input[type=text]:focus {
-  border: none;
   outline: none;
   border: 1px solid #365a8b;
 }

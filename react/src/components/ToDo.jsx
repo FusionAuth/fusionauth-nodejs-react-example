@@ -63,7 +63,6 @@ class ToDo extends Component {
     if (event.keyCode === 13) {
       event.preventDefault();
       // Capture 'Enter' and save changes
-      // Update the TODO
       if (this.state.template) {
         if (this.state.value.length > 1) {
           this.create(() => {

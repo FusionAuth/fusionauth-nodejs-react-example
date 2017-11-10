@@ -1,4 +1,4 @@
-# Passport Bluemix Example
+# Passport IBM Cloud Example
 
 This project contains an example project that illustrates using Passport with Node and React.
 
@@ -31,9 +31,9 @@ You will need the following things properly installed on your computer.
 ## Inversoft Internal Use 
 The following is for Inversoft use, if you've cloned this repository your application names will be different.
 
-### Deploying React frontend to Bluemix
+### Deploying React frontend to IBM Cloud
 * `./react> npm run build`
 * `./react> cf push todo-passport-node-example`
 
-### Deploying Node ToDo backend to Bluemix
+### Deploying Node ToDo backend to IBM Cloud
 * `./server> cf push todo-backend-passport-node-example`

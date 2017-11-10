@@ -17,7 +17,7 @@ passportClient.retrieveApplication(config.passport.applicationId)
     if (clientResponse.statusCode === 404) {
       passportClient.createApplication(config.passport.applicationId, {
           "application": {
-            "name": "Bluemix ToDo Node.js Example",
+            "name": "IBM Cloud ToDo Node.js Example",
             "roles": [
               {
                 "name": "RETRIEVE_TODO",

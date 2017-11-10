@@ -24,7 +24,7 @@ class App extends Component {
         <div className="App-header">
           <img src={bluemix_logo} className="App-logo" alt="logo" />
           <img src={passport_logo} className="App-logo" alt="logo" />
-          <h2>Bluemix ToDos</h2>
+          <h2>IBM Cloud ToDos</h2>
         </div>
         <div className="App-content">
           <Greeting />

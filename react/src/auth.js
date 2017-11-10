@@ -168,7 +168,7 @@ const auth = {
           device: 'Web Browser',
           metaData: {
             device: {
-              description: 'BlueMix Web Example',
+              description: 'IBM Cloud Web Example',
               type: 'BROWSER',
               name: 'Brian\'s Laptop'
             }

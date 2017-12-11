@@ -29,7 +29,7 @@ class Login extends Component {
         // This will change if you call the /oauth2/token endpoint instead of the /api/login
         //   /oauth2/token
         //      --> response.access_token
-        //      --> respponse.userId
+        //      --> response.userId
         //
         //  /api/login
         //      --> response.token

@@ -22,7 +22,6 @@ if (process.env['VCAP_SERVICES']) {
   // Override default configuration from the service definition
   configFile.production.passport.apiKey = credentials.api_key;
   configFile.production.passport.backendUrl = credentials.passport_backend_url;
-  configFile.production.passport.frontendUrl = credentials.passport_frontend_url;
 
   // User defined Environment Variable for the Application Id
   configFile.production.passport.applicationId = process.env.passport_application_id;

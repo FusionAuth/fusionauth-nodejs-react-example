@@ -2,7 +2,7 @@
 const config = require("../config/config.js");
 const jwa = require('jwa');
 const LocalStorage = require('node-localstorage').LocalStorage;
-const localStorage = new LocalStorage('./passport');
+const localStorage = new LocalStorage('./fusionauth');
 
 module.exports = {
 
@@ -23,7 +23,7 @@ module.exports = {
       const payload = Buffer.from(parts[1], 'base64');
 
       // Verify header key id matches application
-      if (header.kid !== config.passport.applicationId) {
+      if (header.kid !== config.fusionauth.applicationId) {
         return null;
       }
 

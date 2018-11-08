@@ -9,7 +9,7 @@
   "production": {
     "mode": "production",
     "todo": {
-      "url": "https://todo-backend-passport-node-example.mybluemix.net"
+      "url": "https://fusionauth.local"
     }
   }
 }

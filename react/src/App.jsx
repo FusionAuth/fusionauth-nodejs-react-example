@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import bluemix_logo from './assets/img/bluemix_logo.svg';
-import passport_logo from './assets/img/passport_logo.svg';
+import fusionauth_logo from './assets/img/fusionauth_logo.svg';
 import auth from './auth';
 import Greeting from './components/Greeting';
 
@@ -23,7 +23,7 @@ class App extends Component {
       <div className="App">
         <div className="App-header">
           <img src={bluemix_logo} className="App-logo" alt="logo" />
-          <img src={passport_logo} className="App-logo" alt="logo" />
+          <img src={fusionauth_logo} className="App-logo" alt="logo" />
           <h2>IBM Cloud ToDos</h2>
         </div>
         <div className="App-content">

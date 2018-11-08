@@ -1,5 +1,5 @@
 ---
 applications:
-- name: todo-passport-node-example
+- name: todo-fusionauth-nodejs-react-example
   buildpack: https://github.com/cloudfoundry/nodejs-buildpack
-- host: todo-passport-node-example
+- host: todo-fusionauth-nodejs-react-example

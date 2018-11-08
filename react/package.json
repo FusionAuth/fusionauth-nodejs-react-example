@@ -1,5 +1,5 @@
 {
-  "name": "todo-passport-node-example",
+  "name": "todo-fusionauth-nodejs-react-example",
   "version": "0.1.0",
   "private": true,
   "author": "Brian Pontarelli and Daniel DeGroff",
@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "express": "4.13.4",
-    "passport-node-client": "1.8.2",
+    "fusionauth-node-client": "1.0.19",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-fontawesome": "^1.5.0",
@@ -27,7 +27,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/inversoft/passport-bluemix-example"
+    "url": "https://github.com/FusionAuth/fusionauth-nodejs-react-example"
   },
   "scripts": {
     "start": "react-scripts start",

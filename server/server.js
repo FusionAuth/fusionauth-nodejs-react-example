@@ -6,12 +6,12 @@ const cors = require('cors');
 const bodyParser = require("body-parser");
 const uuid = require("uuid");
 const todo = require("./controllers/todo.js");
-const passport = require("./controllers/passport.js");
+const fusionauth = require("./controllers/fusionauth.js");
 const config = require("./config/config.js");
 const http = require("http");
 
-// Ensure Passport is setup by calling the bootstrapper
-require("./lib/passport-bootstrap.js");
+// Ensure FusionAuth is setup by calling the bootstrapper
+require("./lib/fusionauth-bootstrap.js");
 
 // Cross-Origin Resource Sharing
 app.use(cors());
@@ -24,7 +24,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.json({type: "application/vnd.api+json"}));
 
 // Define the main routes
-app.use("/api/", [todo, passport]);
+app.use("/api/", [todo, fusionauth]);
 
 // This is the default handler that will always return the Ember index.html file for all unhandled URLs
 app.use(function(req, res) {

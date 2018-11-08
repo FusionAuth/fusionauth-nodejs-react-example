@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, Inversoft Inc., All Rights Reserved
+ * Copyright (c) 2016, FusionAuth, All Rights Reserved
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ var bodyParser = require("body-parser");
 var session = require("express-session");
 var chai = require("chai");
 var assert = chai.assert;
-var passport = require("../controllers/passport.js");
+var fusionauth = require("../controllers/fusionauth.js");
 var todo = require("../controllers/todo.js");
 
 describe("Testing Todo", function() {
@@ -36,7 +36,7 @@ describe("Testing Todo", function() {
       maxAge: 3600 * 1000
     }
   }));
-  app.use("/api/", [passport, todo]);
+  app.use("/api/", [fusionauth, todo]);
 
   var agent = request(app);
   var Cookies;
@@ -93,7 +93,7 @@ describe("Testing Todo", function() {
       });
   });
 
-  it("should not get 401 on passport routes", (done) => {
+  it("should not get 401 on fusionauth routes", (done) => {
     agent.post("/api/register/")
       .end((err, res) => {
         assert.notEqual(401, res.status);
@@ -103,7 +103,7 @@ describe("Testing Todo", function() {
 
   it("should login", (done) => {
     agent.post("/api/login")
-      .send({"email": "admin@inversoft.com", "password": "password"})
+      .send({"email": "admin@fusionauth.io", "password": "password"})
       .end((err, res) => {
         Cookies = res.headers['set-cookie'].pop().split(';')[0];
         assert.equal(200, res.status);

@@ -35,7 +35,7 @@ const auth = {
       }).bind(this);
 
       configuration(function(config) {
-        xhr.open('GET', config.passport.backendUrl + '/api/user', true);
+        xhr.open('GET', config.fusionauth.backendUrl + '/api/user', true);
         xhr.setRequestHeader('Authorization', 'JWT ' + encodedJWT);
         xhr.send();
       });
@@ -87,7 +87,7 @@ const auth = {
       }).bind(this);
 
       configuration(function(config) {
-        xhr.open('POST', config.todo.url + '/api/passport/register', true);
+        xhr.open('POST', config.todo.url + '/api/fusionauth/register', true);
         xhr.setRequestHeader("Content-type", "application/json");
 
         const jsonRequest = JSON.stringify(requestBody);
@@ -125,9 +125,9 @@ const auth = {
         data.append('loginId', email);
         data.append('password', password);
         data.append('grant_type', 'password');
-        data.append('client_id', config.passport.applicationId);
+        data.append('client_id', config.fusionauth.applicationId);
 
-        xhr.open('POST', config.passport.frontendUrl + '/oauth2/token', true);
+        xhr.open('POST', config.fusionauth.frontendUrl + '/oauth2/token', true);
         xhr.send(data);
       });
 
@@ -164,7 +164,7 @@ const auth = {
         const loginRequest = {
           loginId: email,
           password: password,
-          applicationId: config.passport.applicationId,
+          applicationId: config.fusionauth.applicationId,
           device: 'Web Browser',
           metaData: {
             device: {
@@ -174,7 +174,7 @@ const auth = {
             }
           }
         };
-        xhr.open('POST', config.passport.backendUrl + '/api/login', true);
+        xhr.open('POST', config.fusionauth.backendUrl + '/api/login', true);
         xhr.setRequestHeader("Content-type", "application/json");
         xhr.send(JSON.stringify(loginRequest));
       });

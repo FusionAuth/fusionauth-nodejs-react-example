@@ -2,26 +2,26 @@
 
 const config = require('../config/config.js');
 const express = require('express');
-const Inversoft = require('passport-node-client');
+const {FusionAuthClient, JWTManager} = require('fusionauth-node-client');
 const router = express.Router();
 const Todo = require('../models/todo.js');
 const todo = new Todo();
-let passportClient = new Inversoft.PassportClient(config.passport.apiKey, config.passport.backendUrl);
+let fusionauthClient = new FusionAuthClient(config.fusionauth.apiKey, config.fusionauth.backendUrl);
 
-// Return the Passport Configuration
-router.route('/passport/config').get((req, res) => {
-  delete config.passport.apiKey;
-  res.send(config.passport);
+// Return the FusionAuth Configuration
+router.route('/fusionauth/config').get((req, res) => {
+  delete config.fusionauth.apiKey;
+  res.send(config.fusionauth);
 });
 
 // Register a new user
-router.route('/passport/register').post((req, res) => {
+router.route('/fusionauth/register').post((req, res) => {
 
   // fill out the registration part of the request.
   let request = {
     user: req.body.user,
     registration: {
-      applicationId: config.passport.applicationId,
+      applicationId: config.fusionauth.applicationId,
       roles: [
         'RETRIEVE_TODO', 'CREATE_TODO', 'UPDATE_TODO', 'DELETE_TODO'
       ]
@@ -29,7 +29,7 @@ router.route('/passport/register').post((req, res) => {
     skipVerification: true
   };
 
-  passportClient.register(null, request)
+  fusionauthClient.register(null, request)
     .then((response) => {
       res.send(response.successResponse);
     })
@@ -38,7 +38,7 @@ router.route('/passport/register').post((req, res) => {
     });
 });
 
-router.route('/passport/webhook').post((req, res) => {
+router.route('/fusionauth/webhook').post((req, res) => {
   const authorization = req.header('Authorization');
   if (authorization !== 'API-KEY') {
     res.status(403).send({
@@ -50,9 +50,9 @@ router.route('/passport/webhook').post((req, res) => {
   }
 
   if (req.body.event.type === 'jwt.refresh-token.revoke') {
-    const duration = req.body.event.applicationTimeToLiveInSeconds[config.passport.applicationId];
+    const duration = req.body.event.applicationTimeToLiveInSeconds[config.fusionauth.applicationId];
     console.log('Revoking JWT for user [' + req.body.event.userId + '] for [' + duration + 's]');
-    Inversoft.JWTManager.revoke(req.body.event.userId, duration);
+    JWTManager.revoke(req.body.event.userId, duration);
     res.sendStatus(200);
   } else if (req.body.event.type === 'user.delete') {
     const request = req.body;

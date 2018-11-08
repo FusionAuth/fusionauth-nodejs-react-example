@@ -13,7 +13,7 @@ class Logout extends Component {
   render() {
     return (
       <div className="message">
-        You've been successfully logged out. Thank you for using Passport!
+        You've been successfully logged out. Thank you for using FusionAuth!
         Click here to return to <Link to="/login">Login</Link>
       </div>
     );

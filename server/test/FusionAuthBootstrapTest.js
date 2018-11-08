@@ -3,22 +3,22 @@
 'use strict';
 
 // This does all the setup inline
-require("../lib/passport-bootstrap.js");
+require("../lib/fusionauth-bootstrap.js");
 
 const chai = require("chai");
 const chaiAsPromised = require("chai-as-promised");
 
 const config = require("../config/config.js");
-const PassportClient = require('passport-node-client');
-const client = new PassportClient(config.passport.apiKey, config.passport.backendUrl);
+const {FusionAuthClient} = require('fusionauth-node-client');
+const client = new FusionAuthClient(config.fusionauth.apiKey, config.fusionauth.backendUrl);
 
 // Install chai as promised
 chai.use(chaiAsPromised);
 
-describe("PassportBootstrapTest", () => {
+describe("FusionAuthBootstrapTest", () => {
   // Login Success
   it("The Application should be setup", () => {
-    return client.retrieveApplication(config.passport.applicationId)
+    return client.retrieveApplication(config.fusionauth.applicationId)
       .then((clientResponse) => {
         chai.assert.strictEqual(clientResponse.statusCode, 200);
         chai.assert.isNotNull(clientResponse.successResponse);

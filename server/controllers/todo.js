@@ -6,7 +6,7 @@ const jwt = require('../lib/jwt');
 const router = express.Router();
 const Todo = require('../models/todo.js');
 const todo = new Todo();
-const Inversoft = require('passport-node-client');
+const {JWTManager} = require('fusionauth-node-client');
 
 
 router.route('/todos').get((req, res) => {
@@ -113,7 +113,7 @@ function _authorized(decodedJWT, role) {
     return false;
   }
 
-  if (!Inversoft.JWTManager.isValid(decodedJWT)) {
+  if (!JWTManager.isValid(decodedJWT)) {
     return false;
   }
 
@@ -121,7 +121,7 @@ function _authorized(decodedJWT, role) {
     return false;
   }
 
-  if (!jwt.assertIdentity(decodedJWT, 'applicationId', config.passport.applicationId)) {
+  if (!jwt.assertIdentity(decodedJWT, 'applicationId', config.fusionauth.applicationId)) {
     return false;
   }
 

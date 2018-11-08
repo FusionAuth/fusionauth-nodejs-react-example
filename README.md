@@ -1,9 +1,6 @@
-# Passport IBM Cloud Example
+# FusionAuth Node.js and React Example
 
-This project contains an example project that illustrates using Passport with Node and React.
-
-* [Inversoft Passport on IBM Cloud](https://console.bluemix.net/catalog/services/passport) 
-
+This project contains an example project that illustrates using FusionAuth with Node and React.
 
 ## Prerequisites
 You will need the following things properly installed on your computer.
@@ -12,14 +9,14 @@ You will need the following things properly installed on your computer.
 * [Node.js](http://nodejs.org/) (with NPM)
 
 ## Installation
-* `git clone https://github.com/inversoft/passport-bluemix-example`
-* `cd passport-bluemix-example`
+* `git clone https://github.com/fusionauth/fusionauth-nodejs-react-example`
+* `cd fusionauth-nodejs-react-example`
 * `./server> npm install`
 * `./react> npm install`
 
-## Passport and Database Configuration
-* Start up Passport Backend
-* Log into Passport Backend and create a new API key using the value from the `server/config/config.json` configuration file
+## FusionAuth and Database Configuration
+* Start up FusionAuth App
+* Log into FusionAuth App and create a new API key using the value from the `server/config/config.json` configuration file
 * Create a MySQL database called `user_todos` by executing this in the MySQL shell
   * `create database user_todos character set = 'utf8mb4' collate = 'utf8mb4_bin';`
 * Grant privileges to the dev user to this database by executing this in the MySQL shell 
@@ -30,13 +27,3 @@ You will need the following things properly installed on your computer.
   * Debug mode `./server> node --inspect server.js`
 * `./react> npm start`
   * This should open a browser to [https://localhost:3000](https://localhost:3000). 
-
-## Inversoft Internal Use 
-The following is for Inversoft use, if you've cloned this repository your application names will be different.
-
-### Deploying React frontend to IBM Cloud
-* `./react> npm run build`
-* `./react> cf push todo-passport-node-example`
-
-### Deploying Node ToDo backend to IBM Cloud
-* `./server> cf push todo-backend-passport-node-example`

@@ -3,7 +3,7 @@ import FontAwesome from 'react-fontawesome';
 
 import '../assets/ToDo.css';
 
-const configuration = require("../../config/config.js");
+const configuration = require("../config/config.js");
 
 class ToDo extends Component {
   constructor(props) {

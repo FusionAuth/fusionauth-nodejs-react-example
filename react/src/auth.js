@@ -1,4 +1,4 @@
-const configuration = require("../config/config.js");
+const configuration = require("./config/config.js");
 
 const auth = {
     login(email, password, callBack) {

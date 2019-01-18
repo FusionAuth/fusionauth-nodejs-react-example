@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import ToDoList from '../ToDoList';
 import { browserHistory } from 'react-router';
 
-const configuration = require("../../../config/config.js");
+const configuration = require("../../config/config.js");
 
 class ToDoListContainer extends Component {
   constructor() {

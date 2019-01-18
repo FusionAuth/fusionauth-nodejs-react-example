@@ -1,6 +1,6 @@
 'use strict';
 
-const configFile = require ('./config/config.json');
+const configFile = require ('./src/config/config.json');
 const express = require('express');
 const path = require('path');
 const app = express();

@@ -56,10 +56,10 @@ if (config.mode === 'development') {
       const systemConfiguration = clientResponse.successResponse.systemConfiguration;
 
       systemConfiguration.reportTimezone = "America/Denver";
-      systemConfiguration.verifyEmail = true;
-      systemConfiguration.verifyEmailWhenChanged = true;
-      systemConfiguration.forgotEmailTemplateId = config.fusionauth.forgotEmailTemplateId;
-      systemConfiguration.verificationEmailTemplateId = config.fusionauth.verificationEmailTemplateId;
+      systemConfiguration.emailConfiguration.verifyEmail = true;
+      systemConfiguration.emailConfiguration.verifyEmailWhenChanged = true;
+      systemConfiguration.emailConfiguration.forgotPasswordEmailTemplateId = config.fusionauth.forgotEmailTemplateId;
+      systemConfiguration.emailConfiguration.verificationEmailTemplateId = config.fusionauth.verificationEmailTemplateId;
 
       fusionauthClient.updateSystemConfiguration({
         "systemConfiguration": systemConfiguration

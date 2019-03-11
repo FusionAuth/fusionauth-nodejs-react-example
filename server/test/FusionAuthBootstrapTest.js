@@ -10,7 +10,7 @@ const chaiAsPromised = require("chai-as-promised");
 
 const config = require("../config/config.js");
 const {FusionAuthClient} = require('fusionauth-node-client');
-const client = new FusionAuthClient(config.fusionauth.apiKey, config.fusionauth.backendUrl);
+const client = new FusionAuthClient(config.fusionauth.apiKey, config.fusionauth.applicationURL);
 
 // Install chai as promised
 chai.use(chaiAsPromised);

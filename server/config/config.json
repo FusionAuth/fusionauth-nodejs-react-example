@@ -5,8 +5,8 @@
     "fusionauth": {
       "apiKey": "bf69486b-4733-4470-a592-f1bfce7af580",
       "applicationId": "4ed5eb32-0a97-40eb-a6d7-cca1f9fa3a0c",
-      "backendUrl": "http://fusionauth.local",
-      "forgotEmailTemplateId": "49aba1de-0225-45d7-a2b1-f9fe46b0242c",
+      "applicationURL": "http://fusionauth.local",
+      "forgotPasswordEmailTemplateId": "49aba1de-0225-45d7-a2b1-f9fe46b0242c",
       "verificationEmailTemplateId": "8da42c09-461c-45f3-b931-6e9f63b87ab5"
     },
     "database": {
@@ -20,7 +20,7 @@
     "mode": "production",
     "httpPort": 80,
     "fusionauth": {
-      "forgotEmailTemplateId": "49aba1de-0225-45d7-a2b1-f9fe46b0242c",
+      "forgotPasswordEmailTemplateId": "49aba1de-0225-45d7-a2b1-f9fe46b0242c",
       "verificationEmailTemplateId": "8da42c09-461c-45f3-b931-6e9f63b87ab5"
     }
   }

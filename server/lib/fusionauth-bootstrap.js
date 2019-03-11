@@ -6,7 +6,7 @@ const localStorage = new LocalStorage('./fusionauth');
 const config = require("../config/config.js");
 
 // Build a FusionAuth REST Client
-let fusionauthClient = new FusionAuthClient(config.fusionauth.apiKey, config.fusionauth.backendUrl);
+let fusionauthClient = new FusionAuthClient(config.fusionauth.apiKey, config.fusionauth.applicationURL);
 
 console.info('FusionAuth Bootstrap in mode [' + config.mode + ']');
 
@@ -58,7 +58,7 @@ if (config.mode === 'development') {
       systemConfiguration.reportTimezone = "America/Denver";
       systemConfiguration.emailConfiguration.verifyEmail = true;
       systemConfiguration.emailConfiguration.verifyEmailWhenChanged = true;
-      systemConfiguration.emailConfiguration.forgotPasswordEmailTemplateId = config.fusionauth.forgotEmailTemplateId;
+      systemConfiguration.emailConfiguration.forgotPasswordEmailTemplateId = config.fusionauth.forgotPasswordEmailTemplateId;
       systemConfiguration.emailConfiguration.verificationEmailTemplateId = config.fusionauth.verificationEmailTemplateId;
 
       fusionauthClient.updateSystemConfiguration({

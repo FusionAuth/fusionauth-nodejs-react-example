@@ -35,7 +35,7 @@ const auth = {
       }).bind(this);
 
       configuration(function(config) {
-        xhr.open('GET', config.fusionauth.backendUrl + '/api/user', true);
+        xhr.open('GET', config.fusionauth.applicationURL + '/api/user', true);
         xhr.setRequestHeader('Authorization', 'JWT ' + encodedJWT);
         xhr.send();
       });
@@ -174,7 +174,7 @@ const auth = {
             }
           }
         };
-        xhr.open('POST', config.fusionauth.backendUrl + '/api/login', true);
+        xhr.open('POST', config.fusionauth.applicationURL + '/api/login', true);
         xhr.setRequestHeader("Content-type", "application/json");
         xhr.send(JSON.stringify(loginRequest));
       });

@@ -6,7 +6,7 @@ const {FusionAuthClient, JWTManager} = require('fusionauth-node-client');
 const router = express.Router();
 const Todo = require('../models/todo.js');
 const todo = new Todo();
-let fusionauthClient = new FusionAuthClient(config.fusionauth.apiKey, config.fusionauth.backendUrl);
+let client = new FusionAuthClient(config.fusionauth.apiKey, config.fusionauth.applicationURL);
 
 // Return the FusionAuth Configuration
 router.route('/fusionauth/config').get((req, res) => {
@@ -29,7 +29,7 @@ router.route('/fusionauth/register').post((req, res) => {
     skipVerification: true
   };
 
-  fusionauthClient.register(null, request)
+  client.register(null, request)
     .then((response) => {
       res.send(response.successResponse);
     })

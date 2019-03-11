@@ -21,7 +21,7 @@ if (process.env['VCAP_SERVICES']) {
 
   // Override default configuration from the service definition
   configFile.production.fusionauth.apiKey = credentials.api_key;
-  configFile.production.fusionauth.backendUrl = credentials.fusionauth_backend_url;
+  configFile.production.fusionauth.applicationURL = credentials.fusionauth_backend_url;
 
   // User defined Environment Variable for the Application Id
   configFile.production.fusionauth.applicationId = process.env.fusionauth_application_id;

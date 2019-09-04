@@ -1,5 +1,0 @@
----
-applications:
-- name: todo-fusionauth-nodejs-react-example
-  buildpack: https://github.com/cloudfoundry/nodejs-buildpack
-- host: todo-fusionauth-nodejs-react-example

@@ -35,6 +35,11 @@ const routes = [
         path: "/todo/",
         name: "Todo List",
         component: Todo
+    }, {
+        private: true,
+        path: "/todo/add",
+        name: "Add Todo",
+        component: Todo
     }
 ];
 

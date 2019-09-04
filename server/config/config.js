@@ -5,7 +5,9 @@
  * to export to the application based on the environment chosen.
  */
 
-require('dotenv').config()
+// Comment out or remove the following line if you wish to deploy via a Docker image.
+// This is set here to allow for using a .env file for testing.
+require('dotenv').config();
 
 // Create the config module.
 const config = {

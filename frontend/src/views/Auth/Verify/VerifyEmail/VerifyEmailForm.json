@@ -10,8 +10,7 @@
             "required": {
                 "langKey": [
                     "common",
-                    "auth",
-                    "verifyEmail",
+                    "input",
                     "verificationId",
                     "validation",
                     "required"
@@ -21,8 +20,7 @@
                 "rule": 43,
                 "langKey": [
                     "common",
-                    "auth",
-                    "verifyEmail",
+                    "input",
                     "verificationId",
                     "validation",
                     "length"

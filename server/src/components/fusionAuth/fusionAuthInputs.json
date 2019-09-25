@@ -1,0 +1,81 @@
+{
+    "register": {
+        "username": {
+            "required": true,
+            "minLength": {
+                "rule": 5
+            },
+            "max": {
+                "rule": 30
+            }
+        },
+        "firstName": {
+            "required": true,
+            "minLength": {
+                "rule": 3
+            },
+            "max": {
+                "rule": 50
+            }
+        },
+        "lastName": {
+            "required": true,
+            "minLength": {
+                "rule": 3
+            },
+            "max": {
+                "rule": 100
+            }
+        },
+        "email": {
+            "required": true,
+            "email": true
+        },
+        "password": {
+            "required": true,
+            "minLength": {
+                "rule": 8
+            },
+            "max": {
+                "rule": 256
+            }
+        }
+    },
+    "verifyEmail": {
+        "verificationId": {
+            "length": {
+                "rule": 43
+            }
+        }
+    },
+    "verify2Factor": {
+        "twoFactorId": {
+            "required": true,
+            "length": {
+                "rule": 43
+            }
+        },
+        "code": {
+            "required": true,
+            "length": {
+                "rule": 6
+            }
+        }
+    },
+    "forgotPassword": {
+        "loginId": {
+            "required": true
+        }
+    },
+    "changePassword": {
+        "password": {
+            "required": true,
+            "minLength": {
+                "rule": 8
+            },
+            "max": {
+                "rule": 256
+            }
+        }
+    }
+}

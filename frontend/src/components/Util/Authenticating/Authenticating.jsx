@@ -1,5 +1,7 @@
 // Dependencies
 import React from "react";
+import { get } from "lodash";
+import { connect } from "react-redux";
 import {
     Card,
     CardHeader,
@@ -12,19 +14,21 @@ import {
 /**
  * Authenticating Component
  *
- * A simple Font Awesome spinning icon to indicate to the user that
- * content is loading for them.
+ * Display a message to the user, in their preferred language, that they
+ * are being authenticated to access the information.
+ *
+ * @param {Object} languageData Current language information for the app. Language data object.
  */
-const Authenticating = () => (
+const Authenticating = ({ languageData }) => (
     <Container className="mt-5">
         <Row className="mt-5 justify-content-center">
             <Col xl="6" lg="12" className="mx-auto">
                 <Card className="bg-primary-card">
                     <CardHeader>
-                        Security
+                        { get(languageData, ["common", "security"]) }
                     </CardHeader>
                     <CardBody className="mx-auto">
-                        Authenticating...
+                        { get(languageData, ["common", "authenticating"]) }...
                     </CardBody>
                 </Card>
             </Col>
@@ -32,5 +36,18 @@ const Authenticating = () => (
     </Container>
 );
 
+/**
+ * Get App State
+ *
+ * Get the requried state for the component from the Redux store.
+ *
+ * @param {Object} state Application state from Redux.
+ */
+const mapStateToProps = state => {
+    return {
+        languageData: state.language.languageData
+    }
+}
+
 // Export the Loading Component.
-export default Authenticating;
+export default connect(mapStateToProps)(Authenticating);

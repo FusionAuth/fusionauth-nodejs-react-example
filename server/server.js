@@ -6,7 +6,7 @@
  */
 
 // Dependencies
-const { expressServer } = require("./expressServer");
+const expressServer = require("./src/expressServer");
 
 // Declare the application module.
 const app = {};

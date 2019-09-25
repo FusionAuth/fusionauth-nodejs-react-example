@@ -133,7 +133,14 @@
       display: flex !important;
       flex-basis: auto; }
     .navbar-expand-sm .navbar-toggler {
-      display: none; } }
+      display: none; }
+    .dropdown-menu-arrow {
+      position: absolute;
+      will-change: transform;
+      top: 0px;
+      left: 0px;
+      transform: translate3d(-108px, 52px, 0px);
+    } }
 
 @media (max-width: 767.98px) {
   .navbar-expand-md > .container,
@@ -278,27 +285,38 @@
 .navbar .nav-item .nav-link-icon.nav-link i {
   margin-right: 4px; }
 
-.avatar {
+.avatar, .flag {
   color: #fff;
   background-color: transparent;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   font-size: 1rem;
-  border-radius: 50%;
   height: 48px;
-  width: 48px; }
-  .avatar img {
-    width: 100%;
-    border-radius: 50%; }
-  .avatar + .avatar-content {
-    display: inline-block;
-    margin-left: .75rem; }
+  width: 48px;
+}
 
-.avatar-sm {
+.avatar img, .flag img {
+    width: 100%;
+}
+
+.avatar + .avatar-content, .flag + .flag-content {
+    display: inline-block;
+    margin-left: .75rem;
+}
+
+.avatar-sm, .flag-sm {
   width: 36px;
   height: 36px;
   font-size: 0.875rem;
+}
+
+.avatar {
+  border-radius: 50%;
+}
+
+.avatar img {
+    border-radius: 50%;
 }
 
 .rounded-circle {
@@ -321,15 +339,14 @@
 
 a.bg-primary:hover,
 a.bg-primary:focus,
+a.bg-primary:active,
 button.bg-primary:hover,
-button.bg-primary:focus
+button.bg-primary:focus,
+button.bg-primary:active,
 input[type="submit"].bg-primary:hover,
-input[type="submit"].bg-primary:focus {
-  background-color: var(--primary) !important;
-}
-
-input[type="submit"].bg-primary {
-  color: var(--lighter) !important;
+input[type="submit"].bg-primary:focus,
+input[type="submit"].bg-primary:active {
+  background-color: var(--secondary) !important;
 }
 
 .text-primary-bg {
@@ -342,16 +359,14 @@ input[type="submit"].bg-primary {
   color: var(--light);
 }
 
-footer {
-  background-color: var(--secondary);
-  padding: 2rem;
-  color: var(--light);
+.primary-link {
+  color: var(--fa-light-orange);
 }
 
-footer a,
-footer a:hover,
-footer a:focus {
-  color: var(--secondary-link);
+.primary-link:hover,
+.primary-link:focus,
+.primary-link:active {
+  color: var(--fa-dark-orange);
   text-decoration: none;
 }
 
@@ -362,4 +377,8 @@ footer a:focus {
 
 .displayPhoto {
   max-width: 100%;
+}
+
+textarea {
+  resize: none;
 }

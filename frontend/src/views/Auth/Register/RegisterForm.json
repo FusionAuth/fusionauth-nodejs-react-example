@@ -1,0 +1,237 @@
+[
+    {
+        "inputColXL": 8,
+        "inputColMD": 12,
+        "inputColClassName": "mx-auto",
+        "type": "text",
+        "name": "username",
+        "prependIcon": "user-secret",
+        "validation": {
+            "required": {
+                "langKey": [
+                    "common",
+                    "input",
+                    "username",
+                    "validation",
+                    "required"
+                ]
+            },
+            "minLength": {
+                "rule": 5,
+                "langKey": [
+                    "common",
+                    "input",
+                    "username",
+                    "validation",
+                    "minLength"
+                ]
+            },
+            "max": {
+                "rule": 30,
+                "langKey": [
+                    "common",
+                    "input",
+                    "username",
+                    "validation",
+                    "max"
+                ]
+            }
+        }
+    },
+    {
+        "inputColXL": 8,
+        "inputColMD": 12,
+        "inputColClassName": "mx-auto",
+        "type": "text",
+        "name": "firstName",
+        "prependIcon": "user-tie",
+        "validation": {
+            "required": {
+                "langKey": [
+                    "common",
+                    "input",
+                    "firstName",
+                    "validation",
+                    "required"
+                ]
+            },
+            "minLength": {
+                "rule": 3,
+                "langKey": [
+                    "common",
+                    "input",
+                    "firstName",
+                    "validation",
+                    "minLength"
+                ]
+            },
+            "max": {
+                "rule": 50,
+                "langKey": [
+                    "common",
+                    "input",
+                    "firstName",
+                    "validation",
+                    "max"
+                ]
+            }
+        }
+    },
+    {
+        "inputColXL": 8,
+        "inputColMD": 12,
+        "inputColClassName": "mx-auto",
+        "type": "text",
+        "name": "lastName",
+        "prependIcon": "user-ninja",
+        "validation": {
+            "required": {
+                "langKey": [
+                    "common",
+                    "input",
+                    "lastName",
+                    "validation",
+                    "required"
+                ]
+            },
+            "minLength": {
+                "rule": 3,
+                "langKey": [
+                    "common",
+                    "input",
+                    "lastName",
+                    "validation",
+                    "minLength"
+                ]
+            },
+            "max": {
+                "rule": 100,
+                "langKey": [
+                    "common",
+                    "input",
+                    "lastName",
+                    "validation",
+                    "max"
+                ]
+            }
+        }
+    },
+    {
+        "inputColXL": 8,
+        "inputColMD": 12,
+        "inputColClassName": "mx-auto",
+        "type": "email",
+        "name": "email",
+        "prependIcon": "envelope",
+        "validation": {
+            "required": {
+                "langKey": [
+                    "common",
+                    "input",
+                    "email",
+                    "validation",
+                    "required"
+                ]
+            },
+            "email": {
+                "langKey": [
+                    "common",
+                    "input",
+                    "email",
+                    "validation",
+                    "email"
+                ]
+            }
+        }
+    },
+    {
+        "inputColXL": 8,
+        "inputColMD": 12,
+        "inputColClassName": "mx-auto",
+        "type": "password",
+        "name": "password",
+        "prependIcon": "lock",
+        "validation": {
+            "required": {
+                "langKey": [
+                    "common",
+                    "input",
+                    "password",
+                    "validation",
+                    "required"
+                ]
+            },
+            "minLength": {
+                "rule": 8,
+                "langKey": [
+                    "common",
+                    "input",
+                    "password",
+                    "validation",
+                    "minLength"
+                ]
+            },
+            "max": {
+                "rule": 256,
+                "langKey": [
+                    "common",
+                    "input",
+                    "password",
+                    "validation",
+                    "max"
+                ]
+            }
+        }
+    },
+    {
+        "inputColXL": 8,
+        "inputColMD": 12,
+        "inputColClassName": "mx-auto",
+        "type": "password",
+        "name": "confirmPassword",
+        "prependIcon": "lock",
+        "validation": {
+            "required": {
+                "langKey": [
+                    "common",
+                    "input",
+                    "confirmPassword",
+                    "validation",
+                    "required"
+                ]
+            },
+            "confirmValue": {
+                "langKey": [
+                    "common",
+                    "input",
+                    "confirmPassword",
+                    "validation",
+                    "confirmValue"
+                ]
+            }
+        }
+    },
+    {
+        "inputColXL": 8,
+        "inputColMD": 12,
+        "inputColClassName": "mx-auto",
+        "id": "privacy",
+        "type": "checkbox",
+        "name": "privacy",
+        "formGroupClassName": "custom-control custom-control-alternative custom-checkbox",
+        "inputClassName": "custom-control-input",
+        "labelClassName": "custom-control-label",
+        "labelMuted": true,
+        "validation": {
+            "required": {
+                "langKey": [
+                    "common",
+                    "input",
+                    "privacy",
+                    "validation",
+                    "required"
+                ]
+            }
+        }
+    }
+]

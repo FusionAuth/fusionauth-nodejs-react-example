@@ -1,0 +1,74 @@
+{
+    "changePassword": {
+        "currentPassword": {
+            "required": true
+        },
+        "password": {
+            "required": true,
+            "minLength": {
+                "rule": 8
+            },
+            "max": {
+                "rule": 256
+            }
+        }
+    },
+    "enable2Factor": {
+        "code": {
+            "required": true,
+            "length": {
+                "rule": 6
+            }
+        },
+        "secret": {
+            "required": true,
+            "length": {
+                "rule": 6
+            }
+        }
+    },
+    "disable2Factor": {
+        "code": {
+            "required": true,
+            "length": {
+                "rule": 6
+            }
+        }
+    },
+    "saveProfile": {
+        "username": {
+            "required": true,
+            "minLength": {
+                "rule": 5
+            },
+            "max": {
+                "rule": 30
+            }
+        },
+        "firstName": {
+            "required": true,
+            "minLength": {
+                "rule": 3
+            },
+            "max": {
+                "rule": 50
+            }
+        },
+        "lastName": {
+            "required": true,
+            "minLength": {
+                "rule": 3
+            },
+            "max": {
+                "rule": 100
+            }
+        },
+        "email": {
+            "required": true,
+            "email": true
+        },
+        "mobilePhone": {
+            "phoneOptional": true
+        }
+    }
+}

@@ -1,5 +1,7 @@
 // Dependencies
 import React from "react";
+import { get } from "lodash";
+import { connect } from "react-redux";
 import {
     Card,
     CardHeader,
@@ -14,19 +16,19 @@ import {
  *
  * Display some information on the home page about the NodeJS + React + FusionAuth
  * example application.
+ *
+ * @param {Object} languageData Current language information for the app. Language data object.
  */
-const Home = () => (
+const Home = ({ languageData }) => (
     <Container className="mt-5">
         <Row className="mt-5 justify-content-center">
             <Col xl="6" md="12" className="mt-5 mx-auto">
                 <Card className="bg-primary-card">
                     <CardHeader>
-                        About
+                        { get(languageData, ["common", "about"]) }
                     </CardHeader>
                     <CardBody className="mx-auto">
-                        This application showcases how to use a NodeJS server for the backend API, ReactJS for the frontend component, and FusionAuth
-                        for the authentication server. The ToDo application shows how to use roles for restricting access, and integration of MongoDB
-                        for data persistence. Access tokens are automatically renewed within this application, but that feature can be disabled if needed.
+                        { get(languageData, ["common", "aboutDesc"]) }
                     </CardBody>
                 </Card>
             </Col>
@@ -34,5 +36,18 @@ const Home = () => (
     </Container>
 );
 
+/**
+ * Get App State
+ *
+ * Get the requried state for the component from the Redux store.
+ *
+ * @param {Object} state Application state from Redux.
+ */
+const mapStateToProps = state => {
+    return {
+        languageData: state.language.languageData
+    }
+}
+
 // Export the Home View.
-export default Home;
+export default connect(mapStateToProps)(Home);

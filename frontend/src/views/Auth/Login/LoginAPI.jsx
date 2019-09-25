@@ -1,4 +1,4 @@
-// Export the Login API
+// Export the Login API.
 export default {
     fusionAuth: {
         getLogin: {

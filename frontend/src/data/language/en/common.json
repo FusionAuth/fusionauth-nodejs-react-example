@@ -1,0 +1,258 @@
+{
+    "langData": {
+        "name": "English",
+        "flag": "/assets/images/flags/en.png"
+    },
+    "siteTitle": "FusionAuth ReactJS Demo",
+    "welcome": "Welcome!",
+    "welcomeGuest": "Welcome Guest",
+    "register": "Register",
+    "login": "Login",
+    "logout": "Logout",
+    "verifyEmail": "Verify Email",
+    "2fa": "Two Factor Authentication",
+    "changePassword": "Change Password",
+    "changePasswordRequired": "Password Change Required",
+    "changeMyPassword": "Change My Password",
+    "resetMyPassword": "Reset my Password",
+    "sendEmail": "Send Email",
+    "avatar": "Avatar",
+    "profile": "Profile",
+    "myProfile": "My Profile",
+    "editProfile": "Edit Profile",
+    "saveProfile": "Save Profile",
+    "settings": "Settings",
+    "security": "Security",
+    "twoFactorSettings": "2FA Settings",
+    "twoFactorEnable": "Enable Two Factor Authentication",
+    "twoFactorDisable": "Disable Two Factor Authentication",
+    "enable2Factor": "Enable 2FA",
+    "disable2Factor": "Disable 2FA",
+    "authenticating": "Authenticating",
+    "delete": "Delete",
+    "save": "Save",
+    "cancel": "Cancel",
+    "verify": "Verify",
+    "add": "Add",
+    "edit": "Edit",
+    "done": "Done",
+    "incomplete": "Incomplete",
+    "updatedAt": "Last Updated",
+    "createdAt": "Created At",
+    "returnList": "Return to List",
+    "todoList": "Todo List",
+    "about": "About",
+    "aboutDesc": "This application showcases how to use a NodeJS server for the backend API, ReactJS for the frontend component, and FusionAuth for the authentication server. The ToDo application shows how to use roles for restricting access, and integration of MongoDB for data persistence. Access tokens are automatically renewed within this application, but that feature can be disabled if needed.",
+    "changeLang": {
+        "choose": "Please choose a preferred language.",
+        "saved": "We have saved your preferred language."
+    },
+    "apiDown": "The API service is currently down.",
+    "changePasswordForm": {
+        "status": {
+            "500": "Server error. We could not verify your Change Password attempt."
+        }
+    },
+    "auth": {
+        "register": {
+            "createAccount": "Create Account"
+        },
+        "login": {
+            "loginId": {
+                "placeholder": "Email / Username"
+            },
+            "password": {
+                "placeholder": "Password"
+            },
+            "signin": "Sign in",
+            "forgotPassword": "Forgot Password?",
+            "status": {
+                "202": "You are not authorized to log in.",
+                "203": "You must change your password before continuing.",
+                "242": "You must verify your identity before continuing.",
+                "212": "You have not validated your email yet.",
+                "400": "Make sure you fill out the form to log in.",
+                "404": "Invalid username or password.",
+                "409": "You cannot login at this time.",
+                "500": "Server error. We could not log you in."
+            }
+        },
+        "forgotPassword": {
+            "displayMessage": "Check your email for the Change Password Token."
+        },
+        "changePassword": {
+            "displayMessage": "You have to change your password before logging in.",
+            "noChangePasswordId": "No change password ID was found. Please restart the login process."
+        },
+        "changeForogtPassword": {
+            "displayMessage": "You can enter your new password.",
+            "noChangePasswordId": "No change password ID was found. Please restart the forgot password process."
+        },
+        "verifyEmail": {
+            "displayMessage": "Check your email for the Verification Token."
+        },
+        "verify2Factor": {
+            "displayMessage": "Please provide your 2FA code.",
+            "no2FA": "No 2FA token was passed. Please re-start the login process.",
+            "status": {
+                "500": "Server error. We could not verify your 2FA attempt."
+            }
+        },
+        "failedLogin": "There was an issue logging you in.",
+        "loginAgain": "You must log in again.",
+        "noUser": "No user information available.",
+        "loggedIn": "You have been logged in.",
+        "loggedOut": "You have been logged out.",
+        "logoutError": "There was an issue logging you out."
+    },
+    "todo": {
+        "list": {
+            "title": "My ToDo List"
+        },
+        "view": {
+            "title": "Viewing ToDo Item"
+        },
+        "add": {
+            "title": "Add a ToDo Item"
+        },
+        "edit": {
+            "title": "Editing ToDo Item"
+        },
+        "fields": {
+            "_id": "ToDo ID",
+            "name": "ToDo Name",
+            "description": "ToDo Description",
+            "done": "ToDo Status"
+        }
+    },
+    "user": {
+        "enable2Factor": {
+            "descrption": "Two Factor Authentication is not enabled. You can use any app you wish to enable 2FA. Scan the QR Code below.",
+            "manualCodeEnter": "Optionally, you can manually enter your Base 43 encoded secret:"
+        },
+        "disable2Factor": {
+            "descrption": "Two Factor Authentication is currently enabled. Please enter the 6 digit verification code to disable Two Factor Authentication."
+        }
+    },
+    "404": {
+        "title": "404 - Not Found",
+        "message": "The page that you were looking for could not be found. Is this an error on our part, or yours?"
+    },
+    "notAuthorized": {
+        "title": "Not Authorized",
+        "message": "You have not been authorized to access this page."
+    },
+    "input": {
+        "code": {
+            "placeholder": "2FA Code",
+            "validation": {
+                "required": "2FA Code is required.",
+                "length": "2FA code is 6 characters."
+            }
+        },
+        "name": {
+            "placeholder": "ToDo Task",
+            "validText": "Valid task name.",
+            "validation": {
+                "required": "ToDo Task is required.",
+                "minLength": "Min length of 5 characters.",
+                "max": "Max length of 150 characters."
+            }
+        },
+        "description": {
+            "placeholder": "ToDo Task Description",
+            "validText": "Valid task description.",
+            "validation": {
+                "required": "ToDo Task Description is required.",
+                "minLength": "Min length of 10 characters."
+            }
+        },
+        "done": {
+            "label": "Task is Complete"
+        },
+        "verificationId": {
+            "placeholder": "Verification Token",
+            "validation": {
+                "required": "The verification token is required.",
+                "length": "The verification token is 43 characters."
+            }
+        },
+        "loginId": {
+            "placeholder": "Username / email",
+            "validation": {
+                "required": "Your username or email are required."
+            }
+        },
+        "username": {
+            "placeholder": "Username",
+            "validText": "Username is ok.",
+            "validation": {
+                "required": "Username is required.",
+                "minLength": "Min length of 5 characters.",
+                "max": "Max length of 150 characters."
+            }
+        },
+        "firstName": {
+            "placeholder": "First Name",
+            "validText": "First Name is ok.",
+            "validation": {
+                "required": "First name is required.",
+                "minLength": "Min length of 3 characters.",
+                "max": "Max length of 50 characters."
+            }
+        },
+        "lastName": {
+            "placeholder": "Last Name",
+            "validText": "Last Name is ok.",
+            "validation": {
+                "required": "Last name is required.",
+                "minLength": "Min length of 3 characters.",
+                "max": "Max length of 100 characters."
+            }
+        },
+        "email": {
+            "placeholder": "Email",
+            "validText": "Email is valid.",
+            "validation": {
+                "required": "Email is required.",
+                "email": "Please enter a valid email."
+            }
+        },
+        "currentPassword": {
+            "placeholder": "Current Password",
+            "validation": {
+                "required": "Current Password is required."
+            }
+        },
+        "password": {
+            "placeholder": "New Password",
+            "validText": "Password is ok.",
+            "validation": {
+                "required": "Password is required.",
+                "minLength": "Min length of 8 characters.",
+                "max": "Max length of 255 characters."
+            }
+        },
+        "confirmPassword": {
+            "placeholder": "Confirm Password",
+            "validText": "Passwords match.",
+            "validation": {
+                "required": "Please re-enter your password.",
+                "confirmValue": "Passwords do not match."
+            }
+        },
+        "privacy": {
+            "label": "I agree with the Privacy Policy",
+            "validation": {
+                "required": "You must accept the Privacy policy."
+            }
+        },
+        "mobilePhone": {
+            "placeholder": "Phone Number",
+            "validText": "Phone is ok.",
+            "validation": {
+                "phoneOptional": "Enter a valid 10 digit phone number."
+            }
+        }
+    }
+}

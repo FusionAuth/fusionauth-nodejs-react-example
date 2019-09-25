@@ -1,6 +1,8 @@
 // Dependencies
 import React from "react";
 import { Link } from "react-router-dom";
+import { get, map } from "lodash";
+import { connect } from "react-redux";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     DropdownMenu,
@@ -9,28 +11,44 @@ import {
 
 // Application Links
 import { links } from "../../../config";
+import guestLinks from "./GuestLinks";
 
 /**
  * Guest Navbar Component
  *
  * Contains the display components and associated functions for the guest
  * dropdown for the main navbar.
+ *
+ * @param {Object} languageData Current language information for the app. Language data object.
  */
-const GuestNavDropdown = () => (
-    <DropdownMenu className="dropdown-menu-arrow" right>
+const GuestNavDropdown = ({ languageData }) => (
+    <DropdownMenu className="dropdown-menu-arrow">
         <DropdownItem className="noti-title" header tag="div">
-            <h6 className="text-overflow m-0">Welcome!</h6>
+            <h6 className="text-overflow m-0">{ get(languageData, ["common", "welcome"]) }</h6>
         </DropdownItem>
-        <DropdownItem to={ links.auth.login } tag={ Link }>
-            <FontAwesomeIcon icon="key" />&nbsp;
-            <span>Login</span>
-        </DropdownItem>
-        <DropdownItem to={ links.auth.register } tag={ Link }>
-            <FontAwesomeIcon icon="user-plus" />&nbsp;
-            <span>Register</span>
-        </DropdownItem>
+        {
+            map(guestLinks, (link, key) => (
+                <DropdownItem to={ get(links, link["link"]) || "#" } tag={ Link } key={ key } title={ get(languageData, link["text"]) }>
+                    <FontAwesomeIcon icon={ link["icon"] } />&nbsp;
+                    <span>{ get(languageData, link["text"]) }</span>
+                </DropdownItem>
+            ))
+        }
     </DropdownMenu>
 );
 
+/**
+ * Get App State
+ *
+ * Get the requried state for the component from the Redux store.
+ *
+ * @param {Object} state Application state from Redux.
+ */
+const mapStateToProps = state => {
+    return {
+        languageData: state.language.languageData
+    }
+}
+
 // Export the Guest Navbar Component.
-export default GuestNavDropdown;
+export default connect(mapStateToProps)(GuestNavDropdown);

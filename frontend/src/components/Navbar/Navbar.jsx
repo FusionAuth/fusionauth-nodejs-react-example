@@ -1,5 +1,7 @@
 // Dependencies
 import React, { useState } from "react";
+import { get } from "lodash";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import {
 	Collapse,
@@ -18,8 +20,9 @@ import {
 import appIcon from "../../assets/img/brand/appIcon.png";
 
 // Components
-import MemberNavDropdown from "../NavDropdown/MemberNavDropdown";
+import LanguageDropdown from "../NavDropdown/LanguageDropdown";
 import GuestNavDropdown from "../NavDropdown/GuestNavDropdown";
+import MemberNavDropdown from "../NavDropdown/MemberNavDropdown";
 
 /**
  * Navbar Component
@@ -27,9 +30,11 @@ import GuestNavDropdown from "../NavDropdown/GuestNavDropdown";
  * The component includes the Navbar component and functions for the
  * Navbar at the top of the page.
  *
+ * @param {Object} languageData Current language information for the app. Language data object.
+ * @param {Object} user User data for the logged in user.
  * @param {object} props Properties passed to the component from the parent.
  */
-const DashNavbar = props => {
+const DashNavbar = ({ languageData, user, ...props}) => {
 	// React hook used to determine whether or not the menu should be collapsed
 	// or shown to the user.
 	const [collapseOpen, setCollapse] = useState(false);
@@ -37,7 +42,7 @@ const DashNavbar = props => {
 	/**
 	 * Toggle menu collapse
 	 *
-	 * Toggles collapse between opened and closed (true/false)
+	 * Toggles collapse between opened and closed (true/false).
 	 */
 	const toggleCollapse = () => {
 		setCollapse(!collapseOpen);
@@ -54,8 +59,8 @@ const DashNavbar = props => {
 				>
 					<span className="navbar-toggler-icon" />
 				</button>
-				<NavbarBrand className="pt-0" to="/" tag={ Link } title="FusionAuth ReactJS Example">
-					FusionAuth ReactJS Demo
+				<NavbarBrand className="pt-0" to="/" tag={ Link } title={ get(languageData, ["common", "siteTitle"]) }>
+					{ get(languageData, ["common", "siteTitle"]) }
 				</NavbarBrand>
 				<Collapse navbar isOpen={ collapseOpen }>
 					<div className="navbar-collapse-header d-md-none">
@@ -73,30 +78,31 @@ const DashNavbar = props => {
 						</Row>
 					</div>
 					<Nav className="ml-auto" navbar>
+						<LanguageDropdown { ...props } />
 						<UncontrolledDropdown nav>
 							<DropdownToggle className="pr-0" nav>
 								<Media className="align-items-center">
 									<span className="avatar avatar-sm rounded-circle">
 										<img
-											alt="Avatar"
+											alt={ get(languageData, ["common", "avatar"]) }
 											src={ appIcon }
 										/>
 									</span>
 									<Media className="ml-2">
 										<span className="mb-0 text-sm font-weight-bold">
 											{ // Display the user's name, or a welcome message to guests.
-												props.user
-												? props.user.firstName
-												: "Welcome Guest"
+												user
+												? user.firstName
+												: get(languageData, ["common", "welcomeGuest"])
 											}
 										</span>
 									</Media>
 								</Media>
 							</DropdownToggle>
 							{ // Display the Member dropdown (if logged in), or Guest dropdown.
-								props.user
+								user
 								? <MemberNavDropdown { ...props } />
-								: <GuestNavDropdown />
+								: <GuestNavDropdown { ...props } />
 							}
 						</UncontrolledDropdown>
 					</Nav>
@@ -106,5 +112,19 @@ const DashNavbar = props => {
 	);
 };
 
+/**
+ * Get App State
+ *
+ * Get the requried state for the component from the Redux store.
+ *
+ * @param {Object} state Application state from Redux.
+ */
+const mapStateToProps = state => {
+    return {
+		languageData: state.language.languageData,
+		user: state.user.info
+    }
+}
+
 // Export the Navbar Component.
-export default DashNavbar;
+export default connect(mapStateToProps)(DashNavbar);

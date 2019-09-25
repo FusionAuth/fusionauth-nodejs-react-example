@@ -1,4 +1,4 @@
-// Export the Auth API
+// Export the Auth API.
 export default {
     canAccessPage: {
         PATH_SEARCH: "/api/roles/canAccessPage",

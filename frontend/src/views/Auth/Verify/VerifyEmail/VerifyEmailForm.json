@@ -1,0 +1,33 @@
+[
+    {
+        "inputColXL": 8,
+        "inputColMD": 12,
+        "inputColClassName": "mx-auto",
+        "type": "text",
+        "name": "verificationId",
+        "prependIcon": "code",
+        "validation": {
+            "required": {
+                "langKey": [
+                    "common",
+                    "auth",
+                    "verifyEmail",
+                    "verificationId",
+                    "validation",
+                    "required"
+                ]
+            },
+            "length": {
+                "rule": 43,
+                "langKey": [
+                    "common",
+                    "auth",
+                    "verifyEmail",
+                    "verificationId",
+                    "validation",
+                    "length"
+                ]
+            }
+        }
+    }
+]

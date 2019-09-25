@@ -1,0 +1,258 @@
+{
+    "langData": {
+        "name": "Español",
+        "flag": "/assets/images/flags/es.png"
+    },
+    "siteTitle": "Demostración de FusionAuth ReactJS",
+    "welcome": "¡Bienvenido!",
+    "welcomeGuest": "Bienvenido Invitado",
+    "register": "Registro",
+    "login": "Iniciar sesión",
+    "logout": "Cerrar sesión",
+    "verifyEmail": "Verificar correo electrónico",
+    "2fa": "Autenticación de dos factores",
+    "changePassword": "Cambia la contraseña",
+    "changePasswordRequired": "Se requiere cambio de contraseña",
+    "changeMyPassword": "Cambiar mi contraseña",
+    "resetMyPassword": "Restablecer mi contraseña",
+    "sendEmail": "Enviar correo electrónico",
+    "avatar": "Avatar",
+    "profile": "Perfil",
+    "myProfile": "Mi perfil",
+    "editProfile": "Editar perfil",
+    "saveProfile": "Guardar perfil",
+    "settings": "Configuraciones",
+    "security": "Seguridad",
+    "authenticating": "Autenticando",
+    "twoFactorSettings": "Configuraciones 2FA",
+    "twoFactorEnable": "Habilitar autenticación de dos factores",
+    "twoFactorDisable": "Deshabilitar autenticación de dos factores",
+    "enable2Factor": "Habilitar 2FA",
+    "disable2Factor": "Deshabilitar 2FA",
+    "delete": "Eliminar",
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "verify": "Verificar",
+    "add": "Añadir",
+    "edit": "Editar",
+    "done": "Hecho",
+    "incomplete": "Incompleto",
+    "updatedAt": "Última actualización",
+    "createdAt": "Creado en",
+    "returnList": "Regresar a la lista",
+    "todoList": "Lista de quehaceres",
+    "about": "Acerca de",
+    "aboutDesc": "Esta aplicación muestra cómo usar un servidor NodeJS para la API de back-end, ReactJS para el componente frontend y FusionAuth para el servidor de autenticación. La aplicación ToDo muestra cómo usar roles para restringir el acceso y la integración de MongoDB para la persistencia de datos. Los tokens de acceso se renuevan automáticamente dentro de esta aplicación, pero esa característica se puede deshabilitar si es necesario.",
+    "changeLang": {
+        "choose": "Por favor, elija un idioma preferido.",
+        "saved": "Hemos guardado su idioma preferido."
+    },
+    "apiDown": "El servicio API está actualmente inactivo.",
+    "changePasswordForm": {
+        "status": {
+            "500": "Error del Servidor. No pudimos verificar su intento de cambio de contraseña."
+        }
+    },
+    "auth": {
+        "register": {
+            "createAccount": "Crear una cuenta"
+        },
+        "login": {
+            "loginId": {
+                "placeholder": "Email / Nombre de usuario"
+            },
+            "password": {
+                "placeholder": "Contraseña"
+            },
+            "signin": "Registrarse",
+            "forgotPassword": "¿Se te olvidó tu contraseña?",
+            "status": {
+                "202": "No tiene autorización para iniciar sesión.",
+                "203": "Debe cambiar su contraseña antes de continuar.",
+                "242": "Debe verificar su identidad antes de continuar.",
+                "212": "Aún no ha validado su correo electrónico.",
+                "400": "Asegúrese de completar el formulario para iniciar sesión.",
+                "404": "Usuario o contraseña invalido.",
+                "409": "Usted no puede ingresar en este momento.",
+                "500": "Error del Servidor. No pudimos iniciar sesión."
+            }
+        },
+        "forgotPassword": {
+            "displayMessage": "Revise su correo electrónico para el token de cambio de contraseña."
+        },
+        "changePassword": {
+            "displayMessage": "Debe cambiar su contraseña antes de iniciar sesión.",
+            "noChangePasswordId": "No se encontró cambio de ID de contraseña. Por favor reinicie el proceso de inicio de sesión."
+        },
+        "changeForogtPassword": {
+            "displayMessage": "Puedes ingresar tu nueva contraseña.",
+            "noChangePasswordId": "No se encontró cambio de ID de contraseña. Reinicie el proceso de contraseña olvidada."
+        },
+        "verifyEmail": {
+            "displayMessage": "Revise su correo electrónico para ver el token de verificación."
+        },
+        "verify2Factor": {
+            "displayMessage": "Proporcione su código 2FA.",
+            "no2FA": "No se pasó el token 2FA. Por favor reinicie el proceso de inicio de sesión.",
+            "status": {
+                "500": "Error del Servidor. No pudimos verificar tu intento de 2FA."
+            }
+        },
+        "failedLogin": "Hubo un problema al iniciar sesión.",
+        "loginAgain": "Debes iniciar sesión de nuevo.",
+        "noUser": "No hay información de usuario disponible.",
+        "loggedIn": "Has iniciado sesión.",
+        "loggedOut": "YHas sido desconectado.",
+        "logoutError": "Se produjo un error al cerrar sesión."
+    },
+    "todo": {
+        "list": {
+            "title": "Mi lista de tareas pendientes"
+        },
+        "view": {
+            "title": "Ver elemento de tarea pendiente"
+        },
+        "add": {
+            "title": "Agregar un elemento de tarea pendiente"
+        },
+        "edit": {
+            "title": "Editar elemento de tarea pendiente"
+        },
+        "fields": {
+            "_id": "ToDo ID",
+            "name": "Nombre de tarea",
+            "description": "Descripción de Tareas",
+            "done": "Estado de tarea pendiente"
+        }
+    },
+    "user": {
+        "enable2Factor": {
+            "descrption": "La autenticación de dos factores no está habilitada. Puede usar cualquier aplicación que desee habilitar 2FA. Escanee el código QR a continuación.",
+            "manualCodeEnter": "Opcionalmente, puede ingresar manualmente su secreto codificado Base 43:"
+        },
+        "disable2Factor": {
+            "descrption": "La autenticación de dos factores está habilitada actualmente. Ingrese el código de verificación de 6 dígitos para deshabilitar la autenticación de dos factores."
+        }
+    },
+    "404": {
+        "title": "404 - No encontrado",
+        "message": "No se pudo encontrar la página que estaba buscando. ¿Es esto un error de nuestra parte o de ustedes?"
+    },
+    "notAuthorized": {
+        "title": "No autorizado",
+        "message": "No ha sido autorizado para acceder a esta página."
+    },
+    "input": {
+        "code": {
+            "placeholder": "Código 2FA",
+            "validation": {
+                "required": "Se requiere el código 2FA.",
+                "length": "El código 2FA tiene 6 caracteres."
+            }
+        },
+        "name": {
+            "placeholder": "Tarea Tarea",
+            "validText": "Nombre de tarea válido.",
+            "validation": {
+                "required": "Se requiere Tarea Tarea.",
+                "minLength": "Longitud mínima de 5 caracteres.",
+                "max": "Longitud máxima de 150 caracteres."
+            }
+        },
+        "description": {
+            "placeholder": "Tarea Descripción de la tarea",
+            "validText": "Descripción válida de la tarea.",
+            "validation": {
+                "required": "Se requiere descripción de la tarea a realizar.",
+                "minLength": "Longitud mínima de 10 caracteres."
+            }
+        },
+        "done": {
+            "label": "Tarea completada"
+        },
+        "verificationId": {
+            "placeholder": "Token de verificación",
+            "validation": {
+                "required": "Se requiere el token de verificación.",
+                "length": "El token de verificación tiene 43 caracteres."
+            }
+        },
+        "loginId": {
+            "placeholder": "Nombre de usuario / correo electrónico",
+            "validation": {
+                "required": "Se requiere su nombre de usuario o correo electrónico."
+            }
+        },
+        "username": {
+            "placeholder": "Nombre de usuario",
+            "validText": "El nombre de usuario está bien.",
+            "validation": {
+                "required": "Se requiere nombre de usuario.",
+                "minLength": "Longitud mínima de 5 caracteres.",
+                "max": "Longitud máxima de 150 caracteres."
+            }
+        },
+        "firstName": {
+            "placeholder": "Primer nombre",
+            "validText": "Nombre está bien.",
+            "validation": {
+                "required": "Se requiere el primer nombre.",
+                "minLength": "Longitud mínima de 3 caracteres.",
+                "max": "Longitud máxima de 50 caracteres."
+            }
+        },
+        "lastName": {
+            "placeholder": "Apellido",
+            "validText": "El apellido está bien.",
+            "validation": {
+                "required": "Se requiere apellido.",
+                "minLength": "Longitud mínima de 3 caracteres.",
+                "max": "Longitud máxima de 100 caracteres."
+            }
+        },
+        "email": {
+            "placeholder": "Email",
+            "validText": "El correo electronico es valido.",
+            "validation": {
+                "required": "Correo electronico es requerido.",
+                "email": "Por favor introduzca una dirección de correo electrónico válida."
+            }
+        },
+        "currentPassword": {
+            "placeholder": "contraseña actual",
+            "validation": {
+                "required": "Se requiere contraseña actual."
+            }
+        },
+        "password": {
+            "placeholder": "Nueva contraseña",
+            "validText": "La contraseña esta bien.",
+            "validation": {
+                "required": "Se requiere contraseña.",
+                "minLength": "Longitud mínima de 8 caracteres.",
+                "max": "Longitud máxima de 255 caracteres."
+            }
+        },
+        "confirmPassword": {
+            "placeholder": "Confirmar contraseña",
+            "validText": "Las contraseñas coinciden.",
+            "validation": {
+                "required": "Por favor re ingrese su contraseña.",
+                "confirmValue": "Las contraseñas no coinciden."
+            }
+        },
+        "privacy": {
+            "label": "Estoy de acuerdo con la politica de privacidad",
+            "validation": {
+                "required": "Debes aceptar la política de privacidad."
+            }
+        },
+        "mobilePhone": {
+            "placeholder": "Número de teléfono",
+            "validText": "El teléfono esta bien.",
+            "validation": {
+                "phoneOptional": "Ingrese un número de teléfono válido de 10 dígitos."
+            }
+        }
+    }
+}

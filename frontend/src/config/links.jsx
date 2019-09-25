@@ -1,17 +1,23 @@
-// Export the application links
+// Export the application links.
 export default {
     home: "/",
     auth: {
         login: "/auth/login/",
         register: "/auth/register/",
-        changePassword: "/auth/changePassword",
-        fa2: "/auth/2fa"
+        verifyEmail: "/auth/verify/email/",
+        twoFactor: "/auth/verify/2fa/",
+        forgotPassword: "/auth/forgotPassword/",
+        changePassword: "/auth/changePassword/"
     },
     user: {
-        profile: "/user/profile/"
+        profile: "/user/profile/",
+        editProfile: "/user/profile/edit/",
+        changePassword: "/user/changePassword/",
+        twoFactor: "/user/2fa/"
     },
     todo: {
         list: "/todo/",
-        add: "/todo/add/"
+        add: "/todo/add/",
+        edit: "/todo/edit/"
     }
 };

@@ -11,19 +11,21 @@
 
 // Dependencies
 import React, { useState, useEffect } from "react";
-import { Route, Redirect } from "react-router-dom";
+import { Route } from "react-router-dom";
+import { connect } from "react-redux";
 
 // Components
 import Authenticating from "../../components/Util/Authenticating";
+import NotAuthorized from "../../components/Util/NotAuthorized";
 
-// Application Links
-import { links } from "../../config";
+// Redux Actions
+import { logoutUser } from "../../redux/actions";
 
 // Toast
 import Toasty from "../../util/Toasty";
 
 // Authentication Methods
-import { AuthController } from "../Auth";
+import Auth from "../Auth";
 
 /**
  * Private Route
@@ -31,9 +33,12 @@ import { AuthController } from "../Auth";
  * Checks whether or not the user is authenticated in order to access the private route.
  * If not, the user is redirected to the login page.
  *
- * @param {object} component React component
+ * @param {Object} component React component
+ * @param {Function} logoutUser Redux action to unset the user.
+ * @param {String} locale The current locale of the application.
+ * @param {Object} languageData Current language information for the app. Language data object.
  */
-const PrivateRoute = ({ component: Component, user, ...rest }) => {
+const PrivateRoute = ({ component: Component, logoutUser, locale, languageData, ...rest }) => {
     // Setup initial state.
     const [canAccessPage, setCanAccessPage] = useState(null);
 
@@ -51,20 +56,24 @@ const PrivateRoute = ({ component: Component, user, ...rest }) => {
          * before trying to update the state.
          */
         const determineAccess = () => {
-            AuthController.canAccessPage(rest)
-                .then(() => !didCancel && setCanAccessPage(true))
-                .catch(message => {
-                    if (!didCancel) {
+            // Make sure we don't try to change state after re-render.
+            if (!didCancel) {
+                Auth.canAccessPage({ locale, logoutUser, ...rest })
+                    .then(() => !didCancel && setCanAccessPage(true))
+                    .catch(response => {
                         // Let the user know they cannot access the page.
                         Toasty.notify({
                             type: Toasty.error(),
-                            content: message
+                            content: response.message
                         });
 
-                        // Set the access page variable so the application can redirect the user.
-                        setCanAccessPage(false);
-                    }
-                });
+                        // Make sure we don't try to change state after re-render.
+                        if (!didCancel) {
+                            // Set the access page variable so the application can redirect the user.
+                            setCanAccessPage(false);
+                        }
+                    });
+            }
         };
 
         // Call the page access method.
@@ -91,16 +100,25 @@ const PrivateRoute = ({ component: Component, user, ...rest }) => {
             canAccessPage !== null
             ? canAccessPage
                 ? <Component { ...props } />
-                : <Redirect
-                    to={ {
-                        pathname: links.home,
-                        state: { from: props.location },
-                    } }
-                />
+                : <NotAuthorized />
             : <Authenticating />
         }
     />
 };
 
+/**
+ * Get App State
+ *
+ * Get the requried state for the component from the Redux store.
+ *
+ * @param {Object} state Application state from Redux.
+ */
+const mapStateToProps = state => {
+    return {
+        locale: state.language.locale,
+        languageData: state.language.languageData
+    }
+}
+
 // Export the Private Route Component.
-export default PrivateRoute;
+export default connect(mapStateToProps, { logoutUser })(PrivateRoute);

@@ -27,15 +27,20 @@
     "@fortawesome/react-fontawesome": "^0.1.4",
     "axios": "^0.19.0",
     "bootstrap": "^4.3.1",
+    "cross-env": "^5.2.1",
+    "lodash": "^4.17.15",
+    "qrcode.react": "^0.9.3",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
+    "react-redux": "^7.1.1",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
+    "react-telephone-input": "^4.73.4",
     "react-toastify": "^5.3.2",
-    "reactstrap": "^8.0.0"
-  },
-  "devDependencies": {
-    "cross-env": "^5.2.1"
+    "reactstrap": "^8.0.0",
+    "redux": "^4.0.4",
+    "redux-persist": "^6.0.0",
+    "redux-thunk": "^2.3.0"
   },
   "browserslist": {
     "production": [

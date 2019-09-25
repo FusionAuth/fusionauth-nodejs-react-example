@@ -1,5 +1,6 @@
 // Dependencies
 import React from "react";
+import { get } from "lodash";
 
 // Components
 import Loading from "../../../components/Util/Loading";
@@ -11,16 +12,20 @@ import Loading from "../../../components/Util/Loading";
  * icon during the loading phase, an error message, or the component intended to
  * be displayed.
  *
- * @param {boolean} isLoading Loading indication for API request.
- * @param {object} hasError Error object from the API request.
- * @param {object} component Component to be displayed.
+ * @param {Object} results Page results
+ * @param {Boolean} isLoading Loading indication for API request.
+ * @param {Object} hasError Error object from the API request.
+ * @param {Object} component Component to be displayed.
  */
-const PageData = ({ isLoading, hasError, component }) => {
+const PageData = ({ results, isLoading, hasError, component }) => {
     // Display errors or the loading message.
     const loadingOrErrors = hasError ? <>{ hasError.data.message }</> : <Loading />;
 
+    // Check if the results are anything but 200 to display their error message.
+    const isResults200 = get(results, "status") === 200 ? component : <>{ get(results, "data") && results.data.message }</>;
+
     // Return loading, errors, or the page component.
-    return isLoading ? loadingOrErrors : component;
+    return isLoading ? loadingOrErrors : isResults200;
 }
 
 // Export the User Profile Page Data Component.

@@ -1,0 +1,24 @@
+[
+    {
+        "icon": "key",
+        "text": [
+            "common",
+            "login"
+        ],
+        "link": [
+            "auth",
+            "login"
+        ]
+    },
+    {
+        "icon": "user-plus",
+        "text": [
+            "common",
+            "register"
+        ],
+        "link": [
+            "auth",
+            "register"
+        ]
+    }
+]

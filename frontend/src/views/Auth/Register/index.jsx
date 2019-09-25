@@ -2,6 +2,4 @@
 import Register from "./Register";
 
 // Export modules
-export {
-    Register
-};
+export default Register;

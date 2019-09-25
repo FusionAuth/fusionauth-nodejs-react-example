@@ -1,7 +1,5 @@
 // Import modules
-import AuthController from "./AuthController";
+import Auth from "./Auth";
 
 // Export modules
-export {
-    AuthController
-};
+export default Auth;

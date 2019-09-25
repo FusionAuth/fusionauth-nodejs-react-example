@@ -1,18 +1,31 @@
 // Dependencies
 import React from "react";
 import { Router, Route, Switch } from "react-router-dom";
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer } from "react-toastify";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
     faTimes,
     faKey,
     faPowerOff,
+    faUser,
+    faUserSecret,
+    faUserNinja,
     faUserTie,
     faUserPlus,
     faEnvelope,
+    faUserLock,
+    faUserShield,
     faLock,
     faSync,
-    faClipboardList
+    faPhone,
+    faClipboardList,
+    faCheck,
+    faTasks,
+    faFeatherAlt,
+    faCode,
+    faShieldAlt
 } from "@fortawesome/free-solid-svg-icons";
 
 // Styling
@@ -26,17 +39,31 @@ import History from "../../util/History";
 // Layouts
 import DashLayout from "../../layouts/DashLayout";
 
+// Redux
+import { store, persistor } from "../../redux/store";
+
 // Font Awesome Initialization
 library.add(
     faTimes,
     faKey,
     faPowerOff,
+    faUser,
+    faUserSecret,
+    faUserNinja,
     faUserTie,
     faUserPlus,
     faEnvelope,
+    faUserLock,
+    faUserShield,
     faLock,
     faSync,
-    faClipboardList
+    faPhone,
+    faClipboardList,
+    faCheck,
+    faTasks,
+    faFeatherAlt,
+    faCode,
+    faShieldAlt
 );
 
 /**
@@ -46,14 +73,20 @@ library.add(
  * the application for routing purposes, and then we use Switch to be able to
  * handle the different routes.
  */
-const App = () => (
-    <Router history={ History }>
-        <ToastContainer />
-        <Switch>
-            <Route path="/" render={ props => <DashLayout { ...props } /> } />
-        </Switch>
-    </Router>
-);
+const App = () => {
+    return (
+        <Provider store={ store }>
+            <PersistGate loading={ null } persistor={ persistor } >
+                <Router history={ History }>
+                    <ToastContainer />
+                    <Switch>
+                        <Route path="/" render={ props => <DashLayout { ...props } /> } />
+                    </Switch>
+                </Router>
+            </PersistGate>
+        </Provider>
+    );
+};
 
 // Export the Application Component.
 export default App;

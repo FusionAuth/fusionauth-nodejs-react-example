@@ -7,11 +7,14 @@ import { Button } from "reactstrap";
  *
  * @param {String} color Button color
  * @param {String} text Button text
+ * @param {String} type Button type
+ * @param {Boolean} disabled Button disabled status
+ * @param {String} className Button classes
  * @param {Function} onClick onClick function handler
  *
  */
-const CustomButton = ({ color, text, onClick }) => (
-    <Button color={ color } onClick={ onClick }>
+const CustomButton = ({ color, text, type, disabled, className, onClick }) => (
+    <Button color={ color } onClick={ onClick } className={ className } type={ type } disabled={ disabled }>
         { text }
     </Button>
 );

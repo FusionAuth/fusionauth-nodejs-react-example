@@ -1,0 +1,48 @@
+podTemplate(label: "mypod", containers: [
+    containerTemplate(name: "node", image: "node", ttyEnabled: true, command: "cat"),
+  ]) {
+  node("mypod") {
+    def uatBucket = "fusionauth-demo"
+    def prodBucket = "fusionauth-demo"
+
+    stage ("Checkout Code") {
+        checkout scm
+    }
+
+    container("node") {
+      stage("Install Packages") {
+        sh "npm install"
+      }
+
+      stage("Test and Build") {
+        parallel(
+          "Run Tests": {
+            sh "chmod +x ./cicd/test.sh"
+            sh "./cicd/test.sh"
+          },
+          "Create Build Artifacts": {
+            sh "npm run build"
+          }
+        )
+      }
+
+      if (env.BRANCH_NAME == "master") {
+        stage("Deploy - Production") {
+          withAWS(region:"us-east-2", credentials:"credentials-id") {
+            s3Delete(bucket: "${prodBucket}", path:"/")
+            s3Upload(bucket: "${prodBucket}", workingDir:"build", includePathPattern:"**/*", cacheControl:"public,max-age=604800", excludePathPattern:"**/index.html");
+            s3Upload(bucket: "${prodBucket}", workingDir:"build", includePathPattern:"**/index.html", cacheControl:"no-cache");
+          }
+        }
+      } else {
+        stage("Deploy - Staging") {
+          withAWS(region:"us-east-2", credentials:"credentials-id") {
+            s3Delete(bucket: "${uatBucket}", path:"/")
+            s3Upload(bucket: "${uatBucket}", workingDir:"build", includePathPattern:"**/*", cacheControl:"public,max-age=604800", excludePathPattern:"**/index.html");
+            s3Upload(bucket: "${uatBucket}", workingDir:"build", includePathPattern:"**/index.html", cacheControl:"no-cache");
+          }
+        }
+      }
+    }
+  }
+}

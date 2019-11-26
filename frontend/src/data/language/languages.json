@@ -1,0 +1,12 @@
+[
+    {
+        "name": "English",
+        "shortcode": "en",
+        "flag": "/assets/images/flags/en.png"
+    },
+    {
+        "name": "Español",
+        "shortcode": "es",
+        "flag": "/assets/images/flags/es.png"
+    }
+]

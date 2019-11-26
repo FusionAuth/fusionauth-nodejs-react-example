@@ -1,0 +1,18 @@
+[
+    {
+        "inputColXL": 8,
+        "inputColMD": 12,
+        "inputColClassName": "mx-auto",
+        "type": "text",
+        "name": "loginId",
+        "prependIcon": "user"
+    },
+    {
+        "inputColXL": 8,
+        "inputColMD": 12,
+        "inputColClassName": "mx-auto",
+        "type": "password",
+        "name": "password",
+        "prependIcon": "lock"
+    }
+]

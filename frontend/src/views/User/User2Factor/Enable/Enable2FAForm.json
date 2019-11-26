@@ -1,0 +1,33 @@
+[
+    {
+        "inputColXL": 8,
+        "inputColMD": 12,
+        "inputColClassName": "mx-auto",
+        "type": "text",
+        "name": "code",
+        "prependIcon": "shield-alt",
+        "validation": {
+            "required": {
+                "langKey": [
+                    "common",
+                    "user",
+                    "enable2Factor",
+                    "code",
+                    "validation",
+                    "required"
+                ]
+            },
+            "length": {
+                "rule": 6,
+                "langKey": [
+                    "common",
+                    "user",
+                    "enable2Factor",
+                    "code",
+                    "validation",
+                    "length"
+                ]
+            }
+        }
+    }
+]

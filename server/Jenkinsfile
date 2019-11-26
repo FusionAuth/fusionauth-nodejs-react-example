@@ -1,0 +1,57 @@
+podTemplate(label: "mypod", containers: [
+    containerTemplate(name: "docker", image: "docker", ttyEnabled: true, command: "cat"),
+    containerTemplate(name: "node", image: "node", ttyEnabled: true, command: "cat"),
+    containerTemplate(name: "kubectl", image: "lachlanevenson/k8s-kubectl:v1.7.3", command: "cat", ttyEnabled: true)
+  ],
+  volumes: [
+    hostPathVolume(mountPath: "/var/run/docker.sock", hostPath: "/var/run/docker.sock"),
+  ]) {
+  node("mypod") {
+    def commitID
+    def imageTag
+    def imageName = "fusionauth/service/server"
+    def repoURL = "docker-repo.com/fusionauth/"
+    def deploymentName = "fusionauth-demo-server"
+    def namespace = "fusionauth-demo"
+
+    stage ("Checkout Code") {
+        checkout scm
+        commitID = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
+        imageTag = "${imageName}:${commitID}"
+    }
+
+    container("node") {
+      stage("Test and Build") {
+        // parallel(
+        //   "Run Tests": {
+        //     sh "chmod +x ./jenkins/test.sh"
+        //     sh "./jenkins/test.sh"
+        //   },
+        //   "Create Build Artifacts": {
+        //     sh "npm run build"
+        //   }
+        // )
+      }
+    }
+
+    container("docker") {
+      stage("Build image") {
+        withDockerRegistry([credentialsId: "credentials-id", url: "https://${repoURL}"]) {
+          sh "docker build --network=host -t ${imageTag} ."
+          sh "docker tag ${imageTag} ${repoURL}${imageTag}"
+          sh "docker push ${repoURL}${imageTag}"
+        }
+      }
+    }
+
+    container("kubectl") {
+      stage("Deploy") {
+        withCredentials([[$class: "UsernamePasswordMultiBinding", credentialsId: "credentials-id",
+                        usernameVariable: "DOCKER_HUB_USER",
+                        passwordVariable: "DOCKER_HUB_PASSWORD"]]) {
+          sh "kubectl set image deployment/${deploymentName} ${deploymentName}=${repoURL}${imageTag} -n ${namespace}"
+        }
+      }
+    }
+  }
+}

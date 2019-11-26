@@ -1,0 +1,147 @@
+{
+    "app": {
+        "available": "The API service is currently available."
+    },
+    "express": {
+        "validateToken": {
+            "error": "Server error trying to validate your identity (x00FEV01)."
+        },
+        "refreshToken": {
+            "status": {
+                "401": "You must log in again.",
+                "404": "Invalid request performed. Please login again (x00FER01).",
+                "500": "Server error trying to refresh your session. Please login again (x00FER02)."
+            }
+        }
+    },
+    "fusionAuth": {
+        "invalidRequest": "Invalid request to the Auth service.",
+        "registration": {
+            "success": "Your account has been created.",
+            "status": {
+                "500": "Server error trying to create your account (x00FAR01)."
+            }
+        },
+        "user": {
+            "error": {
+                "[duplicate]user.email": "A user with email [%s] already exists.",
+                "[duplicate]user.username": "A user with username [%s] already exists.",
+                "[previouslyUsed]user.password": "The password may not be the same as the previously [%d] used passwords.",
+                "[tooYoung]user.password": "The password was changed too recently. Minimum password age is [%d] seconds.",
+                "[tooShort]user.password": "The password is shorter than the minimum of [%d] characters.",
+                "[tooLong]user.password": "The password is longer than the maximum of [%d] characters.",
+                "[singleCase]user.password": "The password does not contain upper and lower case characters.",
+                "[onlyAlpha]user.password": "The password does not contain non-alphanumeric characters.",
+                "[requireNumber]user.password": "The password does not contain at least one number."
+            }
+        },
+        "verifyEmail": {
+            "success": "Your email has been verified.",
+            "status": {
+                "400": "The request sent was invalid.",
+                "404": "The Verification ID you supplied is invalid.",
+                "500": "Server error trying to verify your email (x00FAE01)."
+            }
+        },
+        "verify2Factor": {
+            "status": {
+                "202": "You are not authorized to login to this application.",
+                "203": "You must change your password before continuing.",
+                "212": "You have not validated your email address yet.",
+                "400": "The request sent was invalid.",
+                "404": "You must login again to re-start the 2FA process.",
+                "409": "You cannot login at this time.",
+                "410": "Your user account is non-existent.",
+                "421": "Your 2FA code is invalid.",
+                "500": "Server error trying to verify your 2FA attempt (x00FAA01)."
+            }
+        },
+        "forgotPassword": {
+            "success": "Your email was verified. You may change your password.",
+            "status": {
+                "400": "The request sent was invalid.",
+                "403": "The forgot password function is currently disabled.",
+                "404": "Your account could not be found.",
+                "422": "You do not have an email address associated with your account.",
+                "500": "Server error trying to verify your email (x00FAF01)."
+            }
+        },
+        "changePassword": {
+            "success": "Your password has been updated.",
+            "status": {
+                "400": "The request sent was invalid.",
+                "404": "The change password request has expired. You must login again to change your password.",
+                "500": "Server error trying to verify your email (x00FAC01)."
+            }
+        }
+    },
+    "todo": {
+        "noTodos": "No Todos created yet.",
+        "created": "We have created your ToDo item.",
+        "updated": "We have updated your ToDo item.",
+        "deleted": "We have deleted your ToDo item.",
+        "dne": "That ToDo item no longer exists.",
+        "ownerNotYou": "You are not the owner of this ToDo.",
+        "error": {
+            "get": "Server error trying to get your ToDo item (x00FT01).",
+            "list": "Server error trying to list your ToDos (x00FT02).",
+            "add": "Server error trying to add to your ToDos (x00FT03).",
+            "update": "Server error trying to update your ToDo item (x00FT04).",
+            "delete": "Server error trying to delete your ToDo item (x00FT05)."
+        }
+    },
+    "roles": {
+        "noAccess": "You are not authorized for that action.",
+        "notAuthorized": "We could not authorize you for that action right now."
+    },
+    "user": {
+        "profile": {
+            "status": {
+                "400": "The request sent was invalid.",
+                "404": "Your user account does not exist.",
+                "500": "Server error trying to get user data (x00FUP01)."
+            }
+        },
+        "saveProfile": {
+            "success": "Your profile has been updated.",
+            "status": {
+                "400": "The request sent was invalid.",
+                "404": "Your user account does not exist.",
+                "500": "Server error trying to get user data (x00FUP01)."
+            },
+            "error": {
+                "[duplicate]user.email": "A user with email [%s] already exists.",
+                "[duplicate]user.username": "A user with username [%s] already exists."
+            }
+        },
+        "changePassword": {
+            "success": "Your password has been updated.",
+            "status": {
+                "400": "The request sent was invalid.",
+                "404": "You provided an incorrect current password.",
+                "500": "Server error trying to verify your email (x00FUC01)."
+            }
+        },
+        "enable2FA": {
+            "success": "2FA has been enabled for your account.",
+            "status": {
+                "400": "The request sent was invalid.",
+                "404": "We could not find your account to update.",
+                "421": "The 2FA code you provided is invalid.",
+                "500": "Server error trying to verify your email (x00FUE01)."
+            }
+        },
+        "disable2FA": {
+            "success": "2FA has been disabled for your account.",
+            "status": {
+                "400": "The request sent was invalid.",
+                "404": "We could not find your account to update.",
+                "421": "The 2FA code you provided is invalid.",
+                "500": "Server error trying to verify your email (x00FUE01)."
+            }
+        }
+    },
+    "form": {
+        "fixForm": "Fix the form errors."
+    }
+}

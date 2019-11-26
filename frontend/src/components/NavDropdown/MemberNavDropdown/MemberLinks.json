@@ -1,0 +1,54 @@
+[
+    {
+        "icon": "clipboard-list",
+        "text": [
+            "common",
+            "todoList"
+        ],
+        "link": [
+            "todo",
+            "list"
+        ]
+    },
+    {
+        "icon": "user-tie",
+        "text": [
+            "common",
+            "profile"
+        ],
+        "link": [
+            "user",
+            "profile"
+        ]
+    },
+    {
+        "icon": "user-shield",
+        "text": [
+            "common",
+            "twoFactorSettings"
+        ],
+        "link": [
+            "user",
+            "twoFactor"
+        ]
+    },
+    {
+        "icon": "user-lock",
+        "text": [
+            "common",
+            "changePassword"
+        ],
+        "link": [
+            "user",
+            "changePassword"
+        ]
+    },
+    {
+        "icon": "power-off",
+        "logout": true,
+        "text": [
+            "common",
+            "logout"
+        ]
+    }
+]

@@ -1,0 +1,30 @@
+image: docker:latest
+services:
+  - docker:18.09-dind
+
+stages:
+  - build
+  - deploy
+
+variables:
+  DOCKER_HOST: tcp://localhost:2375
+  REPO_URL: docker-repo.com/fusionauth/
+  CONTAINER_IMAGE: service/server:${CI_COMMIT_SHORT_SHA}
+  DEPLOYMENT_NAME: fusionauth-demo-server
+  DEPLOYMENT_NAMESPACE: fusionauth-demo
+
+build:
+  stage: build
+  script:
+    - docker login -u ${FUSIONAUTH_HARBOR_USER} -p ${FUSIONAUTH_HARBOR_PASSWORD} ${REPO_URL}
+    - docker build -t ${CONTAINER_IMAGE} .
+    - docker tag ${CONTAINER_IMAGE} ${REPO_URL}${CONTAINER_IMAGE}
+    - docker push ${REPO_URL}${CONTAINER_IMAGE}
+
+deploy:
+  stage: deploy
+  image:
+    name: bitnami/kubectl:latest
+    entrypoint: [""]
+  script:
+    - kubectl set image deployment/${DEPLOYMENT_NAME} ${DEPLOYMENT_NAME}=${REPO_URL}${CONTAINER_IMAGE} -n ${DEPLOYMENT_NAMESPACE}

@@ -1,0 +1,79 @@
+[
+    {
+        "inputColMD": 12,
+        "inputColClassName": "mx-auto",
+        "id": "done",
+        "type": "checkbox",
+        "name": "done",
+        "formGroupClassName": "custom-control custom-control-alternative custom-checkbox",
+        "labelClassName": "custom-control-label",
+        "inputClassName": "custom-control-input"
+    },
+    {
+        "inputColMD": 12,
+        "inputColClassName": "mx-auto",
+        "type": "text",
+        "name": "name",
+        "prependIcon": "tasks",
+        "validation": {
+            "required": {
+                "langKey": [
+                    "common",
+                    "input",
+                    "name",
+                    "validation",
+                    "required"
+                ]
+            },
+            "minLength": {
+                "rule": 5,
+                "langKey": [
+                    "common",
+                    "input",
+                    "name",
+                    "validation",
+                    "minLength"
+                ]
+            },
+            "max": {
+                "rule": 150,
+                "langKey": [
+                    "common",
+                    "input",
+                    "name",
+                    "validation",
+                    "max"
+                ]
+            }
+        }
+    },
+    {
+        "inputColMD": 12,
+        "inputColClassName": "mx-auto",
+        "type": "textarea",
+        "name": "description",
+        "prependIcon": "feather-alt",
+        "rows": 5,
+        "validation": {
+            "required": {
+                "langKey": [
+                    "common",
+                    "input",
+                    "description",
+                    "validation",
+                    "required"
+                ]
+            },
+            "minLength": {
+                "rule": 10,
+                "langKey": [
+                    "common",
+                    "input",
+                    "description",
+                    "validation",
+                    "minLength"
+                ]
+            }
+        }
+    }
+]

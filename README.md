@@ -72,7 +72,6 @@ Details for how to configure each application (Node / React) will be detailed in
   * Give it a name (`FusionAuth Demo`).
   * Add a role of `member` and check on the `Default` box for that role.
   * On the `JWT` tab, click the `Enable` button.
-  * **On the `Registration` tab, click the `Verify Registration` button. Use the `Email Verification` for the `Verification Template`.**
   * On the `Security` tab, click the `Allow refresh token` button and uncheck the `Require an API key` button.
   * Save.
   * Grab the `Application ID` for the new application.

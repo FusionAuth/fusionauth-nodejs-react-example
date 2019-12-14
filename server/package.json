@@ -2,14 +2,21 @@
   "name": "fusionauth-nodejs-react-example",
   "description": "An example application using NodeJS, ExpressJS, ReactJS and FusionAuth",
   "version": "1.0.0",
+  "author": "FusionAuth",
+  "license": "Apache-2.0",
   "private": true,
   "main": "server.js",
+  "contributors": [
+    {
+      "name": "Tyler Engelhardt",
+      "url": "https://mainelysoftware.com",
+      "email": "tyler@mainelysoftware.com"
+    }
+  ],
   "scripts": {
     "start": "node server.js",
     "test": "mocha"
   },
-  "author": "Tyler Engelhardt",
-  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/FusionAuth/fusionauth-nodejs-react-example/issues"
   },

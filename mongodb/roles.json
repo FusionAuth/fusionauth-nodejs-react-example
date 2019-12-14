@@ -1,0 +1,58 @@
+[
+  {
+    "route": "/user/profile/",
+    "create": ["member"],
+    "read": ["member"],
+    "update": ["member"],
+    "delete": ["member"]
+  },
+  {
+    "route": "/user/profile/edit/",
+    "create": ["member"],
+    "read": ["member"],
+    "update": ["member"],
+    "delete": ["member"]
+  },
+  {
+    "route": "/user/changePassword/",
+    "create": ["member"],
+    "read": ["member"],
+    "update": ["member"],
+    "delete": ["member"]
+  },
+  {
+    "route": "/user/2fa/",
+    "create": ["member"],
+    "read": ["member"],
+    "update": ["member"],
+    "delete": ["member"]
+  },
+  {
+    "route": "/todo/",
+    "create": ["member"],
+    "read": ["member"],
+    "update": ["member"],
+    "delete": ["member"]
+  },
+  {
+    "route": "/todo/add/",
+    "create": ["member"],
+    "read": ["member"],
+    "update": ["member"],
+    "delete": ["member"]
+  },
+  {
+    "route": "/todo/edit/:id",
+    "create": ["member"],
+    "read": ["member"],
+    "update": ["member"],
+    "delete": ["member"]
+  },
+  {
+    "route": "/todo/:id",
+    "create": ["member"],
+    "read": ["member"],
+    "update": ["member"],
+    "delete": ["member"]
+  }
+]

@@ -2,9 +2,9 @@
 const config = {
     fusionAuth: {
         // FusionAuth URL: http://localhost:9011
-        BASEURL: "https://auth.vibravid.io",
+        BASEURL: "http://localhost:9011",
         // Application ID from FusionAuth
-        APPLICATION_ID: "APPLICATION_ID"
+        APPLICATION_ID: "10e4d908-7655-44af-abf0-1a031aff519a"
     },
     apiServer: {
         // API Server URL: http://localhost:5000
@@ -12,7 +12,7 @@ const config = {
     },
     app: {
         // Name for the 2Factor application: FusionAuth
-        TWO_FA_NAME: "AppName"
+        TWO_FA_NAME: "fusionAuthDemoApp"
     }
 };
 

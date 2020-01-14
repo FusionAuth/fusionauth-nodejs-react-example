@@ -14,10 +14,10 @@ require('dotenv').config();
 const config = {
     // Environment name
     envName: process.env.NODE_ENV,
-    // HTTP Port: Left as is for Docker & K8S distributions
-    httpPort: 5000,
-    // HTTPS Port: Left as is for Docker & K8S distributions
-    httpsPort: 5001,
+    // HTTP Port: Used for creating a HTTP server.
+    httpPort: process.env.HTTP_PORT,
+    // HTTPS Port: Used for creating a HTTPS server (not used in this demo).
+    httpsPort: process.env.HTTPS_PORT,
     cookies: {
         // UUID or Random string for cookie secret
         signedSecret: process.env.COOKIES_SIGNED_SECRET

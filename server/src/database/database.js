@@ -26,7 +26,7 @@ database.connect = () => {
     // Return a promise (resolved) after a successful connection, or reject
     // if there was an error connecting to the database.
     return new Promise((resolve, reject) => {
-        mongoose.connect(`mongodb://${ db.user }:${ db.password }@${ db.host }/${ db.database }`, { useCreateIndex: true, useNewUrlParser: true })
+        mongoose.connect(`mongodb+srv://${ db.user }:${ db.password }@${ db.host }/${ db.database }`, { useCreateIndex: true, useNewUrlParser: true })
         .then(() => resolve())
         .catch(() => reject());
     });

@@ -10,6 +10,7 @@ variables:
   AWS_DEFAULT_REGION: us-east-2
   BUCKET_NAME: fusionauth-demo
   ENV_PROD: https://fusionauth-demo.domain.com
+  CLOUDFRONT_ID: some-id
 
 install:
   stage: install
@@ -53,8 +54,8 @@ deploy_prod:
   before_script:
     - pip install awscli
   script:
-    - aws s3 sync --cache-control 'max-age=604800' --delete --exclude index.html build/ s3://${BUCKET_NAME}
-    - aws s3 sync --cache-control 'no-cache' build/ s3://${BUCKET_NAME}
+    - aws s3 sync --cache-control 'max-age=604800' --delete dist/ s3://${BUCKET_NAME}
+    - aws cloudfront create-invalidation --distribution-id ${CLOUDFRONT_ID} --paths "/*"
   environment:
     name: Production
     url: ${ENV_PROD}

@@ -49,7 +49,7 @@ validForm.validateInput = (val, validationRules = {}, secondValue) => {
     // Input error array.
     let errors = false;
     // Return empty string for value in case none is provided (undefined).
-    const value = val ? val : "";
+    const value = (val || (val === false)) ? val : "";
     // Value's length.
     const length = value.length;
 

@@ -1,7 +1,9 @@
 {
-  "name": "client",
+  "name": "fusionauth-nodejs-react-example",
   "description": "An example application using NodeJS, ExpressJS, ReactJS and FusionAuth",
   "version": "1.0.0",
+  "author": "FusionAuth",
+  "license": "Apache-2.0",
   "private": true,
   "scripts": {
     "start": "react-scripts start",
@@ -9,8 +11,13 @@
     "test": "cross-env CI=true react-scripts test",
     "eject": "react-scripts eject"
   },
-  "author": "Tyler Engelhardt",
-  "license": "Apache-2.0",
+  "contributors": [
+    {
+      "name": "Tyler Engelhardt",
+      "url": "https://mainelysoftware.com",
+      "email": "tyler@mainelysoftware.com"
+    }
+  ],
   "eslintConfig": {
     "extends": "react-app"
   },

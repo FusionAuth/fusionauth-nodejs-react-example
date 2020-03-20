@@ -1,4 +1,4 @@
-# FusionAuth NodeJS and React Todo Example
+# (ARCHIVED) FusionAuth NodeJS and React Example
 
 **NOTE**: This repository is no longer the official NodeJS and React example. Please use the https://github.com/FusionAuth/fusionauth-example-react repository going forward as that repository properly illustrates the OAuth Authorization Code Grant with React.
 

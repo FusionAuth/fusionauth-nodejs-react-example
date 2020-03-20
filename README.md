@@ -1,5 +1,9 @@
 # FusionAuth NodeJS and React Todo Example
 
+**NOTE**: This repository is no longer the official NodeJS and React example. Please use the https://github.com/FusionAuth/fusionauth-example-react repository going forward as that repository properly illustrates the OAuth Authorization Code Grant with React.
+
+
+
 This project contains an example project that illustrates using FusionAuth with NodeJS and React. The Node and React applications each have their own Readme with further explanations of the applications, including configuration options. Each application also has examples of how to deploy it view Jenkins, Gitlab, or Drone.
 
 ## About

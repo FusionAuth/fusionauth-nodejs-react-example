@@ -1,8 +1,7 @@
+**This repo is out of date and is archived. Check out [an updated tutorial on using FusionAuth with React](https://fusionauth.io/docs/quickstarts/quickstart-javascript-react-web) or [the updated GitHub repository](https://github.com/fusionauth/fusionauth-quickstart-javascript-react-web).**
+
+
 # (ARCHIVED) FusionAuth NodeJS and React Example
-
-**NOTE**: This repository is no longer the official NodeJS and React example. Please use the https://github.com/FusionAuth/fusionauth-example-react repository going forward as that repository properly illustrates the OAuth Authorization Code Grant with React.
-
-
 
 This project contains an example project that illustrates using FusionAuth with NodeJS and React. The Node and React applications each have their own Readme with further explanations of the applications, including configuration options. Each application also has examples of how to deploy it view Jenkins, Gitlab, or Drone.
 
